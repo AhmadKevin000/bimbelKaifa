@@ -1,0 +1,166 @@
+<x-filament::page>
+<style>
+/* ── Page Header ─────────────────────────────────────── */
+.jp-header {
+    background: linear-gradient(135deg, #065f46 0%, #047857 50%, #059669 100%);
+    border-radius: .875rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(5,150,105,.25);
+}
+.jp-header-left h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+.jp-header-left p  { font-size: .85rem; color: #a7f3d0; margin: .2rem 0 0; }
+
+/* ── Stats Row ───────────────────────────────────────── */
+.jp-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+@media (max-width: 640px) { .jp-stats { grid-template-columns: 1fr; } }
+
+.jp-stat {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: .75rem;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.dark .jp-stat { background: #1f2937; border-color: #374151; }
+
+.jp-stat-icon {
+    width: 2.75rem; height: 2.75rem;
+    border-radius: .5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; flex-shrink: 0;
+}
+.jp-stat-icon-blue   { background: #dbeafe; }
+.jp-stat-icon-green  { background: #d1fae5; }
+.jp-stat-icon-amber  { background: #fef3c7; }
+
+.jp-stat-val  { font-size: 1.5rem; font-weight: 700; color: #111827; margin: 0; }
+.dark .jp-stat-val { color: #f9fafb; }
+.jp-stat-lbl  { font-size: .75rem; color: #6b7280; margin: 0; }
+
+/* ── Filter Bar ──────────────────────────────────────── */
+.jp-filter-bar {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: .75rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+.dark .jp-filter-bar { background: #1f2937; border-color: #374151; }
+.jp-filter-bar label { font-size: .8rem; font-weight: 600; color: #374151; white-space: nowrap; }
+.dark .jp-filter-bar label { color: #d1d5db; }
+
+.jp-select {
+    padding: .4rem .75rem;
+    border: 1px solid #d1d5db;
+    border-radius: .45rem;
+    font-size: .8rem;
+    background: #f9fafb;
+    color: #111827;
+    cursor: pointer;
+}
+.dark .jp-select { background: #374151; border-color: #4b5563; color: #f3f4f6; }
+.jp-select:focus { outline: none; border-color: #059669; box-shadow: 0 0 0 2px rgba(5,150,105,.15); }
+
+.jp-btn-filter {
+    padding: .4rem 1rem;
+    border-radius: .45rem;
+    background: #059669;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background .15s;
+}
+.jp-btn-filter:hover { background: #047857; }
+</style>
+
+{{-- ── Page Header ─────────────────────────────────────────── --}}
+<div class="jp-header">
+    <div class="jp-header-left">
+        <h1>📅 Jadwal Mengajar</h1>
+        <p>Daftar sesi mengajar {{ $namaGuru }}</p>
+    </div>
+    <div style="color:#a7f3d0; font-size:.85rem; font-weight:600;">
+        {{ $labelBulan }} {{ $filterTahun }}
+    </div>
+</div>
+
+{{-- ── Stats ────────────────────────────────────────────────── --}}
+<div class="jp-stats">
+    <div class="jp-stat">
+        <div class="jp-stat-icon jp-stat-icon-blue">📚</div>
+        <div>
+            <p class="jp-stat-val">{{ $totalSesi }}</p>
+            <p class="jp-stat-lbl">Total Sesi</p>
+        </div>
+    </div>
+    <div class="jp-stat">
+        <div class="jp-stat-icon jp-stat-icon-green">✅</div>
+        <div>
+            <p class="jp-stat-val">{{ $sudahHadir }}</p>
+            <p class="jp-stat-lbl">Sudah Hadir</p>
+        </div>
+    </div>
+    <div class="jp-stat">
+        <div class="jp-stat-icon jp-stat-icon-amber">⏳</div>
+        <div>
+            <p class="jp-stat-val">{{ $belumAbsen }}</p>
+            <p class="jp-stat-lbl">Belum Absen</p>
+        </div>
+    </div>
+</div>
+
+{{-- ── Filter Bar ───────────────────────────────────────────── --}}
+<div class="jp-filter-bar">
+    <label>Filter:</label>
+
+    <select class="jp-select" wire:model="filterBulan">
+        @foreach($opsiBulan as $opt)
+            <option value="{{ $opt['value'] }}" @selected($filterBulan == $opt['value'])>
+                {{ $opt['label'] }}
+            </option>
+        @endforeach
+    </select>
+
+    <select class="jp-select" wire:model="filterTahun">
+        @foreach($opsiTahun as $opt)
+            <option value="{{ $opt['value'] }}" @selected($filterTahun == $opt['value'])>
+                {{ $opt['label'] }}
+            </option>
+        @endforeach
+    </select>
+
+    <button class="jp-btn-filter"
+            wire:click="setFilter('{{ $filterBulan }}', '{{ $filterTahun }}')">
+        Terapkan
+    </button>
+</div>
+
+{{-- ── Filament Table ──────────────────────────────────────── --}}
+{{ $this->table }}
+
+</x-filament::page>
