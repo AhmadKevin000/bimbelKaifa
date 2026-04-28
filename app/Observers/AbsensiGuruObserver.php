@@ -13,7 +13,7 @@ class AbsensiGuruObserver
      */
     public function updated(AbsensiGuru $absensiGuru): void
     {
-        // Only record penggajian if status just changed to 'selesai'
+        // status berubah -> pencatatan
         if ($absensiGuru->isDirty('status') && $absensiGuru->status === 'selesai') {
             
             // cek duplikasi di penggajian
@@ -21,7 +21,7 @@ class AbsensiGuruObserver
                 return;
             }
 
-            // Calculate salary details
+            // menghitung gaji dari logic gaji di services
             $hadirCount = $absensiGuru->jumlah_siswa_hadir;
             $salaryDetail = (new SalaryService())->calculateDetailed($absensiGuru, $hadirCount);
 

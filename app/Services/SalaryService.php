@@ -42,7 +42,7 @@ class SalaryService
             $jumlahSiswa = $kelas->siswa()->count();
         }
 
-        // Snapshot support: Use snapshot if record is finished
+        // snapshot agar data tidak hilang saat tabel parent dihapus
         $statusSnapshot = ($record instanceof AbsensiGuru && $record->status === 'selesai' && optional($record->penggajian)->rate_snapshot)
             ? optional($record->penggajian)->rate_snapshot > 0 ? $guru->status : $guru->status
             : $guru->status;
@@ -56,7 +56,7 @@ class SalaryService
 
         if (!$program) return $results;
 
-        // Query the TarifGaji table
+        // ambil logic dari tabel tarif gaji
         $query = \App\Models\TarifGaji::where('program_id', $program->id)
             ->where(function ($q) use ($statusSnapshot) {
                 $q->where('status_guru', $statusSnapshot)
