@@ -35,7 +35,7 @@ class JadwalSesiTable
                     ->color('info'),
             ])
             ->actions([
-                \Filament\Actions\Action::make('assign_kelas')
+                \Filament\Actions\Action::make('assign_mapel')
                     ->label('Tambahkan Kelas')
                     ->icon('heroicon-o-plus-circle')
                     ->color('success')
@@ -46,14 +46,24 @@ class JadwalSesiTable
                                 'Semester 2' => 'Semester 2',
                             ])
                             ->default('Semester 1')
+                            ->live()
                             ->required(),
                         \Filament\Forms\Components\Select::make('pengajaran_ids')
                             ->label('Pilih Jadwal Pengajaran')
                             ->multiple()
                             ->searchable()
                             ->preload()
-                            ->options(function () {
+                            ->options(function ($get) {
+                                $semester = $get('semester');
+
+                                // Ambil semua mapel_id yang sudah ada jadwalnya di semester ini (di sesi MANAPUN)
+                                $assignedMapelIds = \App\Models\SesiKelas::where('semester', $semester)
+                                    ->join('pengajaran', 'sesi_kelas.pengajaran_id', '=', 'pengajaran.id')
+                                    ->pluck('pengajaran.mapel_id')
+                                    ->toArray();
+
                                 return Pengajaran::with(['kelas', 'mapel', 'guru'])
+                                    ->whereNotIn('mapel_id', $assignedMapelIds) // Hilangkan mapel yg sudah ditambahkan
                                     ->get()
                                     ->mapWithKeys(function ($item) {
                                         $kelas = $item->kelas?->nama_kelas ?? 'Unknown';
@@ -75,22 +85,22 @@ class JadwalSesiTable
                             $item = Pengajaran::find($pengajaranId);
                             if (!$item) continue;
 
-                            $kelasId = $item->kelas_id;
+                            $mapelId = $item->mapel_id;
 
-                            // Validation logic matching RelationManager
-                            $existingOtherSession = SesiKelas::whereHas('pengajaran', function($q) use ($kelasId) {
-                                    $q->where('kelas_id', $kelasId);
+                            // Validation: lock by mapel per semester (not kelas)
+                            $existingOtherSession = SesiKelas::whereHas('pengajaran', function($q) use ($mapelId) {
+                                    $q->where('mapel_id', $mapelId);
                                 })
                                 ->where('semester', $semester)
                                 ->where('jadwal_sesi_id', '!=', $jadwalSesiId)
                                 ->first();
                                 
                             if ($existingOtherSession) {
-                                $kelasName = $item->kelas->nama_kelas;
+                                $mapelName = $item->mapel->nama ?? 'Unknown';
                                 $time = $existingOtherSession->jadwalSesi;
                                 \Filament\Notifications\Notification::make()
-                                    ->title("Gagal Menambahkan Mapel untuk {$kelasName}")
-                                    ->body("Kelas {$kelasName} sudah terkunci pada Sesi Jam {$time->jam_mulai} selama {$semester}.")
+                                    ->title("Gagal Menambahkan Mapel: {$mapelName}")
+                                    ->body("Mapel {$mapelName} sudah terkunci pada Sesi Jam {$time->jam_mulai} selama {$semester}.")
                                     ->danger()
                                     ->send();
                                 continue;
