@@ -20,12 +20,12 @@ class GuruGajiWidget extends Widget
         $user = auth()->user();
         $guru = Guru::where('user_id', $user->id)->first();
 
-        $rekapGaji    = collect();
+        $rekapGaji = collect();
         $totalDiterima = 0;
-        $totalPending  = 0;
+        $totalPending = 0;
 
         if ($guru) {
-            // Rekap gaji per bulan
+            //Rekap gaji /bulan
             $penggajians = Penggajian::where('guru_id', $guru->id)
                 ->orderByDesc('tanggal_pembayaran')
                 ->limit(6)
@@ -37,10 +37,10 @@ class GuruGajiWidget extends Widget
                     : 'Belum Dibayar';
             })->map(function ($group, $bulan) {
                 return [
-                    'bulan'  => $bulan,
-                    'total'  => $group->sum('nominal'),
+                    'bulan' => $bulan,
+                    'total' => $group->sum('nominal'),
                     'status' => $group->first()->status_pembayaran,
-                    'count'  => $group->count(),
+                    'count' => $group->count(),
                 ];
             })->values();
 
@@ -54,9 +54,9 @@ class GuruGajiWidget extends Widget
         }
 
         return [
-            'rekapGaji'     => $rekapGaji,
+            'rekapGaji' => $rekapGaji,
             'totalDiterima' => $totalDiterima,
-            'totalPending'  => $totalPending,
+            'totalPending' => $totalPending,
         ];
     }
 }

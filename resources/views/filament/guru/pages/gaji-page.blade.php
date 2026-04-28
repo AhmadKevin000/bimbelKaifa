@@ -1,156 +1,62 @@
 <x-filament::page>
-<style>
-/* ── Page Header ─────────────────────────────────────── */
-.gp-header {
-    background: linear-gradient(135deg, #78350f 0%, #92400e 50%, #b45309 100%);
-    border-radius: .875rem;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    box-shadow: 0 4px 20px rgba(180,83,9,.25);
-}
-.gp-header-left h1 { font-size: 1.35rem; font-weight: 700; color: #fff; margin: 0; }
-.gp-header-left p  { font-size: .85rem; color: #fde68a; margin: .2rem 0 0; }
+    {{-- Styles → resources/css/gaji-page.css (di-import via resources/css/app.css) --}}
 
-/* ── Stats Row ───────────────────────────────────────── */
-.gp-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-@media (max-width: 640px) { .gp-stats { grid-template-columns: 1fr; } }
-
-.gp-stat {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: .75rem;
-    padding: 1rem 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: .875rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.05);
-}
-.dark .gp-stat { background: #1f2937; border-color: #374151; }
-
-.gp-stat-icon {
-    width: 2.75rem; height: 2.75rem;
-    border-radius: .5rem;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.25rem; flex-shrink: 0;
-}
-.gp-stat-icon-green  { background: #d1fae5; }
-.gp-stat-icon-amber  { background: #fef3c7; }
-.gp-stat-icon-blue   { background: #dbeafe; }
-
-.gp-stat-val { font-size: 1.1rem; font-weight: 700; color: #111827; margin: 0; }
-.dark .gp-stat-val { color: #f9fafb; }
-.gp-stat-lbl { font-size: .75rem; color: #6b7280; margin: 0; }
-.gp-stat-green { color: #059669 !important; }
-.gp-stat-amber { color: #d97706 !important; }
-
-/* ── Filter Bar ──────────────────────────────────────── */
-.gp-filter-bar {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: .75rem;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: .75rem;
-}
-.dark .gp-filter-bar { background: #1f2937; border-color: #374151; }
-.gp-filter-bar label { font-size: .8rem; font-weight: 600; color: #374151; white-space: nowrap; }
-.dark .gp-filter-bar label { color: #d1d5db; }
-
-.gp-select {
-    padding: .4rem .75rem;
-    border: 1px solid #d1d5db;
-    border-radius: .45rem;
-    font-size: .8rem;
-    background: #f9fafb;
-    color: #111827;
-    cursor: pointer;
-}
-.dark .gp-select { background: #374151; border-color: #4b5563; color: #f3f4f6; }
-.gp-select:focus { outline: none; border-color: #d97706; box-shadow: 0 0 0 2px rgba(217,119,6,.15); }
-
-.gp-btn-filter {
-    padding: .4rem 1rem;
-    border-radius: .45rem;
-    background: #d97706;
-    color: #fff;
-    font-size: .8rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background .15s;
-}
-.gp-btn-filter:hover { background: #b45309; }
-</style>
-
-{{-- ── Page Header ─────────────────────────────────────────── --}}
-<div class="gp-header">
-    <div class="gp-header-left">
-        <h1>💰 Riwayat Gaji</h1>
-        <p>Data penggajian untuk {{ $namaGuru }}</p>
-    </div>
-    <div style="color:#fde68a; font-size:.85rem; font-weight:600;">
-        Tahun {{ $filterTahun }}
-    </div>
-</div>
-
-{{-- ── Stats ────────────────────────────────────────────────── --}}
-<div class="gp-stats">
-    <div class="gp-stat">
-        <div class="gp-stat-icon gp-stat-icon-green">✅</div>
-        <div>
-            <p class="gp-stat-val gp-stat-green">
-                Rp {{ number_format($totalDiterima, 0, ',', '.') }}
-            </p>
-            <p class="gp-stat-lbl">Total Diterima ({{ $filterTahun }})</p>
+    {{-- Page Header --}}
+    <div class="gp-header">
+        <div class="gp-header-left">
+            <h1>💰 Riwayat Gaji</h1>
+            <p>Data penggajian untuk {{ $namaGuru }}</p>
+        </div>
+        <div style="color:#fde68a; font-size:.85rem; font-weight:600;">
+            Tahun {{ $filterTahun }}
         </div>
     </div>
-    <div class="gp-stat">
-        <div class="gp-stat-icon gp-stat-icon-amber">⏳</div>
-        <div>
-            <p class="gp-stat-val gp-stat-amber">
-                Rp {{ number_format($totalPending, 0, ',', '.') }}
-            </p>
-            <p class="gp-stat-lbl">Total Pending (semua tahun)</p>
+
+    {{-- Stats --}}
+    <div class="gp-stats">
+        <div class="gp-stat">
+            <div class="gp-stat-icon gp-stat-icon-green">✅</div>
+            <div>
+                <p class="gp-stat-val gp-stat-green">
+                    Rp {{ number_format($totalDiterima, 0, ',', '.') }}
+                </p>
+                <p class="gp-stat-lbl">Total Diterima ({{ $filterTahun }})</p>
+            </div>
+        </div>
+        <div class="gp-stat">
+            <div class="gp-stat-icon gp-stat-icon-amber">⏳</div>
+            <div>
+                <p class="gp-stat-val gp-stat-amber">
+                    Rp {{ number_format($totalPending, 0, ',', '.') }}
+                </p>
+                <p class="gp-stat-lbl">Total Pending (semua tahun)</p>
+            </div>
+        </div>
+        <div class="gp-stat">
+            <div class="gp-stat-icon gp-stat-icon-blue">📋</div>
+            <div>
+                <p class="gp-stat-val">{{ $totalSesi }}</p>
+                <p class="gp-stat-lbl">Jumlah Record Gaji</p>
+            </div>
         </div>
     </div>
-    <div class="gp-stat">
-        <div class="gp-stat-icon gp-stat-icon-blue">📋</div>
-        <div>
-            <p class="gp-stat-val">{{ $totalSesi }}</p>
-            <p class="gp-stat-lbl">Jumlah Record Gaji</p>
-        </div>
+
+    {{-- Filter Tahun --}}
+    <div class="gp-filter-bar">
+        <label>Filter Tahun:</label>
+
+        <select class="gp-select" wire:model="filterTahun">
+            @foreach($tahunTersedia as $tahun)
+                <option value="{{ $tahun }}" @selected($filterTahun == $tahun)>{{ $tahun }}</option>
+            @endforeach
+        </select>
+
+        <button class="gp-btn-filter" wire:click="setTahun('{{ $filterTahun }}')">
+            Terapkan
+        </button>
     </div>
-</div>
 
-{{-- ── Filter Tahun ─────────────────────────────────────────── --}}
-<div class="gp-filter-bar">
-    <label>Filter Tahun:</label>
-
-    <select class="gp-select" wire:model="filterTahun">
-        @foreach($tahunTersedia as $tahun)
-            <option value="{{ $tahun }}" @selected($filterTahun == $tahun)>{{ $tahun }}</option>
-        @endforeach
-    </select>
-
-    <button class="gp-btn-filter" wire:click="setTahun('{{ $filterTahun }}')">
-        Terapkan
-    </button>
-</div>
-
-{{-- ── Filament Table ──────────────────────────────────────── --}}
-{{ $this->table }}
+    {{-- Filament Table --}}
+    {{ $this->table }}
 
 </x-filament::page>
