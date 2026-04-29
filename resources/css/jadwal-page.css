@@ -1,9 +1,9 @@
-/* Page Header */
+/* Page Header — emerald gradient untuk halaman Jadwal */
 .jp-header {
     background: linear-gradient(135deg, #065f46 0%, #047857 50%, #059669 100%);
     border-radius: .875rem;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: .75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,46 +13,47 @@
 }
 
 .jp-header-left h1 {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #fff;
     margin: 0;
 }
 
 .jp-header-left p {
-    font-size: .85rem;
+    font-size: .82rem;
     color: #a7f3d0;
-    margin: .2rem 0 0;
+    margin: .15rem 0 0;
 }
 
-/*  Stats Row */
+/* Stats Row */
 .jp-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: .75rem;
+    margin-bottom: .75rem;
 }
 
 @media (max-width: 640px) {
-    .jp-stats {
-        grid-template-columns: 1fr;
-    }
+    .jp-stats { grid-template-columns: 1fr; }
 }
 
+/* Stat card — dark seperti dashboard (#0f172a) */
 .jp-stat {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: .75rem;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: 1rem;
     padding: 1rem 1.25rem;
     display: flex;
     align-items: center;
     gap: .875rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .05);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
-.dark .jp-stat {
-    background: #1f2937;
-    border-color: #374151;
+.jp-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0,0,0,.2);
+    border-color: rgba(16, 185, 129, .3);
 }
 
 .jp-stat-icon {
@@ -66,88 +67,62 @@
     flex-shrink: 0;
 }
 
-.jp-stat-icon-blue {
-    background: #dbeafe;
-}
-
-.jp-stat-icon-green {
-    background: #d1fae5;
-}
-
-.jp-stat-icon-amber {
-    background: #fef3c7;
-}
+.jp-stat-icon-blue  { background: rgba(30, 58, 138, .4); }
+.jp-stat-icon-green { background: rgba(6, 78, 59, .5); }
+.jp-stat-icon-amber { background: rgba(120, 53, 15, .4); }
 
 .jp-stat-val {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #111827;
+    color: #e5e7eb;
     margin: 0;
 }
 
-.dark .jp-stat-val {
-    color: #f9fafb;
-}
-
 .jp-stat-lbl {
-    font-size: .75rem;
+    font-size: .72rem;
     color: #6b7280;
     margin: 0;
 }
 
-/* Filter Bar */
+/* Filter Bar — dark seperti dashboard */
 .jp-filter-bar {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: .75rem;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.25rem;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: 1rem;
+    padding: .75rem 1.25rem;
+    margin-bottom: .75rem;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: .75rem;
-}
-
-.dark .jp-filter-bar {
-    background: #1f2937;
-    border-color: #374151;
+    gap: .625rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,.1);
 }
 
 .jp-filter-bar label {
     font-size: .8rem;
     font-weight: 600;
-    color: #374151;
+    color: #9ca3af;
     white-space: nowrap;
 }
 
-.dark .jp-filter-bar label {
-    color: #d1d5db;
-}
-
 .jp-select {
-    padding: .4rem .75rem;
-    border: 1px solid #d1d5db;
+    padding: .35rem .65rem;
+    border: 1px solid #374151;
     border-radius: .45rem;
     font-size: .8rem;
-    background: #f9fafb;
-    color: #111827;
-    cursor: pointer;
-}
-
-.dark .jp-select {
-    background: #374151;
-    border-color: #4b5563;
+    background: #1e293b;
     color: #f3f4f6;
+    cursor: pointer;
 }
 
 .jp-select:focus {
     outline: none;
     border-color: #059669;
-    box-shadow: 0 0 0 2px rgba(5, 150, 105, .15);
+    box-shadow: 0 0 0 2px rgba(5, 150, 105, .2);
 }
 
 .jp-btn-filter {
-    padding: .4rem 1rem;
+    padding: .35rem .875rem;
     border-radius: .45rem;
     background: #059669;
     color: #fff;
@@ -158,6 +133,4 @@
     transition: background .15s;
 }
 
-.jp-btn-filter:hover {
-    background: #047857;
-}
+.jp-btn-filter:hover { background: #047857; }
