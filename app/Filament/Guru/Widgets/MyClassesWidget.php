@@ -34,6 +34,7 @@ class MyClassesWidget extends Widget
             ->get();
     }
 
+    
     public function getMapelList(): Collection
     {
         $guruId = auth()->user()->guru->id;

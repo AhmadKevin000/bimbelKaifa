@@ -21,7 +21,6 @@ class MyClasses extends Page
 
     public function getGuruId(): int
     {
-        // Sesuaikan jika user punya relasi ->guru->id
         return auth()->user()->guru->id;
     }
 
