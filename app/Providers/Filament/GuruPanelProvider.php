@@ -11,11 +11,13 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class GuruPanelProvider extends PanelProvider
@@ -34,6 +36,13 @@ class GuruPanelProvider extends PanelProvider
             ])
             ->font('Inter')
             ->brandName('Portal Guru')
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): string => '<style>' .
+                    File::get(resource_path('css/gaji-page.css')) .
+                    File::get(resource_path('css/jadwal-page.css')) .
+                    '</style>',
+            )
             ->discoverPages(in: app_path('Filament/Guru/Pages'), for: 'App\\Filament\\Guru\\Pages')
             ->pages([
                 Dashboard::class,
