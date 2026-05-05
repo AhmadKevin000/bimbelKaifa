@@ -31,9 +31,9 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.5rem')
             ->colors([
-                'primary' => Color::Indigo,
-                'gray' => Color::Slate,
-                'warning' => Color::Amber,
+                'primary' => '#4F46E5', // Vivid Indigo
+                'gray' => \Filament\Support\Colors\Color::Slate,
+                'warning' => \Filament\Support\Colors\Color::Amber,
             ])
             ->font('Inter')
             ->renderHook(

@@ -42,7 +42,7 @@ class SalaryService
             $jumlahSiswa = $kelas->siswa()->count();
         }
 
-        // snapshot agar data tidak hilang saat tabel parent dihapus
+        // snapshot untuk data parent jika dihapus
         $statusSnapshot = ($record instanceof AbsensiGuru && $record->status === 'selesai' && optional($record->penggajian)->rate_snapshot)
             ? optional($record->penggajian)->rate_snapshot > 0 ? $guru->status : $guru->status
             : $guru->status;
@@ -56,7 +56,7 @@ class SalaryService
 
         if (!$program) return $results;
 
-        // ambil logic dari tabel tarif gaji
+        // logic gaji guru
         $query = \App\Models\TarifGaji::where('program_id', $program->id)
             ->where(function ($q) use ($statusSnapshot) {
                 $q->where('status_guru', $statusSnapshot)
@@ -72,7 +72,7 @@ class SalaryService
             $query->whereNull('jenjang_id');
         }
 
-        // Specifically prioritize the highest minimum students matching the class size
+        //Prioritas berdasarkan jumlah siswa min terbesar
         $tarif = $query->orderBy('jumlah_siswa_min', 'desc')
                        ->orderByRaw("CASE WHEN jenjang_id IS NOT NULL THEN 1 ELSE 0 END DESC")
                        ->orderByRaw("CASE WHEN status_guru = 'all' THEN 0 ELSE 1 END DESC")
@@ -81,7 +81,7 @@ class SalaryService
         if ($tarif) {
             $rate = (int) $tarif->rate;
             
-            // Calistung logic historically multiplies by student count. Other programs are flat class rates.
+            // multiple untuk penggajian calitung
             if (strtoupper($program->nama) === 'CALISTUNG') {
                 $results['total_fee'] = $jumlahSiswa * $rate;
             } else {

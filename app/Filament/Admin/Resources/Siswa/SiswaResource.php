@@ -29,6 +29,15 @@ class SiswaResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nama';
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->with([
+                'kelas.pengajaran.mapel.jenjang',
+                'kelas.pengajaran.mapel.program',
+            ]);
+    }
+
     public static function form(Schema $schema): Schema
     {
         return SiswaForm::configure($schema);

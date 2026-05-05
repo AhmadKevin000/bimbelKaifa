@@ -26,6 +26,18 @@ class AbsensiGuruResource extends Resource
     protected static ?string $pluralLabel = 'Absensi Guru';
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clipboard-document-check';
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->with([
+                'pengajaran.kelas',
+                'pengajaran.guru',
+                'pengajaran.mapel',
+                'jadwalSesi',
+                'absensiGuru',
+            ]);
+    }
+
     public static function getRecordTitle(?\Illuminate\Database\Eloquent\Model $record): ?string
     {
         return $record ? "Absensi: {$record->kelas->nama_kelas} ({$record->tanggal->format('d M Y')})" : 'Absensi';

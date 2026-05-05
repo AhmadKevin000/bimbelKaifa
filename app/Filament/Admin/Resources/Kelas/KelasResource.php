@@ -29,6 +29,17 @@ class KelasResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nama_kelas';
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->with([
+                'pengajaran.guru',
+                'pengajaran.mapel.jenjang',
+                'pengajaran.mapel.program',
+            ])
+            ->withCount('siswa');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return KelasForm::configure($schema);

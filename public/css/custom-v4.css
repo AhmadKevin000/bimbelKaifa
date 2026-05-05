@@ -1,111 +1,218 @@
 /* 
- * Custom Filament v4 Theme: Modern SaaS (Deep Navy & Indigo)
+ * Custom Filament Theme: Professional Slate & Indigo
+ * Sidebar: Solid Deep Slate (#0F172A) - Tegas
+ * Main Background: Subtle Linear Gradient (Slate 100 to White)
+ * Cards/Surfaces: Pure White (#FFFFFF)
+ * Text: Slate 900 (#0F172A)
  */
 
 :root {
-    --fi-body-bg: #020617;
-    --fi-sidebar-bg: transparent;
-    --fi-card-bg: #0f172a;
-    --fi-section-bg: #0f172a;
+    --fi-body-bg: #F1F5F9;
+    --fi-sidebar-bg: #0F172A;
+    --fi-card-bg: #FFFFFF;
+    --fi-section-bg: #FFFFFF;
 }
 
-/* Global Background */
-body, .fi-main {
-    background-color: #020617 !important;
-    background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.03) 0px, transparent 50%) !important;
+/* Global Background - Professional Linear Gradient */
+body, .fi-main, .fi-layout {
+    background-color: #F1F5F9 !important;
+    background-image: linear-gradient(180deg, #F1F5F9 0%, #FFFFFF 100%) !important;
+    background-attachment: fixed !important;
+    color: #0F172A !important;
 }
 
-/* Sidebar Styling */
-.fi-sidebar {
-    background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+/* Sidebar Styling - Solid & Firm */
+aside.fi-sidebar,
+aside.fi-sidebar nav,
+aside.fi-sidebar > div,
+.fi-sidebar-header,
+.fi-sidebar-footer {
+    background-color: #0F172A !important;
+    border-right: none !important;
 }
 
-.fi-sidebar-item-active {
-    background-color: #6366f1 !important;
-    border-radius: 12px !important;
-    margin: 4px 8px !important;
-}
-
+/* Active Menu Item - Nuclear Fix for Visibility */
+.fi-sidebar-item-active,
 .fi-sidebar-item-active * {
-    color: white !important;
+    --primary-500: 79, 70, 229; /* Indigo 600 */
 }
 
-/* Card & Section Styling */
-.fi-section, .fi-card, .fi-ta-content {
-    background-color: #0f172a !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    transition: all 0.3s ease-in-out !important;
+/* Force background on the button element itself */
+.fi-sidebar-item-active a,
+.fi-sidebar-item-active button,
+.fi-sidebar-item-active .fi-sidebar-item-button,
+aside.fi-sidebar .fi-sidebar-item-active a,
+aside.fi-sidebar .fi-sidebar-item-active button {
+    background-color: #4F46E5 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4) !important;
 }
 
-.fi-section:hover, .fi-card:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
-    border-color: rgba(99, 102, 241, 0.3) !important;
+/* Force white text on everything inside the active item */
+.fi-sidebar-item-active span,
+.fi-sidebar-item-active svg,
+.fi-sidebar-item-active div,
+.fi-sidebar-item-active * {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+
+/* Hover state for normal items */
+.fi-sidebar-item:not(.fi-sidebar-item-active) a:hover,
+.fi-sidebar-item:not(.fi-sidebar-item-active) button:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.fi-sidebar-item:not(.fi-sidebar-item-active) a:hover *,
+.fi-sidebar-item:not(.fi-sidebar-item-active) button:hover * {
+    color: #FFFFFF !important;
 }
 
 /* Topbar Styling */
 .fi-topbar {
-    background-color: rgba(2, 6, 23, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+    box-shadow: none !important;
     backdrop-filter: blur(12px) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.fi-topbar * {
+    color: #0F172A !important; 
+}
+
+/* Card & Section Styling */
+.fi-section, .fi-card, .fi-ta-content {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(15, 23, 42, 0.06) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03) !important;
+    color: #0F172A !important;
+}
+
+/* Force Text Colors in Main Area */
+.fi-section *, .fi-card *, .fi-ta-content *, .fi-ta-table *, .fi-wi-stats-overview-stat * {
+    color: #0F172A;
+}
+
+/* Specifically for muted text like dates, subtitles */
+.fi-ta-text-item-label, .fi-ta-header-cell-label, th span {
+    color: #64748B !important;
+    font-weight: 600 !important;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6, .fi-header-heading {
+    color: #0F172A !important;
+    font-weight: 700 !important;
 }
 
 /* Button Styling */
 .fi-btn {
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     font-weight: 600 !important;
-    letter-spacing: 0.01em !important;
     transition: all 0.2s ease !important;
 }
 
-/* CTA Highlight (Kuning/Yellow) for 'Tambah' */
-.fi-btn-color-primary[type="submit"], 
-.fi-btn-color-primary[href*="create"],
-.fi-btn:has(span:contains("Tambah")),
-.fi-btn:has(span:contains("Tambah")) {
-    background-color: #f59e0b !important;
-    color: #020617 !important;
-    box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.39) !important;
+/* Primary Buttons */
+.fi-btn-color-primary {
+    background-color: #4F46E5 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.2) !important;
 }
 
-.fi-btn-color-primary[type="submit"]:hover, 
-.fi-btn-color-primary[href*="create"]:hover {
-    background-color: #d97706 !important;
-    transform: scale(1.02) !important;
+.fi-btn-color-primary:hover {
+    background-color: #4338CA !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3) !important;
 }
 
-/* Stats Widget Styling */
+/* Input Fields */
+.fi-input-wrp {
+    background-color: #FFFFFF !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    transition: all 0.2s ease !important;
+}
+
+.fi-input-wrp:focus-within {
+    border-color: #4F46E5 !important;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1) !important;
+}
+
+.fi-input-wrp input, .fi-input-wrp select {
+    color: #0F172A !important;
+    background-color: transparent !important;
+}
+
+/* Stats Widget Specific */
 .fi-wi-stats-overview-stat {
-    background-color: #1e293b !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(15, 23, 42, 0.06) !important;
     border-radius: 16px !important;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03) !important;
 }
 
-/* Typography Overrides */
-h1, h2, h3, .fi-header-heading {
-    color: #e5e7eb !important;
-    font-weight: 800 !important;
-    letter-spacing: -0.025em !important;
+/* 
+ * DARK MODE SUPPORT
+ */
+
+.dark body, .dark .fi-main, .dark .fi-layout {
+    background-color: #020617 !important;
+    background-image: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
+    color: #f1f5f9 !important;
 }
 
-.fi-ta-text-item-label {
-    color: #e5e7eb !important;
+.dark aside.fi-sidebar,
+.dark aside.fi-sidebar nav,
+.dark aside.fi-sidebar > div,
+.dark .fi-sidebar-header,
+.dark .fi-sidebar-footer {
+    background-color: #020617 !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .fi-section, .dark .fi-card, .dark .fi-ta-content {
+    background-color: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .fi-section *, .dark .fi-card *, .dark .fi-ta-content *, .dark .fi-ta-table *, .dark .fi-wi-stats-overview-stat * {
+    color: #f1f5f9;
+}
+
+.dark .fi-topbar {
+    background-color: rgba(2, 6, 23, 0.8) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .fi-topbar * {
+    color: #f1f5f9 !important;
+}
+
+.dark .fi-input-wrp {
+    background-color: #0f172a !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .fi-input-wrp input, .dark .fi-input-wrp select {
+    color: #f1f5f9 !important;
+}
+
+.dark .fi-wi-stats-overview-stat {
+    background-color: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .fi-ta-text-item-label, .dark .fi-ta-header-cell-label, .dark th span {
+    color: #94a3b8 !important;
 }
 
 /* Badges */
 .fi-badge {
     border-radius: 9999px !important;
     font-weight: 600 !important;
-    padding: 2px 10px !important;
-}
-
-/* Input Fields */
-.fi-input-wrp {
-    background-color: rgba(2, 6, 23, 0.4) !important;
-    border-radius: 10px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
