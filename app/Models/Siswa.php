@@ -19,7 +19,7 @@ class Siswa extends Model
         'spp_jatuh_tempo',
     ];
 
-    protected $appends = ['jenjang', 'program', 'jumlah_mapel', 'spp_nominal'];
+    // protected $appends = ['jenjang', 'program', 'jumlah_mapel', 'spp_nominal'];
 
     public function kelas()
     {
@@ -68,7 +68,8 @@ class Siswa extends Model
         }
 
         // Fallback ke hitungan dinamis dari kelas
-        return $this->kelas?->pengajaran()->count() ?? 0;
+        // Gunakan ->pengajaran (tanpa kurung) agar memanfaatkan eager loading
+        return $this->kelas?->pengajaran->count() ?? 0;
     }
 
     public function getSppNominalAttribute()
