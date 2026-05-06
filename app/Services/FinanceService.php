@@ -13,8 +13,18 @@ class FinanceService
      */
     public function calculateSpp(string $programName, string $jenjangName, int $subjectCount = 0): int
     {
-        $program = Program::where('nama', $programName)->first();
-        $jenjang = Jenjang::where('nama', $jenjangName)->first();
+        static $cachedPrograms = [];
+        static $cachedJenjangs = [];
+
+        if (!isset($cachedPrograms[$programName])) {
+            $cachedPrograms[$programName] = Program::where('nama', $programName)->first();
+        }
+        $program = $cachedPrograms[$programName];
+
+        if (!isset($cachedJenjangs[$jenjangName])) {
+            $cachedJenjangs[$jenjangName] = Jenjang::where('nama', $jenjangName)->first();
+        }
+        $jenjang = $cachedJenjangs[$jenjangName];
 
         if (!$program) return 0;
 

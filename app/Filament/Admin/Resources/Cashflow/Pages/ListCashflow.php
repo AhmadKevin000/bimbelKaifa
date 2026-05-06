@@ -14,10 +14,7 @@ class ListCashflow extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make()
-                ->label('Tambah Cashflow'),
-        ];
+        return [];
     }
 
     protected function getHeaderWidgets(): array

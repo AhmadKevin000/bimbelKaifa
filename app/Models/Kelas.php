@@ -13,7 +13,7 @@ class Kelas extends Model
         'keterangan',
     ];
 
-    protected $appends = ['jenjang', 'jumlah_siswa'];
+    // protected $appends = ['jenjang', 'jumlah_siswa'];
 
     public function getJumlahSiswaAttribute(): int
     {
