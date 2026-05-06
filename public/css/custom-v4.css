@@ -31,6 +31,25 @@ aside.fi-sidebar > div,
     border-right: none !important;
 }
 
+/* Sidebar Text & Icon Visibility Fix */
+.fi-sidebar-item:not(.fi-sidebar-item-active) span,
+.fi-sidebar-item:not(.fi-sidebar-item-active) svg,
+.fi-sidebar-item:not(.fi-sidebar-item-active) kbd,
+.fi-sidebar-item:not(.fi-sidebar-item-active) * {
+    color: #94A3B8 !important; /* Brighter slate for better contrast */
+    transition: color 0.2s ease !important;
+}
+
+/* Sidebar Group Labels (Keuangan, Akademik, etc) */
+.fi-sidebar-group-label {
+    color: #64748B !important; 
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    font-size: 0.7rem !important;
+    margin-top: 1rem !important;
+}
+
 /* Active Menu Item - Nuclear Fix for Visibility */
 .fi-sidebar-item-active,
 .fi-sidebar-item-active * {
