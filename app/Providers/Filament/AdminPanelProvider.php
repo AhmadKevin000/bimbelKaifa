@@ -31,14 +31,14 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.5rem')
             ->colors([
-                'primary' => '#4F46E5', // Vivid Indigo
+                'primary' => '#4364F7', // Dashboard Blue
                 'gray' => \Filament\Support\Colors\Color::Slate,
                 'warning' => \Filament\Support\Colors\Color::Amber,
             ])
             ->font('Inter')
             ->renderHook(
                 \Filament\View\PanelsRenderHook::HEAD_END,
-                fn (): string => \Illuminate\Support\Facades\Blade::render('<link rel="stylesheet" href="{{ asset(\'css/custom-v4.css\') }}">'),
+                fn (): string => \Illuminate\Support\Facades\Blade::render('<link rel="stylesheet" href="{{ asset(\'css/custom-v4.css\') }}?v=' . time() . '">'),
             )
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
@@ -47,9 +47,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\Filament\Admin\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
-                \App\Filament\Admin\Resources\Cashflow\Widgets\CashflowOverview::class,
+                \App\Filament\Admin\Widgets\AdminGreetingWidget::class,
+                \App\Filament\Admin\Widgets\AdminStatsCardWidget::class,
+                \App\Filament\Admin\Widgets\AdminKelasHariIniWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
