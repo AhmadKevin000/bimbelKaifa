@@ -1,34 +1,36 @@
 /* 
- * Custom Filament Theme: Professional Slate & Indigo
- * Sidebar: Solid Deep Slate (#0F172A) - Tegas
- * Main Background: Subtle Linear Gradient (Slate 100 to White)
+ * Custom Filament Theme: Professional Blue Dashboard
+ * Sidebar: White (#FFFFFF) matching reference design
+ * Main Background: Subtle Linear Gradient (Slate 50 to White)
  * Cards/Surfaces: Pure White (#FFFFFF)
- * Text: Slate 900 (#0F172A)
+ * Primary: Dashboard Blue (#4364F7)
  */
 
 :root {
     --fi-body-bg: #F1F5F9;
-    --fi-sidebar-bg: #0F172A;
+    --fi-sidebar-bg: #FFFFFF;
     --fi-card-bg: #FFFFFF;
     --fi-section-bg: #FFFFFF;
 }
 
-/* Global Background - Professional Linear Gradient */
-body, .fi-main, .fi-layout {
+/* Global Background */
+body,
+.fi-main,
+.fi-layout {
     background-color: #F1F5F9 !important;
-    background-image: linear-gradient(180deg, #F1F5F9 0%, #FFFFFF 100%) !important;
+    background-image: linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 50%, #FFFFFF 100%) !important;
     background-attachment: fixed !important;
     color: #0F172A !important;
 }
 
-/* Sidebar Styling - Solid & Firm */
+/* Sidebar Styling - White */
 aside.fi-sidebar,
 aside.fi-sidebar nav,
-aside.fi-sidebar > div,
+aside.fi-sidebar>div,
 .fi-sidebar-header,
 .fi-sidebar-footer {
-    background-color: #0F172A !important;
-    border-right: none !important;
+    background-color: #FFFFFF !important;
+    border-right: 1px solid rgba(15, 23, 42, 0.08) !important;
 }
 
 /* Sidebar Text & Icon Visibility Fix */
@@ -36,13 +38,14 @@ aside.fi-sidebar > div,
 .fi-sidebar-item:not(.fi-sidebar-item-active) svg,
 .fi-sidebar-item:not(.fi-sidebar-item-active) kbd,
 .fi-sidebar-item:not(.fi-sidebar-item-active) * {
-    color: #94A3B8 !important; /* Brighter slate for better contrast */
+    color: #94A3B8 !important;
+    /* Brighter slate for better contrast */
     transition: color 0.2s ease !important;
 }
 
 /* Sidebar Group Labels (Keuangan, Akademik, etc) */
 .fi-sidebar-group-label {
-    color: #64748B !important; 
+    color: #64748B !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.1em !important;
@@ -50,28 +53,22 @@ aside.fi-sidebar > div,
     margin-top: 1rem !important;
 }
 
-/* Active Menu Item - Nuclear Fix for Visibility */
+/* Active Menu Item Override */
 .fi-sidebar-item-active,
-.fi-sidebar-item-active * {
-    --primary-500: 79, 70, 229; /* Indigo 600 */
-}
-
-/* Force background on the button element itself */
-.fi-sidebar-item-active a,
-.fi-sidebar-item-active button,
-.fi-sidebar-item-active .fi-sidebar-item-button,
-aside.fi-sidebar .fi-sidebar-item-active a,
-aside.fi-sidebar .fi-sidebar-item-active button {
-    background-color: #4F46E5 !important;
-    border: none !important;
+.fi-sidebar-item-active>a,
+.fi-sidebar-item-active>button,
+a.fi-sidebar-item-active,
+button.fi-sidebar-item-active,
+li.fi-sidebar-item-active>a,
+li.fi-sidebar-item-active>button {
+    background-color: #4364F7 !important;
+    color: #FFFFFF !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(67, 100, 247, 0.4) !important;
 }
 
 /* Force white text on everything inside the active item */
-.fi-sidebar-item-active span,
-.fi-sidebar-item-active svg,
-.fi-sidebar-item-active div,
+ul.fi-sidebar-nav-groups li.fi-sidebar-item-active *,
 .fi-sidebar-item-active * {
     color: #FFFFFF !important;
     font-weight: 700 !important;
@@ -81,48 +78,77 @@ aside.fi-sidebar .fi-sidebar-item-active button {
 /* Hover state for normal items */
 .fi-sidebar-item:not(.fi-sidebar-item-active) a:hover,
 .fi-sidebar-item:not(.fi-sidebar-item-active) button:hover {
-    background-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(15, 23, 42, 0.04) !important;
+    border-radius: 8px !important;
 }
 
 .fi-sidebar-item:not(.fi-sidebar-item-active) a:hover *,
 .fi-sidebar-item:not(.fi-sidebar-item-active) button:hover * {
-    color: #FFFFFF !important;
+    color: #1E293B !important;
+}
+
+/* Sidebar group labels */
+.fi-sidebar-group-label {
+    color: #64748B !important;
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+
+/* Sidebar item text */
+.fi-sidebar-item:not(.fi-sidebar-item-active) * {
+    color: #475569 !important;
 }
 
 /* Topbar Styling */
 .fi-topbar {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
-    box-shadow: none !important;
-    backdrop-filter: blur(12px) !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    backdrop-filter: blur(16px) !important;
 }
 
 .fi-topbar * {
-    color: #0F172A !important; 
+    color: #0F172A !important;
 }
 
 /* Card & Section Styling */
-.fi-section, .fi-card, .fi-ta-content {
+.fi-section,
+.fi-card,
+.fi-ta-content {
     background-color: #FFFFFF !important;
     border: 1px solid rgba(15, 23, 42, 0.06) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03) !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
     color: #0F172A !important;
 }
 
 /* Force Text Colors in Main Area */
-.fi-section *, .fi-card *, .fi-ta-content *, .fi-ta-table *, .fi-wi-stats-overview-stat * {
+.fi-section *,
+.fi-card *,
+.fi-ta-content *,
+.fi-ta-table *,
+.fi-wi-stats-overview-stat * {
     color: #0F172A;
 }
 
 /* Specifically for muted text like dates, subtitles */
-.fi-ta-text-item-label, .fi-ta-header-cell-label, th span {
+.fi-ta-text-item-label,
+.fi-ta-header-cell-label,
+th span {
     color: #64748B !important;
     font-weight: 600 !important;
 }
 
 /* Typography Overrides */
-h1, h2, h3, h4, h5, h6, .fi-header-heading {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.fi-header-heading {
     color: #0F172A !important;
     font-weight: 700 !important;
 }
@@ -136,16 +162,16 @@ h1, h2, h3, h4, h5, h6, .fi-header-heading {
 
 /* Primary Buttons */
 .fi-btn-color-primary {
-    background-color: #4F46E5 !important;
+    background-color: #4364F7 !important;
     color: #FFFFFF !important;
     border: none !important;
-    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.2) !important;
+    box-shadow: 0 2px 10px rgba(67, 100, 247, 0.2) !important;
 }
 
 .fi-btn-color-primary:hover {
-    background-color: #4338CA !important;
+    background-color: #3451D6 !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3) !important;
+    box-shadow: 0 4px 14px rgba(67, 100, 247, 0.3) !important;
 }
 
 /* Input Fields */
@@ -157,11 +183,12 @@ h1, h2, h3, h4, h5, h6, .fi-header-heading {
 }
 
 .fi-input-wrp:focus-within {
-    border-color: #4F46E5 !important;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1) !important;
+    border-color: #4364F7 !important;
+    box-shadow: 0 0 0 2px rgba(67, 100, 247, 0.1) !important;
 }
 
-.fi-input-wrp input, .fi-input-wrp select {
+.fi-input-wrp input,
+.fi-input-wrp select {
     color: #0F172A !important;
     background-color: transparent !important;
 }
@@ -170,15 +197,23 @@ h1, h2, h3, h4, h5, h6, .fi-header-heading {
 .fi-wi-stats-overview-stat {
     background-color: #FFFFFF !important;
     border: 1px solid rgba(15, 23, 42, 0.06) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03) !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Hide default Filament Dashboard header for cleaner look */
+.fi-page>header.fi-header:first-child,
+.fi-dashboard-page .fi-header {
+    display: none !important;
 }
 
 /* 
  * DARK MODE SUPPORT
  */
 
-.dark body, .dark .fi-main, .dark .fi-layout {
+.dark body,
+.dark .fi-main,
+.dark .fi-layout {
     background-color: #020617 !important;
     background-image: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
     color: #f1f5f9 !important;
@@ -186,20 +221,26 @@ h1, h2, h3, h4, h5, h6, .fi-header-heading {
 
 .dark aside.fi-sidebar,
 .dark aside.fi-sidebar nav,
-.dark aside.fi-sidebar > div,
+.dark aside.fi-sidebar>div,
 .dark .fi-sidebar-header,
 .dark .fi-sidebar-footer {
-    background-color: #020617 !important;
+    background-color: #0B1929 !important;
     border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
-.dark .fi-section, .dark .fi-card, .dark .fi-ta-content {
+.dark .fi-section,
+.dark .fi-card,
+.dark .fi-ta-content {
     background-color: #1e293b !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
     box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3) !important;
 }
 
-.dark .fi-section *, .dark .fi-card *, .dark .fi-ta-content *, .dark .fi-ta-table *, .dark .fi-wi-stats-overview-stat * {
+.dark .fi-section *,
+.dark .fi-card *,
+.dark .fi-ta-content *,
+.dark .fi-ta-table *,
+.dark .fi-wi-stats-overview-stat * {
     color: #f1f5f9;
 }
 
@@ -217,7 +258,8 @@ h1, h2, h3, h4, h5, h6, .fi-header-heading {
     border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-.dark .fi-input-wrp input, .dark .fi-input-wrp select {
+.dark .fi-input-wrp input,
+.dark .fi-input-wrp select {
     color: #f1f5f9 !important;
 }
 
@@ -226,7 +268,9 @@ h1, h2, h3, h4, h5, h6, .fi-header-heading {
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
-.dark .fi-ta-text-item-label, .dark .fi-ta-header-cell-label, .dark th span {
+.dark .fi-ta-text-item-label,
+.dark .fi-ta-header-cell-label,
+.dark th span {
     color: #94a3b8 !important;
 }
 
