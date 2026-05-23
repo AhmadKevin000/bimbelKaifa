@@ -80,33 +80,29 @@ class SendSppReminders extends Command
      */
     private function getUnpaidMonths(Siswa $siswa, Carbon $today): array
     {
-        $jatuhTempoDay = (int) Carbon::parse($siswa->spp_jatuh_tempo)->format('d');
-        $sppNominal    = (int) $siswa->spp_nominal;
+        if (!$siswa->spp_jatuh_tempo) {
+            return [];
+        }
 
+        $sppNominal = (int) $siswa->spp_nominal;
         if ($sppNominal <= 0) {
             return [];
         }
 
-        // Build the upcoming due date for the NEXT month
-        // E.g. if today is May 22 and jatuh_tempo day = 10, next due = June 10
-        $nextMonth    = $today->copy()->addMonth();
-        $daysInMonth  = $nextMonth->daysInMonth;
-        $resolvedDay  = min($jatuhTempoDay, $daysInMonth); // Handle Feb 31 edge case
+        $dueDate = Carbon::parse($siswa->spp_jatuh_tempo);
 
-        $nextDueDate  = Carbon::create($nextMonth->year, $nextMonth->month, $resolvedDay);
-
-        // H-7 check: only proceed if today is exactly 7 days before due date
-        $reminderDate = $nextDueDate->copy()->subDays(7);
+        // H-7 check: only proceed if today is exactly 7 days before the due date
+        $reminderDate = $dueDate->copy()->subDays(7);
 
         if (!$today->isSameDay($reminderDate)) {
             return [];
         }
 
-        // Check if payment already exists in cashflow for next month
+        // Check if payment already exists in cashflow for that due date's month & year
         $alreadyPaid = Cashflow::where('reference_id', $siswa->id)
             ->where('reference_type', Siswa::class)
-            ->whereYear('tanggal', $nextDueDate->year)
-            ->whereMonth('tanggal', $nextDueDate->month)
+            ->whereYear('tanggal', $dueDate->year)
+            ->whereMonth('tanggal', $dueDate->month)
             ->exists();
 
         if ($alreadyPaid) {
@@ -115,8 +111,8 @@ class SendSppReminders extends Command
 
         return [
             [
-                'label'    => $nextDueDate->isoFormat('MMMM YYYY'),
-                'due_date' => $nextDueDate->toDateString(),
+                'label'    => $dueDate->isoFormat('MMMM YYYY'),
+                'due_date' => $dueDate->toDateString(),
                 'nominal'  => $sppNominal,
             ],
         ];
