@@ -8,36 +8,45 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&family=ABeeZee&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Poppins', sans-serif; }
+        body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
         .font-nunito { font-family: 'Nunito Sans', sans-serif; }
+        .font-abeezee { font-family: 'ABeeZee', sans-serif; }
+        
+        /* Custom Gradient Background Header disamakan dengan Footer */
+        .bg-hero-gradient {
+            background: linear-gradient(180deg, #e0f2fe 0%, #7dd3fc 100%);
+            border-bottom-left-radius: 50% 15%;
+            border-bottom-right-radius: 50% 15%;
+        }
+        
+        /* Slider Animation */
+        .slide-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
     </style>
 </head>
-<body class="bg-white text-slate-800 antialiased overflow-x-hidden">
+<body class="bg-white text-slate-800 antialiased">
 
-    <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+    <nav class="fixed w-full bg-white z-50 shadow-sm">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32">
+            <div class="flex justify-between items-center h-28">
                 <div class="flex-shrink-0 flex items-center">
-                    <img src="{{ asset('images/Kaifa.png') }}" alt="Logo Kaifa" class="h-10 md:h-12 w-auto object-contain">
+                    <img src="{{ asset('images/Kaifa.png') }}" alt="Logo Kaifa" class="h-16 w-auto object-contain">
                 </div>
 
-                <div class="hidden md:flex space-x-8">
-                    <a href="#" class="text-sky-600 font-medium transition">Beranda</a>
-                    <a href="#program" class="text-gray-500 hover:text-sky-600 font-medium transition">Program</a>
-                    <a href="#keunggulan" class="text-gray-500 hover:text-sky-600 font-medium transition">Keunggulan</a>
-                    <a href="#testimoni" class="text-gray-500 hover:text-sky-600 font-medium transition">Testimoni</a>
+                <div class="hidden lg:flex space-x-12">
+                    <a href="#hero" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Beranda</a>
+                    <a href="#program" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Program</a>
+                    <a href="#keunggulan" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Keunggulan</a>
+                    <a href="#testimoni" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Testimoni</a>
+                    <a href="#footer" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Tentang Kami</a>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="/admin/login" class="text-gray-600 font-medium hover:text-sky-600 px-4 py-2 border border-gray-200 rounded-full transition">Login</a>
-                    <a href="#" class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-2 rounded-full font-medium transition shadow-md shadow-sky-200">
-                        Sign Up
-                    </a>
-                </div>
-
-                <div class="md:hidden flex items-center">
+                <div class="lg:hidden flex items-center">
                     <button class="text-gray-600 hover:text-sky-600 focus:outline-none">
                         <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
@@ -48,241 +57,287 @@
         </div>
     </nav>
 
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-40 overflow-hidden bg-sky-50 rounded-b-[3rem] lg:rounded-b-[10rem]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="hero" class="relative pt-36 pb-32 bg-hero-gradient">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                        <span class="text-amber-500">Belajar Lebih Mudah</span><br />
-                        <span class="text-indigo-900">Bersama Kaifa</span>
+                <div class="text-left mt-20">
+                    <h1 class="text-5xl lg:text-[64px] font-bold leading-tight mb-8">
+                        <span class="text-amber-500 drop-shadow-sm">Belajar Lebih Mudah</span><br />
+                        <span class="text-indigo-900 drop-shadow-sm">Bersama Kaifa</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    <p class="text-slate-700 text-xl md:text-2xl font-nunito leading-relaxed max-w-2xl">
                         Kaifa hadir sebagai teman belajar terpercaya untuk anak-anak dari usia dini hingga persiapan ujian masuk perguruan tinggi.
                     </p>
-                    <div class="flex justify-center lg:justify-start">
-                        <a href="#program" class="bg-sky-800 hover:bg-sky-900 text-white px-8 py-4 rounded-full font-semibold text-lg transition shadow-xl">
-                            Daftar Sekarang
-                        </a>
-                    </div>
                 </div>
-                <div class="relative mx-auto w-full max-w-md lg:max-w-none mt-12 lg:mt-0">
-                    <img src="{{ asset('images/hero-siswa.png') }}" alt="Hero Siswa" class="relative z-10 mx-auto w-[80%] rounded-3xl object-cover">
+                <div class="relative w-full flex justify-end">
+                    <img src="{{ asset('images/hero-siswa.png') }}" alt="Siswa SMA" class="w-full max-w-[770px] h-auto object-cover rounded-3xl z-10">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white mt-10">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32">
+            <div class="text-center mb-16">
+                <h2 class="text-indigo-900 text-4xl md:text-5xl font-bold font-nunito mb-6">Keberhasilan Kami</h2>
+                <p class="text-gray-500 text-xl max-w-3xl mx-auto leading-relaxed">Kami terus berkomitmen menghadirkan pendidikan berkualitas dan telah dipercaya oleh ratusan keluarga sejak awal berdiri.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-16 lg:gap-32 text-center mt-20">
+                <div class="flex flex-col items-center">
+                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">80+</div>
+                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Siswa Aktif</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">3</div>
+                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Program Unggulan</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">15+</div>
+                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Pengajar</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">±5</div>
+                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Tahun Berdiri</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="program" class="py-24 bg-white">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32">
+            <div class="text-center mb-20">
+                <h2 class="text-indigo-900 text-4xl md:text-5xl font-bold font-nunito mb-6">Program Kami</h2>
+                <p class="text-gray-500 text-xl max-w-3xl mx-auto leading-relaxed">Kami menyediakan program belajar yang terstruktur dan menyenangkan untuk semua jenjang, mulai dari usia dini hingga persiapan ujian.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">
+                <div class="bg-white rounded-[40px] shadow-[0px_10px_60px_0px_rgba(38,45,118,0.08)] p-12 text-center relative pt-24 mt-12">
+                    <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-indigo-500 rounded-full flex items-center justify-center shadow-[0px_10px_40px_0px_rgba(54,61,136,0.06)]">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="text-indigo-900 text-3xl font-medium mb-6 mt-4">Calistung AHe</h3>
+                    <p class="text-gray-500 text-xl leading-9">Program membaca, menulis, dan berhitung untuk anak usia dini agar siap memasuki jenjang sekolah dasar.</p>
+                </div>
+                <div class="bg-white rounded-[40px] shadow-[0px_10px_60px_0px_rgba(38,45,118,0.08)] p-12 text-center relative pt-24 mt-12">
+                    <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-teal-500 rounded-full flex items-center justify-center shadow-[0px_16px_40px_0px_rgba(37,44,113,0.10)]">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-indigo-900 text-3xl font-medium mb-6 mt-4">Reguler Kelas 1–12</h3>
+                    <p class="text-gray-500 text-xl leading-9">Bimbingan belajar semua mata pelajaran untuk siswa SD, SMP, hingga SMA sesuai kurikulum nasional.</p>
+                </div>
+                <div class="bg-white rounded-[40px] shadow-[0px_10px_60px_0px_rgba(38,45,118,0.08)] p-12 text-center relative pt-24 mt-12">
+                    <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-sky-400 rounded-full flex items-center justify-center shadow-[0px_10px_40px_0px_rgba(54,61,136,0.06)]">
+                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h3 class="text-indigo-900 text-3xl font-medium mb-6 mt-4">TKA</h3>
+                    <p class="text-gray-500 text-xl leading-9">Persiapan intensif Tes Kemampuan Akademik untuk seleksi masuk perguruan tinggi negeri favorit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="keunggulan" class="py-24 bg-white">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32">
+            <div class="text-center mb-32">
+                <h2 class="text-indigo-900 text-4xl md:text-5xl font-bold font-nunito mb-6">Keunggulan Kami</h2>
+                <p class="text-gray-500 text-xl max-w-3xl mx-auto leading-relaxed">Kami dapat membuat kegiatan pembelajaran menjadi lebih efisien.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-40 relative">
+                <div class="order-2 lg:order-1 relative w-full px-6 md:px-12 lg:px-0 z-10">
+                    <div class="absolute -top-8 -left-2 md:-left-8 w-28 h-28 md:w-36 md:h-36 bg-emerald-400 rounded-full opacity-60 z-0"></div>
+                    <div class="absolute -bottom-8 -right-2 md:-right-8 w-40 h-40 md:w-48 md:h-48 bg-indigo-500 rounded-full opacity-60 z-0"></div>
+                    <img src="{{ asset('images/keunggulan1.png') }}" alt="Lingkungan Belajar Terfokus" class="w-full h-[350px] md:h-[450px] object-cover rounded-[40px] shadow-2xl relative z-20">
+                </div>
+                <div class="order-1 lg:order-2 pl-0 lg:pl-10 relative z-20">
+                    <h3 class="text-indigo-900 text-3xl md:text-4xl font-semibold mb-6 leading-snug">Lingkungan Belajar<br/>Kondusif & Terfokus</h3>
+                    <p class="text-gray-500 text-xl leading-relaxed tracking-wide">
+                        Kami memahami bahwa setiap siswa memiliki kecepatan belajar yang berbeda. Dengan membatasi kapasitas ruang kelas, pengajar kami dapat memberikan perhatian yang lebih optimal untuk mendukung perkembangan dan keunikan gaya belajar setiap anak.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-40 relative">
+                <div class="order-1 lg:order-1 pr-0 lg:pr-10 relative z-20">
+                    <h3 class="text-indigo-900 text-3xl md:text-4xl font-semibold mb-6 leading-snug">Laporan Perkembangan<br/>yang Transparan</h3>
+                    <p class="text-gray-500 text-xl leading-relaxed tracking-wide">
+                        Orang tua dapat memantau hasil belajar anak dengan tenang dan nyaman. Melalui laporan perkembangan berkala yang disusun langsung oleh guru pengajar, Ayah & Bunda bisa melihat capaian akademik, tingkat kehadiran, serta evaluasi belajar anak secara jelas.
+                    </p>
+                </div>
+                <div class="order-2 lg:order-2 relative w-full px-6 md:px-12 lg:px-0 z-10">
+                    <div class="absolute -top-8 -right-2 md:-right-8 w-32 h-32 md:w-40 md:h-40 bg-red-400 rounded-full opacity-60 z-0"></div>
+                    <div class="absolute -bottom-6 -left-2 md:-left-6 w-20 h-20 bg-orange-300 rounded-full opacity-70 z-0"></div>
+                    <img src="{{ asset('images/keunggulan2.png') }}" alt="Laporan Transparan" class="w-full h-[350px] md:h-[450px] object-cover rounded-[40px] shadow-2xl relative z-20">
                     
-                    <div class="absolute top-10 left-0 bg-white/90 backdrop-blur p-3 rounded-2xl shadow-xl flex items-center gap-3 z-20 animate-bounce">
-                        <div class="bg-sky-100 p-2 rounded-full text-sky-600 text-xl">🎓</div>
-                        <div class="text-left hidden sm:block">
-                            <p class="text-sm font-bold text-gray-900">80+</p>
-                            <p class="text-xs text-gray-500">Siswa Aktif</p>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-20 right-0 bg-white/90 backdrop-blur p-3 rounded-2xl shadow-xl flex items-center gap-3 z-20 animate-bounce">
-                        <div class="bg-sky-100 p-2 rounded-full text-sky-600 text-xl">🎓</div>
-                        <div class="text-left hidden sm:block">
-                            <p class="text-sm font-bold text-gray-900">Sistem Terpadu</p>
-                            <p class="text-xs text-gray-500">Gabung Kelas</p>
+                    <div class="absolute -top-6 -left-6 md:-left-12 w-20 h-20 bg-white rounded-[20px] shadow-xl rotate-[-12deg] flex items-center justify-center z-30">
+                        <div class="w-16 h-16 bg-white rounded-[20px] flex flex-col gap-1.5 items-center justify-center p-2">
+                             <div class="w-8 h-2 bg-indigo-500 rounded"></div>
+                             <div class="w-6 h-2 bg-amber-500 rounded self-start ml-2"></div>
+                             <div class="w-10 h-2 bg-indigo-500 rounded"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-indigo-950 mb-4">Keberhasilan Kami</h2>
-            <p class="text-gray-500 max-w-2xl mx-auto">Kami terus berkomitmen menghadirkan pendidikan berkualitas dan telah dipercaya oleh ratusan keluarga.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <div class="text-5xl font-light text-sky-600 mb-2 font-nunito">80+</div>
-                <div class="text-gray-600 font-medium">Siswa Aktif</div>
-            </div>
-            <div>
-                <div class="text-5xl font-light text-sky-600 mb-2 font-nunito">3</div>
-                <div class="text-gray-600 font-medium">Program Unggulan</div>
-            </div>
-            <div>
-                <div class="text-5xl font-light text-sky-600 mb-2 font-nunito">15+</div>
-                <div class="text-gray-600 font-medium">Pengajar Ahli</div>
-            </div>
-            <div>
-                <div class="text-5xl font-light text-sky-600 mb-2 font-nunito">±5</div>
-                <div class="text-gray-600 font-medium">Tahun Berdiri</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="program" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-indigo-900 mb-4">Program Kami</h2>
-                <p class="text-gray-500 max-w-3xl mx-auto text-lg">Kami menyediakan program belajar yang terstruktur dan menyenangkan untuk semua jenjang, mulai dari usia dini hingga persiapan ujian.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-[2rem] p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] text-center border border-gray-50 hover:-translate-y-2 transition-transform">
-                    <div class="w-20 h-20 bg-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-indigo-200">
-                        <span class="text-3xl text-white">👧</span>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative">
+                <div class="order-2 lg:order-1 relative w-full px-6 md:px-12 lg:px-0 z-10">
+                    <div class="absolute -top-8 -left-2 md:-left-6 w-28 h-28 md:w-36 md:h-36 bg-indigo-500 rounded-full opacity-70 z-0"></div>
+                    <div class="absolute -bottom-8 -right-2 md:-right-6 w-24 h-24 bg-emerald-400 rounded-full opacity-60 z-0"></div>
+                    <img src="{{ asset('images/keunggulan3.png') }}" alt="Kurikulum Relevan" class="w-full h-[350px] md:h-[450px] object-cover rounded-[40px] shadow-2xl relative z-20">
+                    
+                    <div class="absolute -top-8 right-[5%] w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center border-[3px] border-pink-600 z-30">
+                         <div class="w-8 h-8 rounded-full border-[3px] border-pink-400"></div>
                     </div>
-                    <h3 class="text-2xl font-bold text-indigo-900 mb-4">Calistung AHe</h3>
-                    <p class="text-gray-500">Program membaca, menulis, dan berhitung untuk anak usia dini agar siap memasuki jenjang sekolah dasar.</p>
                 </div>
-                <div class="bg-white rounded-[2rem] p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] text-center border border-gray-50 hover:-translate-y-2 transition-transform">
-                    <div class="w-20 h-20 bg-teal-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-teal-200">
-                        <span class="text-3xl text-white">📚</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-indigo-900 mb-4">Reguler Kelas 1–12</h3>
-                    <p class="text-gray-500">Bimbingan belajar semua mata pelajaran untuk siswa SD, SMP, hingga SMA sesuai kurikulum nasional.</p>
-                </div>
-                <div class="bg-white rounded-[2rem] p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] text-center border border-gray-50 hover:-translate-y-2 transition-transform">
-                    <div class="w-20 h-20 bg-sky-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-sky-200">
-                        <span class="text-3xl text-white">🎓</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-indigo-900 mb-4">TKA</h3>
-                    <p class="text-gray-500">Persiapan intensif Tes Kemampuan Akademik untuk seleksi masuk perguruan tinggi negeri favorit.</p>
+                <div class="order-1 lg:order-2 pl-0 lg:pl-10 relative z-20">
+                    <h3 class="text-indigo-900 text-3xl md:text-4xl font-semibold mb-6 leading-snug">Kurikulum Relevan &<br/>Siap Ujian</h3>
+                    <p class="text-gray-500 text-xl leading-relaxed tracking-wide">
+                        Materi pembelajaran di Kaifa dirancang agar selalu selaras dengan kurikulum sekolah nasional. Kami fokus memperkuat pemahaman konsep dasar siswa, sekaligus memberikan persiapan yang matang untuk menghadapi berbagai ujian harian maupun seleksi masuk PTN.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="keunggulan" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-indigo-900 mb-6">Akses Sistem Terpadu Kaifa</h2>
-                <p class="text-lg text-gray-500 max-w-4xl mx-auto">
-                    Sistem manajemen informasi kami dirancang untuk memudahkan pengajar dalam mengelola sesi kelas, sekaligus membantu siswa dan orang tua memantau jadwal serta perkembangan belajar secara transparan.
-                </p>
+    <section id="testimoni" class="py-32 bg-white relative overflow-hidden">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32 relative z-10">
+            <div class="text-center mb-16 relative">
+                <span class="text-slate-500 text-xl font-nunito tracking-[4px] uppercase mb-4 block">TESTIMONIA</span>
+                <h2 class="text-indigo-900 text-4xl md:text-5xl font-bold font-nunito mb-6">Apa Pendapat Mereka?</h2>
             </div>
             
-            <div class="relative max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl group cursor-pointer">
-                <img src="{{ asset('images/dashboard-portal.png') }}" alt="Dashboard" class="w-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="relative w-full max-w-5xl mx-auto px-16 lg:px-24">
                 
-                <div class="absolute inset-0 bg-indigo-900/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div class="text-center transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <p class="text-white text-2xl md:text-3xl font-semibold mb-6">PORTAL SISWA</p>
-                        <a href="#" class="bg-cyan-400 hover:bg-cyan-500 text-white px-8 py-3 rounded-full font-medium text-lg transition shadow-lg shadow-cyan-500/30">
-                            Mulai Belajar
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <button id="prev-btn" class="absolute left-0 top-1/2 transform -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-[0px_4px_40px_0px_rgba(41,44,124,0.15)] flex items-center justify-center hover:scale-105 transition group cursor-pointer border-[3px] border-transparent hover:border-cyan-500 z-30">
+                    <svg class="w-8 h-8 text-cyan-500 group-hover:text-cyan-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
 
-    <section class="py-20 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1 relative">
-                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-emerald-100 rounded-full z-0"></div>
-                    <img src="{{ asset('images/pantau-akademik.png') }}" alt="Perkembangan Akademik" class="relative rounded-3xl shadow-xl w-full object-cover z-10">
-                </div>
-                <div class="order-1 lg:order-2">
-                    <h2 class="text-3xl md:text-4xl font-bold text-indigo-900 mb-6 leading-tight">Pantau Perkembangan Belajar Lebih Transparan</h2>
-                    <p class="text-lg text-gray-500 mb-6 leading-relaxed">
-                        Kami tidak hanya memberikan pengajaran terbaik, tetapi juga didukung oleh Sistem Informasi Manajemen terpadu. Jadwal bimbingan, riwayat kehadiran kelas (Reguler, Intensif, Private), hingga evaluasi materi terpantau dengan jelas.
-                    </p>
-                    <a href="#" class="text-sky-600 font-medium underline text-lg hover:text-sky-800 transition">Lihat Fasilitas Kami</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-slate-50 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">
-                    <span class="text-indigo-900">Keunggulan</span> <span class="text-teal-500">Kami</span>
-                </h2>
-                <p class="text-gray-500 text-xl font-medium max-w-2xl mx-auto">
-                    Kami dapat membuat kegiatan pembelajaran menjadi lebih efisien.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-                <div class="relative">
-                    <div class="absolute -top-8 -left-8 w-32 h-32 bg-indigo-100 rounded-full z-0"></div>
-                    <img src="{{ asset('images/fitur-interaktif.png') }}" alt="Lingkungan Belajar Terfokus" class="relative rounded-3xl shadow-xl w-full object-cover z-10 border border-white/50">
-                </div>
-                <div>
-                    <h3 class="text-3xl md:text-4xl font-bold text-indigo-900 mb-6 leading-tight">Lingkungan Belajar Terfokus & Interaktif</h3>
-                    <p class="text-lg text-gray-500 leading-relaxed">
-                        Kami menyediakan ruang belajar yang kondusif, didukung dengan teknologi untuk memastikan interaksi antara pengajar dan siswa tetap berjalan efektif dan menyenangkan, layaknya belajar privat.
-                    </p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1">
-                    <h3 class="text-3xl md:text-4xl font-bold text-indigo-900 mb-6 leading-tight">Fokus pada Materi yang Paling Dibutuhkan</h3>
-                    <p class="text-lg text-gray-500 leading-relaxed">
-                        Setiap siswa memiliki tantangan akademik yang berbeda. Oleh karena itu, kami memfasilitasi siswa untuk memilih dan fokus pada kelas mata pelajaran spesifik yang paling ingin mereka kuasai untuk mendongkrak nilai rapor atau persiapan ujian.
-                    </p>
-                </div>
-                <div class="order-1 lg:order-2 relative">
-                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-pink-100 rounded-full z-0"></div>
-                    <img src="{{ asset('images/fitur-materi.png') }}" alt="Fokus Materi Belajar" class="relative rounded-3xl shadow-xl w-full object-cover z-10 border border-white/50">
-                </div>
-            </div>
-            
-            <div class="mt-20 flex justify-center">
-                <a href="#" class="px-8 py-4 rounded-full border-2 border-teal-400 text-teal-500 font-bold text-lg hover:bg-teal-50 transition">
-                    Lihat lebih banyak fitur
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimoni" class="py-24 bg-sky-50 rounded-t-[3rem] lg:rounded-t-[8rem]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-sky-600 font-bold tracking-widest uppercase text-sm mb-2 block font-nunito">Testimoni</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-indigo-900">Apa Pendapat Mereka?</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-                <div>
-                    <img src="{{ asset('images/testimoni.png') }}" alt="Student" class="rounded-3xl shadow-xl w-full object-cover">
-                </div>
-                <div class="bg-white p-8 md:p-10 rounded-3xl shadow-lg relative lg:-ml-20 z-10">
-                    <div class="flex text-amber-400 mb-4 text-xl">
-                        ★★★★★
-                    </div>
-                    <p class="text-lg text-gray-600 italic mb-8 leading-relaxed font-nunito">
-                        "Terima kasih banyak atas fasilitas yang diberikan. Sistem informasi Kaifa sangat memudahkan saya sebagai orang tua untuk memantau nilai dan jadwal les anak saya secara langsung dari HP. Sangat transparan dan profesional!"
-                    </p>
-                    <div class="flex items-center gap-4">
-                        <div class="text-left">
-                            <h4 class="font-bold text-indigo-900 text-xl font-nunito">Bambang</h4>
-                            <p class="text-gray-500 text-sm">Orang Tua Siswa Reguler</p>
+                <div class="relative w-full overflow-hidden bg-white rounded-[20px] shadow-[2px_10px_60px_0px_rgba(41,44,124,0.08)]">
+                    <div class="absolute left-0 top-0 bottom-0 w-3.5 bg-red-400 rounded-tl-[20px] rounded-bl-[20px] z-20"></div>
+                    
+                    <div id="slider-track" class="slide-track w-full">
+                        
+                        <div class="w-full flex-shrink-0 p-8 md:p-12 pl-12 md:pl-20 min-h-[300px] flex flex-col justify-between">
+                            <p class="text-gray-500 text-xl font-nunito leading-10 tracking-wide mb-8">
+                                "Alhamdulillah senang belajar disini karena dekat dengan rumah. Jadi kalau gak bisa antar jemput anak bs jalan kaki 🙏"
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
+                                    <div class="w-full h-full bg-slate-300 flex items-center justify-center text-slate-500 font-bold">A</div>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-500 text-2xl font-semibold font-nunito">awa dliyafa</h4>
+                                    <p class="text-gray-500 text-base font-nunito">Orang Tua Murid</p>
+                                </div>
+                                <div class="ml-auto flex text-amber-400 text-xl">★★★★★</div>
+                            </div>
                         </div>
+                        
+                        <div class="w-full flex-shrink-0 p-8 md:p-12 pl-12 md:pl-20 min-h-[300px] flex flex-col justify-between">
+                            <p class="text-gray-500 text-xl font-nunito leading-10 tracking-wide mb-8">
+                                "anak sy lebih senang belajar di bimbel dr pd sama saya. Katanya mbak-mbaknya enak jelasinnya dr pd saya 😅"
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
+                                    <div class="w-full h-full bg-slate-300 flex items-center justify-center text-slate-500 font-bold">M</div>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-500 text-2xl font-semibold font-nunito">Muhammad Ali M.K</h4>
+                                    <p class="text-gray-500 text-base font-nunito">Orang Tua Murid</p>
+                                </div>
+                                <div class="ml-auto flex text-amber-400 text-xl">★★★★★</div>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex-shrink-0 p-8 md:p-12 pl-12 md:pl-20 min-h-[300px] flex flex-col justify-between">
+                            <p class="text-gray-500 text-xl font-nunito leading-10 tracking-wide mb-8">
+                                "Gurunya asik, belajar menjadi menyenangkan. Semoga cita² ku tercapai😱😱"
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
+                                    <div class="w-full h-full bg-slate-300 flex items-center justify-center text-slate-500 font-bold">N</div>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-500 text-2xl font-semibold font-nunito">Naufal_XD</h4>
+                                    <p class="text-gray-500 text-base font-nunito">Siswa</p>
+                                </div>
+                                <div class="ml-auto flex text-amber-400 text-xl">★★★★★</div>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex-shrink-0 p-8 md:p-12 pl-12 md:pl-20 min-h-[300px] flex flex-col justify-between">
+                            <p class="text-gray-500 text-xl font-nunito leading-10 tracking-wide mb-8">
+                                "belajar di kaifa sangat seruu🤩🤩😍😍🤩"
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
+                                    <div class="w-full h-full bg-slate-300 flex items-center justify-center text-slate-500 font-bold">O</div>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-500 text-2xl font-semibold font-nunito">oziie</h4>
+                                    <p class="text-gray-500 text-base font-nunito">Siswa</p>
+                                </div>
+                                <div class="ml-auto flex text-amber-400 text-xl">★★★★★</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+                
+                <button id="next-btn" class="absolute right-0 top-1/2 transform -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-[0px_4px_40px_0px_rgba(41,44,124,0.15)] flex items-center justify-center hover:scale-105 transition group cursor-pointer border-[3px] border-transparent hover:border-cyan-500 z-30">
+                    <svg class="w-8 h-8 text-cyan-500 group-hover:text-cyan-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+                </button>
             </div>
         </div>
     </section>
 
-    <footer class="bg-indigo-950 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="bg-white p-3 rounded-2xl mb-8 inline-block">
-                <img src="{{ asset('images/Kaifa.png') }}" alt="Logo Kaifa" class="h-12 w-auto object-contain">
-            </div>
+    <footer id="footer" class="relative pt-16 pb-8 bg-gradient-to-b from-sky-100 to-sky-300 border-t border-sky-100">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32 relative z-10">
             
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
-                <a href="#" class="text-slate-300 hover:text-white transition">Beranda</a>
-                <a href="#keunggulan" class="text-slate-300 hover:text-white transition">Keunggulan</a>
-                <a href="#program" class="text-slate-300 hover:text-white transition">Program</a>
-                <a href="#testimoni" class="text-slate-300 hover:text-white transition">Testimoni</a>
-            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10 mb-12">
+                <div class="flex justify-center md:justify-start">
+                    <img src="{{ asset('images/Kaifa.png') }}" alt="Logo Kaifa" class="h-24 w-auto object-contain drop-shadow-sm">
+                </div>
 
-            <div class="border-t border-indigo-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
-                <p>&copy; 2026 Kaifa Bimbel. All rights reserved.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition">Terms & Conditions</a>
+                <div class="text-center md:text-right">
+                    <h4 class="text-slate-900 text-2xl font-bold mb-4">Kontak Kami</h4>
+                    <p class="text-slate-800 text-xl mb-2 hover:text-indigo-900 transition cursor-pointer">Whatsapp 0852-3216-9460</p>
+                    <p class="text-slate-800 text-xl hover:text-indigo-900 transition cursor-pointer">Instagram @temankaifa</p>
                 </div>
             </div>
+            
+            <div class="border-t border-sky-400/40 pt-8 text-center md:text-left">
+                <p class="text-slate-900 text-lg font-medium">© 2026 Teman Belajar Kaifa. All rights reserved</p>
+            </div>
+            
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('slider-track');
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            let currentSlide = 0;
+            const totalSlides = 4; // Total 4 Ulasan
+
+            // Tombol Maju
+            nextBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            });
+
+            // Tombol Mundur
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            });
+
+            function updateSlider() {
+                const slideWidth = 100; // Geser per 100% dari lebar container
+                track.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+            }
+        });
+    </script>
 </body>
 </html>
