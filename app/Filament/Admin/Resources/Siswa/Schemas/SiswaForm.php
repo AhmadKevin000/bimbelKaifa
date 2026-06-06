@@ -31,12 +31,18 @@ class SiswaForm
                             ->required(),
                         TextInput::make('no_hp')
                             ->required(),
+                        TextInput::make('email')
+                            ->label('Email Siswa')
+                            ->email()
+                            ->maxLength(255)
+                            ->placeholder('siswa@email.com')
+                            ->columnSpanFull(),
                         Textarea::make('alamat')
                             ->required()
                             ->columnSpanFull(),
 
                         Select::make('jenjang')
-                            ->options(fn () => \App\Models\Jenjang::pluck('nama', 'nama'))
+                            ->options(fn() => \App\Models\Jenjang::pluck('nama', 'nama'))
                             ->required()
                             ->live()
                             ->dehydrated(false)
@@ -46,19 +52,19 @@ class SiswaForm
                             }),
 
                         Select::make('program')
-                            ->options(fn (Get $get) => \App\Models\Program::pluck('nama', 'nama'))
+                            ->options(fn(Get $get) => \App\Models\Program::pluck('nama', 'nama'))
                             ->required()
-                            ->disabled(fn (Get $get) => !$get('jenjang'))
+                            ->disabled(fn(Get $get) => !$get('jenjang'))
                             ->live()
                             ->dehydrated(false)
-                            ->afterStateUpdated(fn (Set $set) => $set('jumlah_mapel', null)),
+                            ->afterStateUpdated(fn(Set $set) => $set('jumlah_mapel', null)),
 
                         TextInput::make('jumlah_mapel')
                             ->label('Jumlah Mata Pelajaran')
                             ->numeric()
                             ->minValue(1)
-                            ->required(fn (Get $get) => $get('jenjang') === 'SMA')
-                            ->visible(fn (Get $get) => $get('jenjang') === 'SMA')
+                            ->required(fn(Get $get) => $get('jenjang') === 'SMA')
+                            ->visible(fn(Get $get) => $get('jenjang') === 'SMA')
                             ->live(),
 
                         Select::make('kelas_id')
@@ -74,9 +80,9 @@ class SiswaForm
                             ->label('Rincian Biaya')
                             ->columnSpanFull()
                             ->content(function (Get $get) {
-                                $program     = $get('program');
-                                $jenjang     = $get('jenjang');
-                                $kelasId     = $get('kelas_id');
+                                $program = $get('program');
+                                $jenjang = $get('jenjang');
+                                $kelasId = $get('kelas_id');
                                 $jumlahMapel = (int) $get('jumlah_mapel');
 
                                 if (!$program || !$jenjang) {
@@ -87,14 +93,14 @@ class SiswaForm
                                 }
 
                                 $financeService = new FinanceService();
-                                $subjectCount   = $jumlahMapel;
+                                $subjectCount = $jumlahMapel;
 
                                 if ($jenjang !== 'SMA' && $kelasId) {
-                                    $kelas        = Kelas::find($kelasId);
+                                    $kelas = Kelas::find($kelasId);
                                     $subjectCount = $kelas ? $kelas->pengajaran()->count() : 0;
                                 }
 
-                                $spp          = $financeService->calculateSpp($program, $jenjang, $subjectCount);
+                                $spp = $financeService->calculateSpp($program, $jenjang, $subjectCount);
                                 $registration = $financeService->getRegistrationFee();
 
                                 return sprintf(
@@ -124,13 +130,7 @@ class SiswaForm
                             ->columnSpanFull()
                             ->visible(false), // hidden – sudah di section atas
 
-                        TextInput::make('email')
-                            ->label('Email Siswa')
-                            ->email()
-                            ->maxLength(255)
-                            ->placeholder('siswa@email.com'),
-
-                        TextInput::make('email_wali')
+                         TextInput::make('email_wali')
                             ->label('Email Wali / Orang Tua')
                             ->email()
                             ->maxLength(255)
