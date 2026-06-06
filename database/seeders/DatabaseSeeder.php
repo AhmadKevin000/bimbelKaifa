@@ -100,7 +100,6 @@ class DatabaseSeeder extends Seeder
             // Create Kelas
             $kelas = Kelas::create([
                 'nama_kelas' => $dj['kelas'],
-                'keterangan' => 'Kelas sampel for ' . $dj['jenjang'],
             ]);
 
             // Create Mapels & Link to Class

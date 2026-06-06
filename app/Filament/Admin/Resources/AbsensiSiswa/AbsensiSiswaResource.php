@@ -18,6 +18,9 @@ class AbsensiSiswaResource extends Resource
     // Point base model to SesiKelas to list sessions that need student absensi
     protected static ?string $model = SesiKelas::class;
 
+    // Hidden — digantikan oleh KehadiranResource
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static string|\UnitEnum|null $navigationGroup = 'Operasional';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Absensi Siswa';

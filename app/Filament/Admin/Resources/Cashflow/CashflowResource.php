@@ -20,7 +20,7 @@ class CashflowResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Keuangan';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationLabel = 'Cashflow';
+    protected static ?string $navigationLabel = 'Arus Kas';
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-banknotes';
 
     public static function form(Schema $schema): Schema
@@ -31,6 +31,75 @@ class CashflowResource extends Resource
     public static function table(Table $table): Table
     {
         return CashflowTable::configure($table);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                \Filament\Schemas\Components\Section::make('Detail Transaksi')
+                    ->icon('heroicon-o-document-text')
+                    ->schema([
+                        \Filament\Infolists\Components\TextEntry::make('type')
+                            ->label('Tipe Transaksi')
+                            ->badge()
+                            ->color(fn (string $state): string => match ($state) {
+                                'income' => 'success',
+                                'expense' => 'danger',
+                                default => 'gray',
+                            })
+                            ->formatStateUsing(fn (string $state): string => match ($state) {
+                                'income' => 'Pemasukan (Income)',
+                                'expense' => 'Pengeluaran (Expense)',
+                                default => $state,
+                            }),
+                        \Filament\Infolists\Components\TextEntry::make('kategori')
+                            ->label('Kategori')
+                            ->badge()
+                            ->color('info')
+                            ->formatStateUsing(fn (string $state): string => match (strtolower($state)) {
+                                'spp' => 'SPP',
+                                'pendaftaran' => 'Pendaftaran',
+                                'gaji_guru' => 'Gaji Guru',
+                                'operasional' => 'Operasional',
+                                default => ucfirst($state),
+                            }),
+                        \Filament\Infolists\Components\TextEntry::make('nominal')
+                            ->label('Nominal')
+                            ->money('IDR', locale: 'id')
+                            ->weight('bold')
+                            ->color(fn ($record) => $record->type === 'income' ? 'success' : 'danger'),
+                        \Filament\Infolists\Components\TextEntry::make('tanggal')
+                            ->label('Tanggal Transaksi')
+                            ->date(),
+                        \Filament\Infolists\Components\TextEntry::make('created_at')
+                            ->label('Waktu Dicatat')
+                            ->dateTime('H:i:s, d M Y'),
+                    ])->columns(2),
+
+                \Filament\Schemas\Components\Section::make('Informasi Sumber & Referensi')
+                    ->icon('heroicon-o-information-circle')
+                    ->schema([
+                        \Filament\Infolists\Components\TextEntry::make('source_snapshot')
+                            ->label('Sumber / Detail')
+                            ->placeholder('-'),
+                        \Filament\Infolists\Components\TextEntry::make('reference_type')
+                            ->label('Tipe Referensi')
+                            ->formatStateUsing(fn (?string $state): string => match ($state) {
+                                \App\Models\Siswa::class => 'Siswa',
+                                \App\Models\Penggajian::class => 'Penggajian (Gaji Guru)',
+                                \App\Models\SesiKelas::class => 'Sesi Kelas',
+                                default => $state ?? '-',
+                            })
+                            ->placeholder('-'),
+                        \Filament\Infolists\Components\TextEntry::make('reference_id')
+                            ->label('ID Referensi')
+                            ->placeholder('-'),
+                        \Filament\Infolists\Components\TextEntry::make('sumber_id')
+                            ->label('ID Sumber (Siswa/Guru)')
+                            ->placeholder('-'),
+                    ])->columns(2),
+            ]);
     }
 
     public static function getRelations(): array
