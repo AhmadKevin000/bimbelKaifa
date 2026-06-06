@@ -110,7 +110,7 @@ class KelasRelationManager extends RelationManager
 
                         $semester = $pivotRecord->semester;
 
-                        // Validate: mapel must not already exist in target sesi for same semester
+                        // validasi mapel exist sebelum dipindah
                         $conflict = SesiKelas::whereHas('pengajaran', function ($q) use ($mapelId) {
                                 $q->where('mapel_id', $mapelId);
                             })
@@ -129,7 +129,7 @@ class KelasRelationManager extends RelationManager
                             return;
                         }
 
-                        // Move: update jadwal_sesi_id on the pivot record
+                        // pindah sesi
                         $pivotRecord->update(['jadwal_sesi_id' => $targetSesiId]);
 
                         $targetSesi = JadwalSesi::find($targetSesiId);

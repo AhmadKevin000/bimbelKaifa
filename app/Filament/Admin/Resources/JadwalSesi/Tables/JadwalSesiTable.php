@@ -87,7 +87,7 @@ class JadwalSesiTable
 
                             $mapelId = $item->mapel_id;
 
-                            // Validation: lock by mapel per semester (not kelas)
+                            // Validasi mapel bentrok
                             $existingOtherSession = SesiKelas::whereHas('pengajaran', function($q) use ($mapelId) {
                                     $q->where('mapel_id', $mapelId);
                                 })

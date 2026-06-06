@@ -24,7 +24,7 @@ class GenerateDailySessions extends Command
     protected $description = 'Otomatis duplikasi jadwal (Sesi Kelas) dari H-7 ke hari ini';
 
     /**
-     * Execute the console command.
+     * Execute the console command.     
      */
     public function handle()
     {
@@ -34,8 +34,8 @@ class GenerateDailySessions extends Command
 
         $this->info("Menjalankan Sinkronisasi Sesi. Target: {$targetDate->format('Y-m-d')}, Sumber (H-7): {$sourceDate->format('Y-m-d')}");
 
-        // Fetch all SessionClass records from exactly 7 days ago
-        $sourceSessions = SessionClass::whereDate('tanggal', $sourceDate)->get();
+        // Fetch all SesiKelas records from exactly 7 days ago
+        $sourceSessions = SesiKelas::whereDate('tanggal', $sourceDate)->get();
 
         if ($sourceSessions->isEmpty()) {
             $this->warn('Tidak ada data sesi pada H-7. Sinkronisasi dihentikan.');
@@ -46,11 +46,11 @@ class GenerateDailySessions extends Command
 
         foreach ($sourceSessions as $session) {
             // Replicate but update the date, prevent duplicate insertion with updateOrCreate
-            $newSession = SessionClass::updateOrCreate([
-                'jadwal_sesi_id' => $session->session_id,
-                'kelas_id'   => $session->kelas_id,
-                'tanggal'    => $targetDate->format('Y-m-d'),
-                'semester'   => $session->semester,
+            $newSession = SesiKelas::updateOrCreate([
+                'jadwal_sesi_id' => $session->jadwal_sesi_id,
+                'pengajaran_id'  => $session->pengajaran_id,
+                'tanggal'        => $targetDate->format('Y-m-d'),
+                'semester'       => $session->semester,
             ]);
 
             if ($newSession->wasRecentlyCreated) {

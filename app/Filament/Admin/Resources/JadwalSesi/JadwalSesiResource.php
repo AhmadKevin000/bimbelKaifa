@@ -20,8 +20,8 @@ class JadwalSesiResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Akademik';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationLabel = 'Manage Sesi';
-    protected static ?string $pluralLabel = 'Manage Sesi';
+    protected static ?string $navigationLabel = 'Kelola Sesi';
+    protected static ?string $pluralLabel = 'Kelola Sesi';
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clock';
 
     public static function getRecordTitle(?\Illuminate\Database\Eloquent\Model $record): ?string

@@ -20,6 +20,9 @@ class AbsensiGuruResource extends Resource
 {
     protected static ?string $model = SesiKelas::class;
 
+    // Hidden — digantikan oleh KehadiranResource
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static string|\UnitEnum|null $navigationGroup = 'Akademik';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Absensi Guru';

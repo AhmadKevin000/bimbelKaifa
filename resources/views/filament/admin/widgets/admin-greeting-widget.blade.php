@@ -82,7 +82,7 @@
         <div class="adm-greeting-left">
             <p class="adm-greeting-sub">{{ $greeting }},</p>
             <h2 class="adm-greeting-name">{{ $userName }} 👋</h2>
-            <p class="adm-greeting-desc">Berikut ringkasan aktivitas dashboard Anda hari ini.</p>
+            <p class="adm-greeting-desc">Aktivitas hari ini.</p>
         </div>
         <div class="adm-greeting-right">
             <div class="adm-greeting-date">
