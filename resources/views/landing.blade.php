@@ -1,130 +1,50 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>KAIFA Tutoring Center | Teman Belajar</title>
+    <title>KAIFA Tutoring Center | Bimbel Terbaik di Malang</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-<<<<<<< Updated upstream
-    
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&family=ABeeZee&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
-        .font-nunito { font-family: 'Nunito Sans', sans-serif; }
-        .font-abeezee { font-family: 'ABeeZee', sans-serif; }
-        
-        /* Custom Gradient Background Header disamakan dengan Footer */
-        .bg-hero-gradient {
-            background: linear-gradient(180deg, #e0f2fe 0%, #7dd3fc 100%);
-            border-bottom-left-radius: 50% 15%;
-            border-bottom-right-radius: 50% 15%;
-        }
-        
-        /* Slider Animation */
-        .slide-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-    </style>
-</head>
-<body class="bg-white text-slate-800 antialiased">
-
-    <nav class="fixed w-full bg-white z-50 shadow-sm">
-        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32">
-            <div class="flex justify-between items-center h-28">
-                <div class="flex-shrink-0 flex items-center">
-                    <img src="{{ asset('images/Kaifa.png') }}" alt="Logo Kaifa" class="h-16 w-auto object-contain">
-                </div>
-
-                <div class="hidden lg:flex space-x-12">
-                    <a href="#hero" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Beranda</a>
-                    <a href="#program" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Program</a>
-                    <a href="#keunggulan" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Keunggulan</a>
-                    <a href="#testimoni" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Testimoni</a>
-                    <a href="#footer" class="text-black text-xl font-normal tracking-wide hover:text-sky-600 transition">Tentang Kami</a>
-                </div>
-
-                <div class="lg:hidden flex items-center">
-                    <button class="text-gray-600 hover:text-sky-600 focus:outline-none">
-                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
-                        </svg>
-                    </button>
-                </div>
-=======
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&family=Nunito+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
     <style>
-        :root {
-            --kaifa-surface: #f7f9fb;
-            --kaifa-surface-low: #f2f4f6;
-            --kaifa-primary: #1a146b;
-            --kaifa-primary-container: #312e81;
-            --kaifa-secondary: #006591;
-            --kaifa-secondary-soft: #c9e6ff;
-            --kaifa-muted: #64748b;
-            --kaifa-cta-start: #f59e0b;
-            --kaifa-cta-end: #f97316;
-        }
-
-        body {
-            overflow-x: hidden;
-            background: var(--kaifa-surface);
-            color: #191c1e;
-            font-family: 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
-        }
-
-        .font-display {
-            font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-        }
-
         .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .cta-button {
-            background: linear-gradient(135deg, var(--kaifa-cta-start) 0%, var(--kaifa-cta-end) 100%);
-            box-shadow: 0 14px 30px -16px rgba(245, 158, 11, 0.75);
-            transition: transform 180ms ease, box-shadow 180ms ease;
+            background: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cta-button:hover {
-            box-shadow: 0 20px 36px -18px rgba(249, 115, 22, 0.85);
+            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
             transform: translateY(-2px);
         }
 
-        .feature-card {
-            box-shadow: 0 4px 20px -2px rgba(49, 46, 129, 0.05);
-            transition: transform 180ms ease, box-shadow 180ms ease;
-        }
-
-        .feature-card:hover {
-            box-shadow: 0 20px 40px -10px rgba(49, 46, 129, 0.12);
-            transform: translateY(-4px);
-        }
-
-        .fade-up {
-            animation: fadeUp 700ms ease-out both;
+        .animate-fade-up {
+            animation: fadeUp 0.8s ease-out forwards;
         }
 
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(18px);
+                transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -132,145 +52,82 @@
         }
     </style>
 </head>
-<body class="antialiased">
-    <nav class="fixed top-0 z-50 w-full border-b border-white/50 bg-white/75 shadow-sm backdrop-blur-xl">
-        <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-16">
+
+<body class="bg-surface font-body-md text-on-surface">
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 bg-surface-white/70 backdrop-blur-md border-b border-surface-white/20 shadow-sm">
+        <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
             <a href="#hero" class="flex items-center gap-3">
                 <img src="{{ asset('images/Kaifa.png') }}" alt="Logo KAIFA" class="h-11 w-auto object-contain">
             </a>
-
-            <div class="hidden items-center gap-8 font-display text-sm font-semibold md:flex">
-                <a href="#program" class="text-slate-600 transition hover:text-[#1a146b]">Program</a>
-                <a href="#tentang" class="text-slate-600 transition hover:text-[#1a146b]">Alumni</a>
-                <a href="#faq" class="text-slate-600 transition hover:text-[#1a146b]">FAQ</a>
-                <a href="#testimoni" class="text-slate-600 transition hover:text-[#1a146b]">Testimoni</a>
+            <div class="hidden md:flex items-center space-x-8 font-label-md text-label-md">
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105" href="#program">Program</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105" href="#tentang">Alumni</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105" href="#faq">FAQ</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105" href="#testimoni">Testimoni</a>
             </div>
-
             <div class="flex items-center gap-3">
-                <a href="https://wa.me/6285232169460" class="cta-button hidden rounded-full px-5 py-3 font-display text-sm font-bold text-white sm:inline-flex">
+                <a href="https://wa.me/6285232169460" target="_blank" class="cta-button px-6 py-3 rounded-full text-white font-label-md text-label-md active:scale-95 inline-block text-center shadow-md">
                     Daftar Sekarang
                 </a>
-                <button id="mobile-menu-button" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-[#1a146b] md:hidden" aria-label="Buka menu">
+                <button id="mobile-menu-button" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-primary md:hidden" aria-label="Buka menu">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
             </div>
         </div>
-
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white/95 px-5 py-4 md:hidden">
-            <div class="flex flex-col gap-4 font-display text-sm font-semibold">
+            <div class="flex flex-col gap-4 font-display-lg text-sm font-semibold">
                 <a href="#program" class="text-slate-700">Program</a>
                 <a href="#tentang" class="text-slate-700">Alumni</a>
                 <a href="#faq" class="text-slate-700">FAQ</a>
                 <a href="#testimoni" class="text-slate-700">Testimoni</a>
-                <a href="https://wa.me/6285232169460" class="cta-button inline-flex w-max rounded-full px-5 py-3 text-white">Daftar Sekarang</a>
->>>>>>> Stashed changes
+                <a href="https://wa.me/6285232169460" target="_blank" class="cta-button inline-flex w-max rounded-full px-5 py-3 text-white">Daftar Sekarang</a>
             </div>
         </div>
     </nav>
 
-<<<<<<< Updated upstream
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-40 overflow-hidden bg-sky-50 rounded-b-[3rem] lg:rounded-b-[10rem]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="text-left mt-20">
-                    <h1 class="text-5xl lg:text-[64px] font-bold leading-tight mb-8">
-                        <span class="text-amber-500 drop-shadow-sm">Belajar Lebih Mudah</span><br />
-                        <span class="text-indigo-900 drop-shadow-sm">Bersama Kaifa</span>
-                    </h1>
-                    <p class="text-slate-700 text-xl md:text-2xl font-nunito leading-relaxed max-w-2xl">
-                        Kaifa hadir sebagai teman belajar terpercaya untuk anak-anak dari usia dini hingga persiapan ujian masuk perguruan tinggi.
-                    </p>
-                </div>
-                <div class="relative w-full flex justify-end">
-                    <img src="{{ asset('images/hero-siswa.png') }}" alt="Siswa SMA" class="w-full max-w-[770px] h-auto object-cover rounded-3xl z-10">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white mt-10">
-        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32">
-            <div class="text-center mb-16">
-                <h2 class="text-indigo-900 text-4xl md:text-5xl font-bold font-nunito mb-6">Keberhasilan Kami</h2>
-                <p class="text-gray-500 text-xl max-w-3xl mx-auto leading-relaxed">Kami terus berkomitmen menghadirkan pendidikan berkualitas dan telah dipercaya oleh ratusan keluarga sejak awal berdiri.</p>
-            </div>
-            <div class="flex flex-wrap justify-center gap-16 lg:gap-32 text-center mt-20">
-                <div class="flex flex-col items-center">
-                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">80+</div>
-                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Siswa Aktif</div>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">3</div>
-                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Program Unggulan</div>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">15+</div>
-                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Pengajar</div>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="text-sky-700 text-7xl lg:text-8xl font-light mb-4">±5</div>
-                    <div class="text-slate-950/80 text-2xl lg:text-3xl font-abeezee">Tahun Berdiri</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="program" class="py-24 bg-white">
-        <div class="max-w-[1920px] mx-auto px-4 sm:px-10 lg:px-32">
-            <div class="text-center mb-20">
-                <h2 class="text-indigo-900 text-4xl md:text-5xl font-bold font-nunito mb-6">Program Kami</h2>
-                <p class="text-gray-500 text-xl max-w-3xl mx-auto leading-relaxed">Kami menyediakan program belajar yang terstruktur dan menyenangkan untuk semua jenjang, mulai dari usia dini hingga persiapan ujian.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">
-                <div class="bg-white rounded-[40px] shadow-[0px_10px_60px_0px_rgba(38,45,118,0.08)] p-12 text-center relative pt-24 mt-12">
-                    <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-indigo-500 rounded-full flex items-center justify-center shadow-[0px_10px_40px_0px_rgba(54,61,136,0.06)]">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h3 class="text-indigo-900 text-3xl font-medium mb-6 mt-4">Calistung AHe</h3>
-                    <p class="text-gray-500 text-xl leading-9">Program membaca, menulis, dan berhitung untuk anak usia dini agar siap memasuki jenjang sekolah dasar.</p>
-                </div>
-=======
     <main class="pt-20">
-        <section id="hero" class="relative flex min-h-[calc(100vh-80px)] items-center overflow-hidden px-5 py-20 md:px-16 lg:py-28">
-            <div class="absolute right-[-12%] top-0 -z-10 h-full w-2/3 rounded-full bg-[#c9e6ff]/50 blur-[120px]"></div>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-[calc(100vh-80px)] flex items-center overflow-hidden px-margin-mobile md:px-margin-desktop py-section-gap">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-secondary-fixed/20 blur-[120px] rounded-full -z-10 translate-x-1/4"></div>
             <div class="absolute left-[-20%] top-20 -z-10 h-72 w-72 rounded-full bg-orange-100/70 blur-[90px]"></div>
 
-            <div class="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
-                <div class="fade-up">
-                    <span class="mb-6 inline-flex items-center rounded-full bg-[#c9e6ff] px-4 py-2 font-display text-sm font-semibold text-[#004c6e] shadow-sm">
-                        <span class="material-symbols-outlined mr-2 text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-                        Dipercaya oleh 80+ siswa di Malang
+            <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
+                <div class="animate-fade-up">
+                    <span class="inline-flex items-center px-4 py-2 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-md text-sm mb-6 shadow-sm">
+                        <span class="material-symbols-outlined text-sm mr-2" style="font-variation-settings: 'FILL' 1;">star</span>
+                        Dipercaya oleh 80+ Siswa di Malang
                     </span>
-                    <h1 class="font-display text-4xl font-extrabold leading-tight text-[#1a146b] md:text-5xl lg:text-6xl">
-                        Raih Kampus Impian Bersama <span class="text-[#006591]">KAIFA Tutoring Center</span>
+                    <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6 leading-tight font-extrabold">
+                        Raih Kampus Impian Bersama <span class="text-secondary">KAIFA Tutoring Center</span>
                     </h1>
-                    <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-lg">
                         Bimbingan belajar intensif dengan kurikulum terpersonalisasi untuk membantumu menaklukkan ujian masuk PTN dan sekolah kedinasan.
                     </p>
-                    <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                        <a href="https://wa.me/6285232169460" class="cta-button inline-flex items-center justify-center rounded-full px-8 py-4 font-display font-bold text-white">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="https://wa.me/6285232169460" target="_blank" class="cta-button px-8 py-4 rounded-full text-white font-bold flex items-center justify-center shadow-lg">
                             Mulai Belajar Sekarang
-                            <span class="material-symbols-outlined ml-2 text-xl">arrow_forward</span>
+                            <span class="material-symbols-outlined ml-2">arrow_forward</span>
                         </a>
-                        <a href="#program" class="inline-flex items-center justify-center rounded-full border-2 border-[#1a146b] px-8 py-4 font-display font-bold text-[#1a146b] transition hover:bg-[#1a146b]/5">
+                        <a href="#program" class="px-8 py-4 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary/5 transition-colors flex items-center justify-center">
                             Lihat Program
                         </a>
                     </div>
                 </div>
-
-                <div class="fade-up relative mx-auto w-full max-w-[560px]" style="animation-delay: 120ms;">
-                    <div class="overflow-hidden rounded-3xl bg-[#006591] shadow-2xl rotate-2 transition duration-500 hover:rotate-0">
-                        <img src="{{ asset('images/hero-siswa.png') }}" alt="Siswa KAIFA" class="h-[420px] w-full object-cover md:h-[520px]">
+                <div class="relative animate-fade-up" style="animation-delay: 0.2s;">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img alt="Siswa KAIFA" class="w-full h-[420px] md:h-[500px] object-cover" src="{{ asset('images/hero-siswa.png') }}" />
                     </div>
-                    <div class="glass-card absolute -bottom-6 -left-2 max-w-[260px] rounded-2xl p-5 shadow-xl md:-left-8">
+                    <!-- Floating Glass Card -->
+                    <div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl shadow-xl max-w-xs animate-bounce" style="animation-duration: 3s;">
                         <div class="flex items-center gap-4">
-                            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-500 text-white">
+                           <div class="w-12 h-12 bg-cta-gradient-start rounded-full flex items-center justify-center text-white">
                                 <span class="material-symbols-outlined">trending_up</span>
                             </div>
                             <div>
-                                <p class="font-display font-extrabold text-[#1a146b]">95% Kelulusan</p>
-                                <p class="text-xs leading-5 text-slate-500">Siswa diterima di PTN Favorit</p>
+                                <p class="font-bold text-primary">95% Kelulusan</p>
+                                <p class="text-xs text-on-surface-variant">Siswa diterima di PTN Favorit</p>
                             </div>
                         </div>
                     </div>
@@ -278,173 +135,216 @@
             </div>
         </section>
 
-        <section id="tentang" class="bg-white px-5 py-20 md:px-16 lg:py-28">
-            <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-                <div class="overflow-hidden rounded-3xl bg-[#006591] shadow-2xl rotate-2 transition duration-500 hover:rotate-0">
-                    <img src="{{ asset('images/keunggulan1.png') }}" alt="Kegiatan belajar KAIFA" class="h-[360px] w-full object-cover md:h-[500px]">
-                </div>
-
-                <div>
-                    <h2 class="font-display text-3xl font-extrabold text-[#1a146b] md:text-5xl">Tentang KAIFA</h2>
-                    <p class="mt-6 text-lg leading-8 text-slate-600">
-                        KAIFA (Karya Inspirasi Family) adalah pusat bimbingan belajar yang lahir dari semangat untuk memberikan pendidikan berkualitas yang personal dan menyenangkan. Kami percaya bahwa setiap anak memiliki potensi unik yang perlu diasah dengan metode yang tepat.
-                    </p>
-
-                    <div class="mt-10 grid gap-5 sm:grid-cols-2">
-                        <div class="feature-card rounded-3xl border border-slate-100 bg-white p-6">
-                            <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#c9e6ff] text-[#006591]">
-                                <span class="material-symbols-outlined">visibility</span>
+        <!-- Alumni Section -->
+        <section class="py-section-gap bg-surface-container-lowest overflow-hidden" id="tentang">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="animate-fade-up rounded-3xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img alt="Kegiatan belajar KAIFA" class="w-full h-[360px] md:h-[500px] object-cover" src="{{ asset('images/keunggulan1.png') }}" />
+                    </div>
+                    <div class="animate-fade-up" style="animation-delay: 0.2s;">
+                        <h2 class="font-display-lg text-headline-md md:text-display-lg text-primary mb-8 font-extrabold">Tentang KAIFA</h2>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed">
+                            KAIFA (Karya Inspirasi Family) adalah pusat bimbingan belajar yang lahir dari semangat untuk memberikan pendidikan berkualitas yang personal dan menyenangkan. Kami percaya bahwa setiap anak memiliki potensi unik yang perlu diasah dengan metode yang tepat.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="p-6 bg-surface-white rounded-2xl border border-outline-variant shadow-sm">
+                                <div class="w-10 h-10 bg-secondary-fixed rounded-xl flex items-center justify-center text-on-secondary-fixed-variant mb-4">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </div>
+                                <h3 class="font-headline-sm text-primary mb-2 font-bold">Visi Kami</h3>
+                                <p class="text-body-md text-on-surface-variant text-sm">Menjadi pusat keunggulan akademik yang mencetak generasi cerdas, berkarakter, dan siap bersaing di tingkat global.</p>
                             </div>
-                            <h3 class="font-display text-lg font-extrabold text-[#1a146b]">Visi Kami</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-600">Menjadi pusat keunggulan akademik yang mencetak generasi cerdas, berkarakter, dan siap bersaing di tingkat global.</p>
-                        </div>
-                        <div class="feature-card rounded-3xl border border-slate-100 bg-white p-6">
-                            <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#c9e6ff] text-[#006591]">
-                                <span class="material-symbols-outlined">flag</span>
+                            <div class="p-6 bg-surface-white rounded-2xl border border-outline-variant shadow-sm">
+                                <div class="w-10 h-10 bg-secondary-fixed rounded-xl flex items-center justify-center text-on-secondary-fixed-variant mb-4">
+                                    <span class="material-symbols-outlined">flag</span>
+                                </div>
+                                <h3 class="font-headline-sm text-primary mb-2 font-bold">Misi Kami</h3>
+                                <p class="text-body-md text-on-surface-variant text-sm">Mendampingi setiap siswa mencapai prestasi terbaiknya melalui pendekatan humanis dan kurikulum adaptif.</p>
                             </div>
-                            <h3 class="font-display text-lg font-extrabold text-[#1a146b]">Misi Kami</h3>
-                            <p class="mt-2 text-sm leading-6 text-slate-600">Mendampingi setiap siswa mencapai prestasi terbaiknya melalui pendekatan humanis dan kurikulum adaptif.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="program" class="px-5 py-20 md:px-16 lg:py-28">
-            <div class="mx-auto max-w-7xl">
-                <div class="mx-auto mb-14 max-w-2xl text-center">
-                    <h2 class="font-display text-3xl font-extrabold text-[#1a146b] md:text-5xl">Program Unggulan Kami</h2>
-                    <p class="mt-4 text-lg leading-8 text-slate-600">Pilih program yang paling sesuai dengan tahap belajar dan target akademik siswa.</p>
+        <!-- Programs Section -->
+        <section class="py-section-gap px-margin-mobile md:px-margin-desktop" id="program">
+            <div class="max-w-container-max mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-display-lg text-headline-md md:text-display-lg text-primary mb-4 font-extrabold">Program Unggulan Kami</h2>
+                    <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">Pilih paket belajar yang paling sesuai dengan kebutuhan dan target akademikmu.</p>
                 </div>
-
-                <div class="grid gap-8 md:grid-cols-3">
-                    <article class="feature-card flex flex-col rounded-3xl border border-slate-200 bg-white p-8">
-                        <div class="mb-7">
-                            <h3 class="font-display text-2xl font-extrabold text-[#1a146b]">Mandiri</h3>
-                            <p class="mt-2 text-sm text-slate-500">Fokus pada pendalaman materi dasar</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Basic Program -->
+                    <div class="bg-surface-white p-8 rounded-3xl border border-outline-variant shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
+                        <div class="mb-6">
+                            <h3 class="font-display-lg text-headline-sm text-primary mb-2 font-bold">Mandiri</h3>
+                            <p class="text-on-surface-variant text-sm">Fokus pada pendalaman materi dasar</p>
                         </div>
-                        <ul class="mb-10 flex-grow space-y-4">
-                            <li class="flex gap-3 text-slate-700"><span class="material-symbols-outlined text-[#006591]">check_circle</span>3x Pertemuan / Minggu</li>
-                            <li class="flex gap-3 text-slate-700"><span class="material-symbols-outlined text-[#006591]">check_circle</span>Modul Pembelajaran Lengkap</li>
-                            <li class="flex gap-3 text-slate-700"><span class="material-symbols-outlined text-[#006591]">check_circle</span>Try Out Bulanan</li>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                <span class="text-on-surface">3x Pertemuan / Minggu</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                <span class="text-on-surface">Modul Pembelajaran Lengkap</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                <span class="text-on-surface">Try Out Bulanan</span>
+                            </li>
                         </ul>
-                        <a href="https://wa.me/6285232169460" class="rounded-xl border-2 border-[#006591] px-5 py-4 text-center font-display font-bold text-[#006591] transition hover:bg-[#006591] hover:text-white">Detail Program</a>
-                    </article>
-
-                    <article class="relative flex scale-[1.02] flex-col rounded-3xl bg-[#1a146b] p-8 shadow-2xl md:scale-105">
-                        <span class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-amber-500 px-4 py-1 font-display text-xs font-extrabold uppercase tracking-widest text-white">Terpopuler</span>
-                        <div class="mb-7">
-                            <h3 class="font-display text-2xl font-extrabold text-white">Reguler</h3>
-                            <p class="mt-2 text-sm text-[#c3c0ff]">Persiapan UTBK & Ujian Mandiri PTN</p>
-                        </div>
-                        <ul class="mb-10 flex-grow space-y-4">
-                            <li class="flex gap-3 text-white"><span class="material-symbols-outlined text-[#39b8fd]">check_circle</span>5x Pertemuan / Minggu</li>
-                            <li class="flex gap-3 text-white"><span class="material-symbols-outlined text-[#39b8fd]">check_circle</span>Konsultasi Jurusan Private</li>
-                            <li class="flex gap-3 text-white"><span class="material-symbols-outlined text-[#39b8fd]">check_circle</span>Try Out Mingguan</li>
-                            <li class="flex gap-3 text-white"><span class="material-symbols-outlined text-[#39b8fd]">check_circle</span>Bank Soal Eksklusif</li>
-                        </ul>
-                        <a href="https://wa.me/6285232169460" class="cta-button rounded-xl px-5 py-4 text-center font-display font-extrabold text-white">Daftar Sekarang</a>
-                    </article>
-
-                    <article class="feature-card flex flex-col rounded-3xl border border-slate-200 bg-white p-8">
-                        <div class="mb-7">
-                            <h3 class="font-display text-2xl font-extrabold text-[#1a146b]">Kedinasan</h3>
-                            <p class="mt-2 text-sm text-slate-500">Fokus STAN, STIS, IPDN & Poltek</p>
-                        </div>
-                        <ul class="mb-10 flex-grow space-y-4">
-                            <li class="flex gap-3 text-slate-700"><span class="material-symbols-outlined text-[#006591]">check_circle</span>Materi SKD & Psikotes</li>
-                            <li class="flex gap-3 text-slate-700"><span class="material-symbols-outlined text-[#006591]">check_circle</span>Latihan Fisik & Wawancara</li>
-                            <li class="flex gap-3 text-slate-700"><span class="material-symbols-outlined text-[#006591]">check_circle</span>Super Intensif (Setiap Hari)</li>
-                        </ul>
-                        <a href="https://wa.me/6285232169460" class="rounded-xl border-2 border-[#006591] px-5 py-4 text-center font-display font-bold text-[#006591] transition hover:bg-[#006591] hover:text-white">Detail Program</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-[#f2f4f6] px-5 py-20 md:px-16 lg:py-28">
-            <div class="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2">
-                <div>
-                    <h2 class="font-display text-3xl font-extrabold text-[#1a146b] md:text-5xl">Fasilitas Belajar Premium</h2>
-                    <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">Kami percaya lingkungan yang nyaman dan teknologi yang tepat adalah kunci efektivitas belajar.</p>
-
-                    <div class="mt-12 grid gap-7 sm:grid-cols-2">
-                        <div class="flex gap-4">
-                            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-[#006591] shadow-md"><span class="material-symbols-outlined text-3xl">computer</span></div>
-                            <div>
-                                <h3 class="font-display font-extrabold text-[#1a146b]">CBT System</h3>
-                                <p class="mt-1 text-sm leading-6 text-slate-600">Simulasi ujian berbasis komputer seperti UTBK asli.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-[#006591] shadow-md"><span class="material-symbols-outlined text-3xl">ac_unit</span></div>
-                            <div>
-                                <h3 class="font-display font-extrabold text-[#1a146b]">AC Room</h3>
-                                <p class="mt-1 text-sm leading-6 text-slate-600">Ruang kelas sejuk dan nyaman maksimal 10 siswa.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-[#006591] shadow-md"><span class="material-symbols-outlined text-3xl">person_celebrate</span></div>
-                            <div>
-                                <h3 class="font-display font-extrabold text-[#1a146b]">Tutor Expert</h3>
-                                <p class="mt-1 text-sm leading-6 text-slate-600">Pengajar berpengalaman dari PTN ternama.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-[#006591] shadow-md"><span class="material-symbols-outlined text-3xl">library_books</span></div>
-                            <div>
-                                <h3 class="font-display font-extrabold text-[#1a146b]">Modul Update</h3>
-                                <p class="mt-1 text-sm leading-6 text-slate-600">Materi disusun berdasarkan kisi-kisi terbaru.</p>
-                            </div>
-                        </div>
+                        <a href="https://wa.me/6285232169460" target="_blank" class="w-full py-4 rounded-xl border-2 border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-colors text-center block">Detail Program</a>
                     </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-4">
-                        <img src="{{ asset('images/keunggulan2.png') }}" alt="Laporan belajar KAIFA" class="h-64 w-full rounded-3xl object-cover shadow-lg">
-                        <img src="{{ asset('images/rapor_pdf_mockup.png') }}" alt="Contoh rapor perkembangan" class="h-48 w-full rounded-3xl bg-white object-contain p-4 shadow-lg">
+                    <!-- Reguler Program (Featured) -->
+                    <div class="relative bg-primary p-8 rounded-3xl shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col scale-105 z-10">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-cta-gradient-start px-4 py-1 rounded-full text-white text-xs font-bold tracking-widest uppercase">
+                            Terpopuler
+                        </div>
+                        <div class="mb-6">
+                            <h3 class="font-display-lg text-headline-sm text-white mb-2 font-bold">Reguler</h3>
+                            <p class="text-primary-fixed-dim text-sm">Persiapan UTBK &amp; Ujian Mandiri PTN</p>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                <span class="text-white">5x Pertemuan / Minggu</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                <span class="text-white">Konsultasi Jurusan Private</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                <span class="text-white">Try Out Mingguan</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                <span class="text-white">Bank Soal Eksklusif</span>
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/6285232169460" target="_blank" class="cta-button w-full py-4 rounded-xl text-white font-bold text-center block shadow-lg">Daftar Sekarang</a>
                     </div>
-                    <div class="space-y-4 pt-8">
-                        <img src="{{ asset('images/keunggulan3.png') }}" alt="Kurikulum KAIFA" class="h-48 w-full rounded-3xl object-cover shadow-lg">
-                        <img src="{{ asset('images/hero-siswa.png') }}" alt="Siswa KAIFA" class="h-64 w-full rounded-3xl bg-white object-contain p-4 shadow-lg">
+                    <!-- Intensive Program -->
+                    <div class="bg-surface-white p-8 rounded-3xl border border-outline-variant shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
+                        <div class="mb-6">
+                            <h3 class="font-display-lg text-headline-sm text-primary mb-2 font-bold">Kedinasan</h3>
+                            <p class="text-on-surface-variant text-sm">Fokus STAN, STIS, IPDN &amp; Poltek</p>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                <span class="text-on-surface">Materi SKD &amp; Psikotes</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                <span class="text-on-surface">Latihan Fisik &amp; Wawancara</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                <span class="text-on-surface">Super Intensif (Setiap Hari)</span>
+                            </li>
+                        </ul>
+                        <a href="https://wa.me/6285232169460" target="_blank" class="w-full py-4 rounded-xl border-2 border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-colors text-center block">Detail Program</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="faq" class="px-5 py-20 md:px-16 lg:py-28">
-            <div class="mx-auto max-w-3xl">
-                <div class="mb-12 text-center">
-                    <h2 class="font-display text-3xl font-extrabold text-[#1a146b] md:text-4xl">Paling Sering Ditanyakan</h2>
-                    <p class="mt-4 text-slate-600">Punya pertanyaan? Mungkin jawabannya ada di sini.</p>
+        <!-- Facilities Section -->
+        <section class="py-section-gap bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-container-max mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-center">
+                    <div>
+                        <h2 class="font-display-lg text-headline-md md:text-display-lg text-primary mb-8 font-extrabold">Fasilitas Belajar Premium</h2>
+                        <p class="font-body-lg text-on-surface-variant mb-12">Kami percaya lingkungan yang nyaman dan teknologi yang tepat adalah kunci efektivitas belajar.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            <div class="flex gap-4">
+                                <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center flex-shrink-0 text-secondary">
+                                    <span class="material-symbols-outlined text-3xl">computer</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-1">CBT System</h4>
+                                    <p class="text-sm text-on-surface-variant">Simulasi ujian berbasis komputer seperti UTBK asli.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center flex-shrink-0 text-secondary">
+                                    <span class="material-symbols-outlined text-3xl">ac_unit</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-1">AC Room</h4>
+                                    <p class="text-sm text-on-surface-variant">Ruang kelas sejuk dan nyaman maksimal 10 siswa.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center flex-shrink-0 text-secondary">
+                                    <span class="material-symbols-outlined text-3xl">person_celebrate</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-1">Tutor Expert</h4>
+                                    <p class="text-sm text-on-surface-variant">Pengajar berpengalaman dari PTN ternama.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center flex-shrink-0 text-secondary">
+                                    <span class="material-symbols-outlined text-3xl">library_books</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-1">Modul Update</h4>
+                                    <p class="text-sm text-on-surface-variant">Materi disusun berdasarkan kisi-kisi terbaru.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <img class="rounded-3xl h-64 w-full object-cover shadow-lg" src="{{ asset('images/keunggulan2.png') }}" alt="Library KAIFA" />
+                            <img class="rounded-3xl h-48 w-full object-cover shadow-lg p-2 bg-white" src="{{ asset('images/rapor_pdf_mockup.png') }}" alt="Rapor KAIFA" />
+                        </div>
+                        <div class="space-y-4 pt-8">
+                            <img class="rounded-3xl h-48 w-full object-cover shadow-lg" src="{{ asset('images/keunggulan3.png') }}" alt="Tutor Guidance" />
+                            <img class="rounded-3xl h-64 w-full object-cover shadow-lg" src="{{ asset('images/hero-siswa.png') }}" alt="Student Lounge" />
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
 
+        <!-- FAQ Section -->
+        <section class="py-section-gap px-margin-mobile md:px-margin-desktop" id="faq">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-display-lg text-headline-md text-primary mb-4 font-extrabold">Paling Sering Ditanyakan</h2>
+                    <p class="text-on-surface-variant">Punya pertanyaan? Mungkin jawabannya ada di sini.</p>
+                </div>
                 <div class="space-y-4">
-                    <details class="group overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-display font-extrabold text-[#1a146b]">
-                            Berapa biaya bimbingan di KAIFA?
-                            <span class="material-symbols-outlined transition group-open:rotate-180">expand_more</span>
+                    <details class="group bg-surface-white rounded-2xl border border-outline-variant overflow-hidden transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-bold text-primary select-none">
+                            Berapa rincian biaya bimbingan di KAIFA?
+                            <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                         </summary>
-                        <div class="border-t border-slate-100 p-6 pt-4 leading-7 text-slate-600">
+                        <div class="p-6 pt-0 text-on-surface-variant border-t border-outline-variant/30 leading-relaxed">
                             Biaya bimbingan bervariasi tergantung program yang dipilih, mulai dari Rp 500.000/bulan. Tersedia pilihan pembayaran cicilan dan diskon khusus bagi siswa berprestasi.
                         </div>
                     </details>
-                    <details class="group overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-display font-extrabold text-[#1a146b]">
+                    <details class="group bg-surface-white rounded-2xl border border-outline-variant overflow-hidden transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-bold text-primary select-none">
                             Apakah ada pembatasan jumlah siswa per kelas?
-                            <span class="material-symbols-outlined transition group-open:rotate-180">expand_more</span>
+                            <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                         </summary>
-                        <div class="border-t border-slate-100 p-6 pt-4 leading-7 text-slate-600">
+                        <div class="p-6 pt-0 text-on-surface-variant border-t border-outline-variant/30 leading-relaxed">
                             Ya, demi efektivitas belajar, kami membatasi maksimal 10 siswa per kelas untuk program Reguler dan Mandiri, serta maksimal 5 siswa untuk program VIP.
                         </div>
                     </details>
-                    <details class="group overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-display font-extrabold text-[#1a146b]">
+                    <details class="group bg-surface-white rounded-2xl border border-outline-variant overflow-hidden transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-bold text-primary select-none">
                             Bagaimana jadwal belajar di KAIFA?
-                            <span class="material-symbols-outlined transition group-open:rotate-180">expand_more</span>
+                            <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                         </summary>
-                        <div class="border-t border-slate-100 p-6 pt-4 leading-7 text-slate-600">
+                        <div class="p-6 pt-0 text-on-surface-variant border-t border-outline-variant/30 leading-relaxed">
                             Kami menyediakan jadwal pagi, siang, dan sore (15.30 - 17.30). Siswa dapat memilih sesi yang paling tidak mengganggu kegiatan sekolah utama.
                         </div>
                     </details>
@@ -452,61 +352,76 @@
             </div>
         </section>
 
-        <section id="testimoni" class="relative overflow-hidden bg-[#1a146b] px-5 py-20 md:px-16 lg:py-28">
-            <span class="material-symbols-outlined pointer-events-none absolute left-8 top-8 text-[180px] text-white/5" style="font-variation-settings: 'FILL' 1;">format_quote</span>
-            <div class="relative z-10 mx-auto max-w-7xl">
-                <h2 class="mb-14 text-center font-display text-3xl font-extrabold text-white md:text-5xl">Apa Kata Mereka?</h2>
-
-                <div class="mx-auto max-w-3xl overflow-hidden">
-                    <div id="testimonial-track" class="flex transition-transform duration-500 ease-in-out">
-                        <article class="w-full flex-shrink-0 px-2">
-                            <div class="rounded-3xl border border-white/10 bg-white/10 p-8 text-center text-white backdrop-blur-md md:p-10">
-                                <p class="mx-auto max-w-2xl text-lg italic leading-8 md:text-xl">"KAIFA membantu saya memahami konsep Matematika yang sulit dengan cara yang sangat sederhana. Berkat tutor di sini, saya berhasil lolos di Kedokteran UB!"</p>
-                                <div class="mt-8 flex items-center justify-center gap-4">
-                                    <div class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#c9e6ff] font-display font-extrabold text-[#1a146b]">A</div>
+        <!-- Testimonials Section -->
+        <section class="py-section-gap bg-primary relative overflow-hidden px-margin-mobile md:px-margin-desktop" id="testimoni">
+            <span class="material-symbols-outlined absolute top-10 left-10 text-[200px] text-white/5 pointer-events-none" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+            <div class="max-w-container-max mx-auto relative z-10">
+                <h2 class="font-display-lg text-headline-md md:text-display-lg text-white text-center mb-16 font-extrabold">Apa Kata Mereka?</h2>
+                <div class="flex overflow-hidden relative" id="testimonial-slider">
+                    <div class="flex transition-transform duration-500 ease-in-out w-full" id="slider-track" style="transform: translateX(0%);">
+                        <!-- Testimonial 1 -->
+                        <div class="w-full flex-shrink-0 px-4">
+                            <div class="bg-white/10 backdrop-blur-md p-10 rounded-3xl border border-white/10 max-w-2xl mx-auto text-center">
+                                <p class="text-white text-xl italic mb-8">"KAIFA membantu saya memahami konsep Matematika yang sulit dengan cara yang sangat sederhana. Berkat tutor di sini, saya berhasil lolos di Kedokteran UB!"</p>
+                                <div class="flex items-center justify-center gap-4">
+                                    <div class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#c9e6ff] font-display-lg font-extrabold text-[#1a146b]">
+                                        A
+                                    </div>
                                     <div class="text-left">
-                                        <p class="font-display font-extrabold text-white">Adinda Rahma</p>
-                                        <p class="text-sm text-[#c3c0ff]">Alumni Kedokteran UB</p>
+                                        <p class="text-white font-bold">Adinda Rahma</p>
+                                        <p class="text-secondary-fixed-dim text-sm">Alumni Kedokteran UB</p>
                                     </div>
                                 </div>
                             </div>
-                        </article>
-                        <article class="w-full flex-shrink-0 px-2">
-                            <div class="rounded-3xl border border-white/10 bg-white/10 p-8 text-center text-white backdrop-blur-md md:p-10">
-                                <p class="mx-auto max-w-2xl text-lg italic leading-8 md:text-xl">"Fasilitas CBT-nya sangat membantu membiasakan diri dengan tekanan waktu saat ujian asli. Modulnya juga sangat update dengan soal-soal HOTS terbaru."</p>
-                                <div class="mt-8 flex items-center justify-center gap-4">
-                                    <div class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#c9e6ff] font-display font-extrabold text-[#1a146b]">F</div>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="w-full flex-shrink-0 px-4">
+                            <div class="bg-white/10 backdrop-blur-md p-10 rounded-3xl border border-white/10 max-w-2xl mx-auto text-center">
+                                <p class="text-white text-xl italic mb-8">"Fasilitas CBT-nya sangat membantu membiasakan diri dengan tekanan waktu saat ujian asli. Modulnya juga sangat update dengan soal-soal HOTS terbaru."</p>
+                                <div class="flex items-center justify-center gap-4">
+                                    <div class="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#c9e6ff] font-display-lg font-extrabold text-[#1a146b]">
+                                        F
+                                    </div>
                                     <div class="text-left">
-                                        <p class="font-display font-extrabold text-white">Farel Prasetyo</p>
-                                        <p class="text-sm text-[#c3c0ff]">Alumni STEI ITB</p>
+                                        <p class="text-white font-bold">Farel Prasetyo</p>
+                                        <p class="text-secondary-fixed-dim text-sm">Alumni STEI ITB</p>
                                     </div>
                                 </div>
                             </div>
-                        </article>
+                        </div>
                     </div>
                 </div>
-
-                <div class="mt-8 flex justify-center gap-2">
-                    <button type="button" class="testimonial-dot h-3 w-3 rounded-full bg-white transition" data-slide="0" aria-label="Testimoni 1"></button>
-                    <button type="button" class="testimonial-dot h-3 w-3 rounded-full bg-white/30 transition" data-slide="1" aria-label="Testimoni 2"></button>
+                <div class="flex justify-center gap-2 mt-8">
+                    <button class="w-3 h-3 rounded-full transition-all bg-white" id="dot-0" onclick="moveSlider(0)" aria-label="Testimonial 1"></button>
+                    <button class="w-3 h-3 rounded-full transition-all bg-white/30" id="dot-1" onclick="moveSlider(1)" aria-label="Testimonial 2"></button>
                 </div>
             </div>
         </section>
 
-        <section class="px-5 py-16 md:px-16 lg:py-24">
-            <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-gradient-to-r from-[#1a146b] to-[#006591] px-8 py-14 text-center shadow-2xl md:px-20 md:py-20">
-                <div class="absolute inset-0 opacity-10">
-                    <div class="grid h-full grid-cols-8">
-                        @for ($i = 0; $i < 32; $i++)
-                            <div class="border-b border-r border-white"></div>
-                        @endfor
+        <!-- WhatsApp CTA -->
+        <section class="py-20 px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-container-max mx-auto bg-gradient-to-r from-primary to-secondary rounded-[40px] p-10 md:p-20 text-center relative overflow-hidden shadow-xl">
+                <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                    <div class="grid grid-cols-10 h-full w-full">
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
+                        <div class="border-r border-b border-white"></div>
                     </div>
                 </div>
                 <div class="relative z-10">
-                    <h2 class="font-display text-3xl font-extrabold text-white md:text-5xl">Siap Meraih Prestasi Impianmu?</h2>
-                    <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#c9e6ff]">Konsultasikan kebutuhan belajarmu dengan tim ahli kami secara gratis via WhatsApp.</p>
-                    <a href="https://wa.me/6285232169460" class="mt-9 inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 font-display font-extrabold text-[#1a146b] shadow-xl transition hover:bg-[#c9e6ff]">
-                        <svg class="h-6 w-6 fill-green-500" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82c1.516.903 3.123 1.379 4.763 1.38h.005c5.333 0 9.674-4.34 9.677-9.674.002-2.586-1.003-5.015-2.83-6.841-1.827-1.827-4.255-2.831-6.842-2.831-5.334 0-9.675 4.341-9.677 9.675-.001 1.751.463 3.454 1.341 4.956l-.996 3.637 3.719-.976zm11.233-6.076c-.305-.152-1.805-.891-2.084-.993-.279-.101-.482-.152-.684.152-.203.304-.787.993-.965 1.194-.177.202-.355.228-.66.076-.304-.152-1.285-.474-2.447-1.511-.904-.806-1.514-1.802-1.691-2.105-.178-.304-.019-.468.133-.619.137-.136.305-.355.457-.533.151-.177.203-.304.304-.507.102-.202.051-.38-.025-.532-.076-.152-.684-1.648-.938-2.257-.247-.594-.499-.514-.684-.523-.177-.009-.38-.011-.583-.011s-.532.076-.811.38c-.279.304-1.065 1.039-1.065 2.535s1.09 2.94 1.242 3.143c.152.202 2.144 3.275 5.193 4.591.725.313 1.291.5 1.731.64.729.231 1.391.199 1.915.121.584-.087 1.805-.735 2.058-1.444.253-.709.253-1.317.177-1.444-.075-.127-.278-.203-.583-.355z"></path></svg>
+                    <h2 class="font-display-lg text-headline-md md:text-display-lg text-white mb-6 font-extrabold">Siap Meraih Prestasi Impianmu?</h2>
+                    <p class="text-secondary-fixed text-lg mb-10 max-w-xl mx-auto">Konsultasikan kebutuhan belajarmu dengan tim ahli kami secara gratis via WhatsApp.</p>
+                    <a class="inline-flex items-center gap-3 bg-white text-primary px-10 py-5 rounded-full font-bold text-lg hover:bg-secondary-fixed transition-colors shadow-2xl" href="https://wa.me/6285232169460" target="_blank">
+                        <svg class="w-6 h-6 fill-green-500" viewBox="0 0 24 24">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82c1.516.903 3.123 1.379 4.763 1.38h.005c5.333 0 9.674-4.34 9.677-9.674.002-2.586-1.003-5.015-2.83-6.841-1.827-1.827-4.255-2.831-6.842-2.831-5.334 0-9.675 4.341-9.677 9.675-.001 1.751.463 3.454 1.341 4.956l-.996 3.637 3.719-.976zm11.233-6.076c-.305-.152-1.805-.891-2.084-.993-.279-.101-.482-.152-.684.152-.203.304-.787.993-.965 1.194-.177.202-.355.228-.66.076-.304-.152-1.285-.474-2.447-1.511-.904-.806-1.514-1.802-1.691-2.105-.178-.304-.019-.468.133-.619.137-.136.305-.355.457-.533.151-.177.203-.304.304-.507.102-.202.051-.38-.025-.532-.076-.152-.684-1.648-.938-2.257-.247-.594-.499-.514-.684-.523-.177-.009-.38-.011-.583-.011s-.532.076-.811.38c-.279.304-1.065 1.039-1.065 2.535s1.09 2.94 1.242 3.143c.152.202 2.144 3.275 5.193 4.591.725.313 1.291.5 1.731.64.729.231 1.391.199 1.915.121.584-.087 1.805-.735 2.058-1.444.253-.709.253-1.317.177-1.444-.075-.127-.278-.203-.583-.355z"></path>
+                        </svg>
                         Hubungi Admin Sekarang
                     </a>
                 </div>
@@ -514,60 +429,98 @@
         </section>
     </main>
 
-    <footer class="border-t border-slate-200 bg-white px-5 py-16 md:px-16">
-        <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest border-t border-outline-variant py-section-gap w-full">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto font-body-md text-body-md">
             <div>
-                <img src="{{ asset('images/Kaifa.png') }}" alt="Logo KAIFA" class="mb-6 h-14 w-auto object-contain">
-                <p class="leading-7 text-slate-600">Partner terpercaya persiapan masa depan akademik siswa terbaik di Malang.</p>
-                <div class="mt-6 flex gap-4 text-[#1a146b]">
-                    <span class="material-symbols-outlined">photo_camera</span>
-                    <span class="material-symbols-outlined">alternate_email</span>
-                    <span class="material-symbols-outlined">call</span>
+                <a href="#hero" class="inline-block mb-6">
+                    <img src="{{ asset('images/Kaifa.png') }}" alt="Logo KAIFA" class="h-14 w-auto object-contain">
+                </a>
+                <p class="text-on-surface-variant mb-6">Partner terpercaya persiapan masa depan akademik siswa terbaik di Malang.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">photo_camera</span></a>
+                    <a href="mailto:info@kaifa.edu" class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">alternate_email</span></a>
+                    <a href="tel:+6285232169460" class="text-primary hover:scale-110 transition-transform"><span class="material-symbols-outlined">call</span></a>
                 </div>
             </div>
-
             <div>
-                <h3 class="mb-6 font-display font-extrabold text-[#1a146b]">Quick Links</h3>
-                <ul class="space-y-4 text-slate-600">
-                    <li><a href="#tentang" class="transition hover:text-[#006591]">Tentang Kami</a></li>
-                    <li><a href="#program" class="transition hover:text-[#006591]">Program Unggulan</a></li>
-                    <li><a href="#faq" class="transition hover:text-[#006591]">Bantuan</a></li>
-                    <li><a href="#" class="transition hover:text-[#006591]">Kebijakan Privasi</a></li>
+                <h4 class="font-bold text-primary mb-6">Quick Links</h4>
+                <ul class="space-y-4">
+                    <li><a class="text-on-surface-variant hover:text-secondary hover:translate-x-1 transition-transform inline-block" href="#tentang">Tentang Kami</a></li>
+                    <li><a class="text-on-surface-variant hover:text-secondary hover:translate-x-1 transition-transform inline-block" href="#program">Program Unggulan</a></li>
+                    <li><a class="text-on-surface-variant hover:text-secondary hover:translate-x-1 transition-transform inline-block" href="#faq">Bantuan</a></li>
+                    <li><a class="text-on-surface-variant hover:text-secondary hover:translate-x-1 transition-transform inline-block" href="#">Kebijakan Privasi</a></li>
                 </ul>
             </div>
-
             <div>
-                <h3 class="mb-6 font-display font-extrabold text-[#1a146b]">Kontak & Alamat</h3>
-                <div class="space-y-4 text-slate-600">
-                    <p class="flex gap-3"><span class="material-symbols-outlined text-[#006591]">location_on</span>Perumahan Sulfat Indah, Malang, Jawa Timur</p>
-                    <p class="flex gap-3"><span class="material-symbols-outlined text-[#006591]">call</span>+62 812-3456-7890</p>
-                    <p class="flex gap-3"><span class="material-symbols-outlined text-[#006591]">mail</span>info@kaifa.edu</p>
+                <h4 class="font-bold text-primary mb-6">Kontak &amp; Alamat</h4>
+                <div class="space-y-4 text-on-surface-variant">
+                    <p class="flex gap-3">
+                        <span class="material-symbols-outlined text-secondary">location_on</span>
+                        Perumahan Sulfat Indah, Malang, Jawa Timur
+                    </p>
+                    <p class="flex gap-3">
+                        <span class="material-symbols-outlined text-secondary">call</span>
+                        +62 852-3216-9460
+                    </p>
+                    <p class="flex gap-3">
+                        <span class="material-symbols-outlined text-secondary">mail</span>
+                        info@kaifa.edu
+                    </p>
                 </div>
             </div>
-
             <div>
-                <h3 class="mb-6 font-display font-extrabold text-[#1a146b]">Jam Operasional</h3>
-                <div class="space-y-2 text-slate-600">
-                    <p class="font-extrabold text-slate-800">Senin - Sabtu</p>
-                    <p>08.00 - 18.00 WIB</p>
-                    <p class="pt-4 font-extrabold text-slate-800">Minggu</p>
+                <h4 class="font-bold text-primary mb-6">Jam Operasional</h4>
+                <div class="space-y-2 text-on-surface-variant">
+                    <p class="font-bold">Senin - Sabtu</p>
+                    <p>08:00 - 18:00 WIB</p>
+                    <p class="mt-4 font-bold">Minggu</p>
                     <p>Tutup (Hanya kelas VIP)</p>
                 </div>
             </div>
         </div>
-
-        <div class="mx-auto mt-14 max-w-7xl border-t border-slate-200 pt-8 text-center text-sm text-slate-500">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-section-gap pt-8 border-t border-outline-variant text-center text-on-surface-variant/80 text-sm">
             &copy; 2026 KAIFA Tutoring Center. All rights reserved.
         </div>
     </footer>
 
     <script>
+        // Simple Slider Logic
+        let currentSlide = 0;
+        const totalSlides = 2;
+
+        function moveSlider(index) {
+            currentSlide = index;
+            const track = document.getElementById('slider-track');
+            if (track) {
+                track.style.transform = `translateX(-${index * 100}%)`;
+            }
+
+            // Update dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (dot) {
+                    if (i === index) {
+                        dot.classList.remove('bg-white/30');
+                        dot.classList.add('bg-white');
+                    } else {
+                        dot.classList.add('bg-white/30');
+                        dot.classList.remove('bg-white');
+                    }
+                }
+            }
+        }
+
+        // Auto play slider
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            moveSlider(currentSlide);
+        }, 5000);
+
+        // Mobile Menu toggle & smooth scrolling
         document.addEventListener('DOMContentLoaded', () => {
             const mobileButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const track = document.getElementById('testimonial-track');
-            const dots = document.querySelectorAll('.testimonial-dot');
-            let currentSlide = 0;
 
             mobileButton?.addEventListener('click', () => {
                 mobileMenu?.classList.toggle('hidden');
@@ -577,26 +530,23 @@
                 link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
             });
 
-            function moveSlider(index) {
-                currentSlide = index;
-                track.style.transform = `translateX(-${index * 100}%)`;
-
-                dots.forEach((dot, dotIndex) => {
-                    dot.classList.toggle('bg-white', dotIndex === index);
-                    dot.classList.toggle('bg-white/30', dotIndex !== index);
-                });
-            }
-
-            dots.forEach((dot) => {
-                dot.addEventListener('click', () => {
-                    moveSlider(Number(dot.dataset.slide));
+            // Smooth scroll implementation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
-
-            setInterval(() => {
-                moveSlider((currentSlide + 1) % dots.length);
-            }, 5000);
         });
     </script>
 </body>
+
 </html>
