@@ -7,50 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>KAIFA Tutoring Center | Bimbel Terbaik di Malang</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/landing.css', 'resources/js/app.js'])
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .cta-button:hover {
-            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .animate-fade-up {
-            animation: fadeUp 0.8s ease-out forwards;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 </head>
 
 <body class="bg-surface font-body-md text-on-surface">
@@ -484,69 +447,7 @@
         </div>
     </footer>
 
-    <script>
-        // Simple Slider Logic
-        let currentSlide = 0;
-        const totalSlides = 2;
 
-        function moveSlider(index) {
-            currentSlide = index;
-            const track = document.getElementById('slider-track');
-            if (track) {
-                track.style.transform = `translateX(-${index * 100}%)`;
-            }
-
-            // Update dots
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.getElementById(`dot-${i}`);
-                if (dot) {
-                    if (i === index) {
-                        dot.classList.remove('bg-white/30');
-                        dot.classList.add('bg-white');
-                    } else {
-                        dot.classList.add('bg-white/30');
-                        dot.classList.remove('bg-white');
-                    }
-                }
-            }
-        }
-
-        // Auto play slider
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            moveSlider(currentSlide);
-        }, 5000);
-
-        // Mobile Menu toggle & smooth scrolling
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            mobileButton?.addEventListener('click', () => {
-                mobileMenu?.classList.toggle('hidden');
-            });
-
-            mobileMenu?.querySelectorAll('a').forEach((link) => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-
-            // Smooth scroll implementation
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
