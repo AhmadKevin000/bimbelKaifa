@@ -18,7 +18,7 @@ class LandingPageController extends Controller
             'facility_4' => 'hero-siswa.png',
         ];
 
-        $dbPhotos = LandingPhoto::pluck('image_path', 'key')->toArray();
+        $dbPhotos = LandingPhoto::where('is_active', true)->pluck('image_path', 'key')->toArray();
 
         $dbPhotos = array_map(function (string $path) {
             return str_starts_with($path, 'images/') ? $path : 'images/' . $path;

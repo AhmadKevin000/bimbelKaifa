@@ -20,7 +20,10 @@ class LandingPhotoSeeder extends Seeder
         ];
 
         foreach ($photos as $photo) {
-            LandingPhoto::updateOrCreate(['key' => $photo['key']], $photo);
+            LandingPhoto::updateOrCreate(
+                ['key' => $photo['key'], 'image_path' => $photo['image_path']],
+                array_merge($photo, ['is_active' => true])
+            );
         }
     }
 }
