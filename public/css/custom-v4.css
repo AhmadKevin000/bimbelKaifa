@@ -219,6 +219,16 @@ h6,
     color: #f1f5f9 !important;
 }
 
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark .fi-header-heading {
+    color: #f1f5f9 !important;
+}
+
 .dark aside.fi-sidebar,
 .dark aside.fi-sidebar nav,
 .dark aside.fi-sidebar>div,

@@ -38,7 +38,18 @@ class AdminPanelProvider extends PanelProvider
             ->font('Inter')
             ->renderHook(
                 \Filament\View\PanelsRenderHook::HEAD_END,
-                fn (): string => \Illuminate\Support\Facades\Blade::render('<link rel="stylesheet" href="{{ asset(\'css/custom-v4.css\') }}?v=' . time() . '">'),
+                fn (): string => \Illuminate\Support\Facades\Blade::render('
+                    <link rel="stylesheet" href="{{ asset(\'css/custom-v4.css\') }}?v=' . time() . '">
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css">
+                '),
+            )
+            ->renderHook(
+                \Filament\View\PanelsRenderHook::BODY_END,
+                fn (): string => \Illuminate\Support\Facades\Blade::render('
+                    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
+                    <script src="{{ asset(\'js/system-tour.js\') }}?v=' . time() . '"></script>
+                    <script>document.body.setAttribute("data-tour-completed", "{{ auth()->user()?->tour_completed ? \'1\' : \'0\' }}");</script>
+                '),
             )
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
@@ -50,6 +61,7 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Admin\Widgets\AdminGreetingWidget::class,
                 \App\Filament\Admin\Widgets\AdminStatsCardWidget::class,
                 \App\Filament\Admin\Widgets\AdminKelasHariIniWidget::class,
+                \App\Filament\Admin\Widgets\AdminTourWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
