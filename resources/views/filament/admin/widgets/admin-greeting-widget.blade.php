@@ -49,6 +49,7 @@
 .adm-greeting-name {
     font-size: 1.5rem;
     font-weight: 800;
+    color: #ffffff !important;
     margin: 0;
     line-height: 1.3;
     display: flex;

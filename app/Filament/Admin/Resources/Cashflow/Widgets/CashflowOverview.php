@@ -16,15 +16,15 @@ class CashflowOverview extends BaseWidget
         $balance = $income - $expense;
 
         return [
-            Stat::make('Total Income', 'Rp ' . number_format($income, 0, ',', '.'))
+            Stat::make('Total Pemasukan', 'Rp ' . number_format($income, 0, ',', '.'))
                 ->description('Total pemasukan masuk')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
-            Stat::make('Total Expense', 'Rp ' . number_format($expense, 0, ',', '.'))
+            Stat::make('Total Pengeluaran', 'Rp ' . number_format($expense, 0, ',', '.'))
                 ->description('Total pengeluaran keluar')
                 ->descriptionIcon('heroicon-m-arrow-trending-down')
                 ->color('danger'),
-            Stat::make('Net Balance', 'Rp ' . number_format($balance, 0, ',', '.'))
+            Stat::make('Total Saldo', 'Rp ' . number_format($balance, 0, ',', '.'))
                 ->description('Selisih pemasukan - pengeluaran')
                 ->descriptionIcon('heroicon-m-scale')
                 ->color($balance >= 0 ? 'success' : 'danger'),

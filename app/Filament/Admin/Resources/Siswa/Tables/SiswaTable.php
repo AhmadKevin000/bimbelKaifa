@@ -72,7 +72,7 @@ class SiswaTable
                     ->label('Filter Kelas'),
             ])
             ->recordActions([
-                \Filament\Actions\ViewAction::make(),
+                \Filament\Actions\ViewAction::make()->label('Detail'),
                 EditAction::make(),
             ])
             ->toolbarActions([

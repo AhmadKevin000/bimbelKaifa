@@ -48,7 +48,7 @@ class MapelTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
+                ViewAction::make()->label('Detail'),
                 EditAction::make(),
             ])
             ->toolbarActions([

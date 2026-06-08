@@ -9,9 +9,10 @@ return new class extends Migration {
     {
         Schema::create('landing_photos', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
+            $table->string('key');
             $table->string('image_path');
             $table->string('description')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

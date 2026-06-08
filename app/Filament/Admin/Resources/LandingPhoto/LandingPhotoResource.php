@@ -10,11 +10,14 @@ use BackedEnum;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Checkbox;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 
 class LandingPhotoResource extends Resource
@@ -24,30 +27,40 @@ class LandingPhotoResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-photo';
     protected static string|\UnitEnum|null $navigationGroup = 'Konten Website';
     protected static ?int $navigationSort = 8;
-    protected static ?string $navigationLabel = 'Foto Landing Page';
-    protected static ?string $pluralLabel = 'Foto Landing Page';
+    protected static ?string $navigationLabel = 'CMS Landing Page';
+    protected static ?string $pluralLabel = 'CMS Landing Page';
     protected static ?string $modelLabel = 'Foto';
     protected static ?string $recordTitleAttribute = 'key';
 
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make('Slot Foto')->columns(2)->schema([
+            Section::make('Slot Foto')->columns(1)->schema([
 
-                TextInput::make('key')
+                Select::make('key')
                     ->label('Key (Slot Identifier)')
+                    ->options([
+                        'logo' => 'Logo',
+                        'hero' => 'Hero',
+                        'about' => 'About',
+                        'facility_1' => 'Fasilitas 1',
+                        'facility_2' => 'Fasilitas 2',
+                        'facility_3' => 'Fasilitas 3',
+                        'facility_4' => 'Fasilitas 4',
+                    ])
                     ->required()
-                    ->maxLength(50)
-                    ->unique(LandingPhoto::class, 'key', ignoreRecord: true)
-                    ->disabled(fn (string $operation): bool => $operation === 'edit')
-                    ->dehydrated(fn (string $operation): bool => $operation === 'create')
-                    ->helperText('Tidak bisa diubah setelah dibuat. Contoh: logo, hero, about, facility_1'),
+                    ->helperText('Pilih slot penempatan foto di landing page.'),
 
                 TextInput::make('description')
                     ->label('Deskripsi')
                     ->maxLength(255)
                     ->nullable()
                     ->placeholder('Library KAIFA'),
+
+                Checkbox::make('is_active')
+                    ->label('Gunakan foto ini di landing page')
+                    ->default(true)
+                    ->helperText('Jika dicentang, foto ini akan aktif dan menonaktifkan foto lain pada slot yang sama.'),
             ]),
 
             Section::make('Upload Foto')
@@ -87,10 +100,15 @@ class LandingPhotoResource extends Resource
 
                 ImageColumn::make('image_path')
                     ->label('Preview')
-                    ->getStateUsing(fn ($record) => asset('images/' . $record->image_path))
+                    ->getStateUsing(fn($record) => asset('images/' . $record->image_path))
                     ->height(64)
                     ->width(96)
                     ->extraImgAttributes(['class' => 'object-cover rounded-lg']),
+
+                IconColumn::make('is_active')
+                    ->label('Aktif')
+                    ->boolean()
+                    ->sortable(),
 
                 TextColumn::make('description')
                     ->label('Deskripsi')
@@ -114,9 +132,9 @@ class LandingPhotoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListLandingPhotos::route('/'),
+            'index' => ListLandingPhotos::route('/'),
             'create' => CreateLandingPhoto::route('/create'),
-            'edit'   => EditLandingPhoto::route('/{record}/edit'),
+            'edit' => EditLandingPhoto::route('/{record}/edit'),
         ];
     }
 }

@@ -22,6 +22,7 @@ class CashflowResource extends Resource
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Arus Kas';
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-banknotes';
+    protected static ?string $pluralLabel = 'Arus Kas';
 
     public static function form(Schema $schema): Schema
     {
@@ -43,21 +44,21 @@ class CashflowResource extends Resource
                         \Filament\Infolists\Components\TextEntry::make('type')
                             ->label('Tipe Transaksi')
                             ->badge()
-                            ->color(fn (string $state): string => match ($state) {
+                            ->color(fn(string $state): string => match ($state) {
                                 'income' => 'success',
                                 'expense' => 'danger',
                                 default => 'gray',
                             })
-                            ->formatStateUsing(fn (string $state): string => match ($state) {
-                                'income' => 'Pemasukan (Income)',
-                                'expense' => 'Pengeluaran (Expense)',
+                            ->formatStateUsing(fn(string $state): string => match ($state) {
+                                'income' => 'Pemasukan',
+                                'expense' => 'Pengeluaran',
                                 default => $state,
                             }),
                         \Filament\Infolists\Components\TextEntry::make('kategori')
                             ->label('Kategori')
                             ->badge()
                             ->color('info')
-                            ->formatStateUsing(fn (string $state): string => match (strtolower($state)) {
+                            ->formatStateUsing(fn(string $state): string => match (strtolower($state)) {
                                 'spp' => 'SPP',
                                 'pendaftaran' => 'Pendaftaran',
                                 'gaji_guru' => 'Gaji Guru',
@@ -68,7 +69,7 @@ class CashflowResource extends Resource
                             ->label('Nominal')
                             ->money('IDR', locale: 'id')
                             ->weight('bold')
-                            ->color(fn ($record) => $record->type === 'income' ? 'success' : 'danger'),
+                            ->color(fn($record) => $record->type === 'income' ? 'success' : 'danger'),
                         \Filament\Infolists\Components\TextEntry::make('tanggal')
                             ->label('Tanggal Transaksi')
                             ->date(),
@@ -85,7 +86,7 @@ class CashflowResource extends Resource
                             ->placeholder('-'),
                         \Filament\Infolists\Components\TextEntry::make('reference_type')
                             ->label('Tipe Referensi')
-                            ->formatStateUsing(fn (?string $state): string => match ($state) {
+                            ->formatStateUsing(fn(?string $state): string => match ($state) {
                                 \App\Models\Siswa::class => 'Siswa',
                                 \App\Models\Penggajian::class => 'Penggajian (Gaji Guru)',
                                 \App\Models\SesiKelas::class => 'Sesi Kelas',
