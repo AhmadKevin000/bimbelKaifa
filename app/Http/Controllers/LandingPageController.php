@@ -9,13 +9,13 @@ class LandingPageController extends Controller
     public function index()
     {
         $defaults = [
-            'logo' => 'images/Kaifa.png',
-            'hero' => 'images/hero-siswa.png',
-            'about' => 'images/keunggulan1.png',
-            'facility_1' => 'images/keunggulan2.png',
-            'facility_2' => 'images/rapor_pdf_mockup.png',
-            'facility_3' => 'images/keunggulan3.png',
-            'facility_4' => 'images/hero-siswa.png',
+            'logo'       => 'Kaifa.png',
+            'hero'       => 'hero-siswa.png',
+            'about'      => 'keunggulan1.png',
+            'facility_1' => 'keunggulan2.png',
+            'facility_2' => 'rapor_pdf_mockup.png',
+            'facility_3' => 'keunggulan3.png',
+            'facility_4' => 'hero-siswa.png',
         ];
 
         $dbPhotos = LandingPhoto::pluck('image_path', 'key')->toArray();

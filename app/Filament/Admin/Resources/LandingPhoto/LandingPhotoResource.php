@@ -87,7 +87,7 @@ class LandingPhotoResource extends Resource
 
                 ImageColumn::make('image_path')
                     ->label('Preview')
-                    ->disk('public_images')
+                    ->getStateUsing(fn ($record) => asset('images/' . $record->image_path))
                     ->height(64)
                     ->width(96)
                     ->extraImgAttributes(['class' => 'object-cover rounded-lg']),
