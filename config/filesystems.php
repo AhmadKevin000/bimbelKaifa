@@ -41,7 +41,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -58,6 +58,16 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
             'report' => false,
+        ],
+
+        // Disk untuk landing page photos — root: public/images/
+        // File bisa diakses via asset('images/filename.ext')
+        'public_images' => [
+            'driver'     => 'local',
+            'root'       => public_path('images'),
+            'url'        => rtrim(env('APP_URL', 'http://localhost'), '/') . '/images',
+            'visibility' => 'public',
+            'throw'      => false,
         ],
 
     ],
