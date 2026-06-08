@@ -18,10 +18,15 @@ class RaporResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Akademik';
     protected static ?int $navigationSort = 3;
-    protected static ?string $navigationLabel = 'Input Rapor';
-    protected static ?string $pluralLabel = 'Input Rapor';
+    protected static ?string $navigationLabel = 'Rapor';
+    protected static ?string $pluralLabel = 'Rapor';
     protected static ?string $modelLabel = 'Rapor';
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()->with(['pengajaran.mapel', 'pengajaran.guru']);
+    }
 
     public static function table(Table $table): Table
     {
@@ -35,6 +40,9 @@ class RaporResource extends Resource
                     ->label('Jumlah Siswa')
                     ->counts('siswa')
                     ->sortable(),
+                TextColumn::make('subject_list')
+                    ->label('Mata Pelajaran')
+                    ->wrap(),
                 TextColumn::make('teacher_list')
                     ->label('Guru Pengajar')
                     ->wrap(),
