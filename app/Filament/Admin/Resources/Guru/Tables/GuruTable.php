@@ -51,7 +51,7 @@ class GuruTable
                 //
             ])
             ->actions([
-                \Filament\Actions\ViewAction::make(),
+                \Filament\Actions\ViewAction::make()->label('Detail'),
                 \Filament\Actions\EditAction::make(),
             ])
             ->toolbarActions([

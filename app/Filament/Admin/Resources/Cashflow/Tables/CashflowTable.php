@@ -18,6 +18,7 @@ class CashflowTable
             ->modifyQueryUsing(fn ($query) => $query->orderBy('created_at', 'desc'))
             ->columns([
                 TextColumn::make('tanggal')
+                    ->label('Tanggal')
                     ->date()
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -25,6 +26,7 @@ class CashflowTable
                     ->time()
                     ->sortable(),
                 TextColumn::make('type')
+                    ->label('Tipe')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'income' => 'success',
@@ -32,13 +34,21 @@ class CashflowTable
                         default => 'secondary',
                     })
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'income' => 'Income',
-                        'expense' => 'Expense',
+                        'income' => 'Pemasukan',
+                        'expense' => 'Pengeluaran',
                         default => $state,
                     }),
                 TextColumn::make('kategori')
+                    ->label('Kategori')
                     ->badge()
                     ->color('info')
+                    ->formatStateUsing(fn (string $state): string => match (strtolower($state)) {
+                        'spp' => 'SPP',
+                        'pendaftaran' => 'Pendaftaran',
+                        'gaji_guru' => 'Gaji Guru',
+                        'operasional' => 'Operasional',
+                        default => ucfirst($state),
+                    })
                     ->searchable(),
                 TextColumn::make('nominal')
                     ->label('Nominal')
@@ -82,6 +92,7 @@ class CashflowTable
             ])
             ->filters([
                 \Filament\Tables\Filters\SelectFilter::make('kategori')
+                    ->label('Kategori')
                     ->options([
                         'pendaftaran' => 'Pendaftaran',
                         'spp' => 'SPP',
@@ -89,9 +100,12 @@ class CashflowTable
                         'operasional' => 'Operasional',
                     ]),
                 \Filament\Tables\Filters\Filter::make('tanggal')
+                    ->label('Filter Tanggal')
                     ->form([
-                        \Filament\Forms\Components\DatePicker::make('dari'),
-                        \Filament\Forms\Components\DatePicker::make('sampai'),
+                        \Filament\Forms\Components\DatePicker::make('dari')
+                            ->label('Dari Tanggal'),
+                        \Filament\Forms\Components\DatePicker::make('sampai')
+                            ->label('Sampai Tanggal'),
                     ])
                     ->query(function ($query, array $data) {
                         return $query
