@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RaporPdfController;
+use App\Http\Controllers\LandingPageController;
 
-Route::get('/', function () {
-    return view('landing');
-});
+Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+
 
 Route::get('/pre-school', function () {
     return view('pages.pre-school');
