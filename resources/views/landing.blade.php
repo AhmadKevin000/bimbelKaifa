@@ -177,92 +177,152 @@
                         sesuai dengan kebutuhan dan target akademikmu.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Basic Program -->
-                    <div
-                        class="bg-surface-white p-8 rounded-3xl border border-outline-variant shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
-                        <div class="mb-6">
-                            <h3 class="font-display-lg text-headline-sm text-primary mb-2 font-bold">Mandiri</h3>
-                            <p class="text-on-surface-variant text-sm">Fokus pada pendalaman materi dasar</p>
+                    <!-- Mandiri Program -->
+                    <div class="flip-card" id="card-mandiri">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front bg-surface-white p-8 border border-outline-variant shadow-sm flex flex-col h-full">
+                                <div class="mb-6 mt-2">
+                                    <h3 class="font-display-lg text-headline-sm text-primary mb-2 font-bold">Mandiri</h3>
+                                    <p class="text-on-surface-variant text-sm">Fokus pada pendalaman materi dasar</p>
+                                </div>
+                                <ul class="space-y-4 mb-10 flex-grow">
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                        <span class="text-on-surface">3x Pertemuan / Minggu</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                        <span class="text-on-surface">Modul Pembelajaran Lengkap</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                        <span class="text-on-surface">Try Out Bulanan</span>
+                                    </li>
+                                </ul>
+                                <button class="flip-trigger w-full py-4 rounded-xl border-2 border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-colors text-center">Detail Program</button>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back bg-surface-container-high p-8 border border-outline-variant shadow-sm flex flex-col justify-center items-center text-center h-full">
+                                <h3 class="font-display-lg text-headline-sm text-primary mb-6">Investasi Pendidikan</h3>
+                                <div class="space-y-4 mb-10 w-full">
+                                    <div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/30 w-full">
+                                        <p class="text-sm text-on-surface-variant uppercase tracking-wider font-bold mb-1">Pendaftaran</p>
+                                        <p class="text-2xl font-bold text-primary">Rp 150.000</p>
+                                    </div>
+                                    <div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/30 w-full">
+                                        <p class="text-sm text-on-surface-variant uppercase tracking-wider font-bold mb-1">SPP Bulanan</p>
+                                        <p class="text-2xl font-bold text-secondary">Rp 300.000</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 w-full justify-center">
+                                    <button class="flip-back-trigger px-6 py-3 rounded-full border border-outline-variant bg-white text-primary font-bold hover:bg-surface-container transition-colors">Kembali</button>
+                                    <a href="https://wa.me/6285232169460" target="_blank"
+                                        class="cta-button px-6 py-3 rounded-full text-white font-bold text-center shadow-md">Daftar</a>
+                                </div>
+                            </div>
                         </div>
-                        <ul class="space-y-4 mb-10 flex-grow">
-                            <li class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
-                                <span class="text-on-surface">3x Pertemuan / Minggu</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
-                                <span class="text-on-surface">Modul Pembelajaran Lengkap</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
-                                <span class="text-on-surface">Try Out Bulanan</span>
-                            </li>
-                        </ul>
-                        <a href="https://wa.me/6285232169460" target="_blank"
-                            class="w-full py-4 rounded-xl border-2 border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-colors text-center block">Detail
-                            Program</a>
                     </div>
+
                     <!-- Reguler Program (Featured) -->
-                    <div
-                        class="relative bg-primary p-8 rounded-3xl shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col scale-105 z-10">
-                        <div
-                            class="absolute -top-4 left-1/2 -translate-x-1/2 bg-cta-gradient-start px-4 py-1 rounded-full text-white text-xs font-bold tracking-widest uppercase">
-                            Terpopuler
+                    <div class="flip-card" id="card-reguler">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front bg-primary p-8 shadow-xl flex flex-col h-full relative">
+                                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-cta-gradient-start px-4 py-1 rounded-full text-white text-xs font-bold tracking-widest uppercase z-10">
+                                    Terpopuler
+                                </div>
+                                <div class="mb-6 mt-2">
+                                    <h3 class="font-display-lg text-headline-sm text-white mb-2 font-bold">Reguler</h3>
+                                    <p class="text-primary-fixed-dim text-sm">Persiapan UTBK &amp; Ujian Mandiri PTN</p>
+                                </div>
+                                <ul class="space-y-4 mb-10 flex-grow">
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                        <span class="text-white">5x Pertemuan / Minggu</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                        <span class="text-white">Konsultasi Jurusan Private</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                        <span class="text-white">Try Out Mingguan</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
+                                        <span class="text-white">Bank Soal Eksklusif</span>
+                                    </li>
+                                </ul>
+                                <button class="flip-trigger w-full py-4 rounded-xl bg-white text-primary font-bold text-center shadow-lg hover:bg-opacity-90 transition-colors">Detail Program</button>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back bg-surface-container-high p-8 border border-outline-variant shadow-sm flex flex-col justify-center items-center text-center h-full">
+                                <h3 class="font-display-lg text-headline-sm text-primary mb-6">Investasi Pendidikan</h3>
+                                <div class="space-y-4 mb-10 w-full">
+                                    <div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/30 w-full">
+                                        <p class="text-sm text-on-surface-variant uppercase tracking-wider font-bold mb-1">Pendaftaran</p>
+                                        <p class="text-2xl font-bold text-primary">Rp 200.000</p>
+                                    </div>
+                                    <div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/30 w-full">
+                                        <p class="text-sm text-on-surface-variant uppercase tracking-wider font-bold mb-1">SPP Bulanan</p>
+                                        <p class="text-2xl font-bold text-secondary">Rp 500.000</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 w-full justify-center">
+                                    <button class="flip-back-trigger px-6 py-3 rounded-full border border-outline-variant bg-white text-primary font-bold hover:bg-surface-container transition-colors">Kembali</button>
+                                    <a href="https://wa.me/6285232169460" target="_blank"
+                                        class="cta-button px-6 py-3 rounded-full text-white font-bold text-center shadow-md">Daftar</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-6">
-                            <h3 class="font-display-lg text-headline-sm text-white mb-2 font-bold">Reguler</h3>
-                            <p class="text-primary-fixed-dim text-sm">Persiapan UTBK &amp; Ujian Mandiri PTN</p>
-                        </div>
-                        <ul class="space-y-4 mb-10 flex-grow">
-                            <li class="flex items-center gap-3">
-                                <span
-                                    class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
-                                <span class="text-white">5x Pertemuan / Minggu</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span
-                                    class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
-                                <span class="text-white">Konsultasi Jurusan Private</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span
-                                    class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
-                                <span class="text-white">Try Out Mingguan</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span
-                                    class="material-symbols-outlined text-secondary-container text-xl">check_circle</span>
-                                <span class="text-white">Bank Soal Eksklusif</span>
-                            </li>
-                        </ul>
-                        <a href="https://wa.me/6285232169460" target="_blank"
-                            class="cta-button w-full py-4 rounded-xl text-white font-bold text-center block shadow-lg">Daftar
-                            Sekarang</a>
                     </div>
+
                     <!-- Intensive Program -->
-                    <div
-                        class="bg-surface-white p-8 rounded-3xl border border-outline-variant shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col">
-                        <div class="mb-6">
-                            <h3 class="font-display-lg text-headline-sm text-primary mb-2 font-bold">Kedinasan</h3>
-                            <p class="text-on-surface-variant text-sm">Fokus STAN, STIS, IPDN &amp; Poltek</p>
+                    <div class="flip-card" id="card-kedinasan">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front bg-surface-white p-8 border border-outline-variant shadow-sm flex flex-col h-full">
+                                <div class="mb-6 mt-2">
+                                    <h3 class="font-display-lg text-headline-sm text-primary mb-2 font-bold">Kedinasan</h3>
+                                    <p class="text-on-surface-variant text-sm">Fokus STAN, STIS, IPDN &amp; Poltek</p>
+                                </div>
+                                <ul class="space-y-4 mb-10 flex-grow">
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                        <span class="text-on-surface">Materi SKD &amp; Psikotes</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                        <span class="text-on-surface">Latihan Fisik &amp; Wawancara</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                                        <span class="text-on-surface">Super Intensif (Setiap Hari)</span>
+                                    </li>
+                                </ul>
+                                <button class="flip-trigger w-full py-4 rounded-xl border-2 border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-colors text-center">Detail Program</button>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back bg-surface-container-high p-8 border border-outline-variant shadow-sm flex flex-col justify-center items-center text-center h-full">
+                                <h3 class="font-display-lg text-headline-sm text-primary mb-6">Investasi Pendidikan</h3>
+                                <div class="space-y-4 mb-10 w-full">
+                                    <div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/30 w-full">
+                                        <p class="text-sm text-on-surface-variant uppercase tracking-wider font-bold mb-1">Pendaftaran</p>
+                                        <p class="text-2xl font-bold text-primary">Rp 250.000</p>
+                                    </div>
+                                    <div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/30 w-full">
+                                        <p class="text-sm text-on-surface-variant uppercase tracking-wider font-bold mb-1">SPP Bulanan</p>
+                                        <p class="text-2xl font-bold text-secondary">Rp 850.000</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 w-full justify-center">
+                                    <button class="flip-back-trigger px-6 py-3 rounded-full border border-outline-variant bg-white text-primary font-bold hover:bg-surface-container transition-colors">Kembali</button>
+                                    <a href="https://wa.me/6285232169460" target="_blank"
+                                        class="cta-button px-6 py-3 rounded-full text-white font-bold text-center shadow-md">Daftar</a>
+                                </div>
+                            </div>
                         </div>
-                        <ul class="space-y-4 mb-10 flex-grow">
-                            <li class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
-                                <span class="text-on-surface">Materi SKD &amp; Psikotes</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
-                                <span class="text-on-surface">Latihan Fisik &amp; Wawancara</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
-                                <span class="text-on-surface">Super Intensif (Setiap Hari)</span>
-                            </li>
-                        </ul>
-                        <a href="https://wa.me/6285232169460" target="_blank"
-                            class="w-full py-4 rounded-xl border-2 border-secondary text-secondary font-bold hover:bg-secondary hover:text-white transition-colors text-center block">Detail
-                            Program</a>
                     </div>
                 </div>
             </div>

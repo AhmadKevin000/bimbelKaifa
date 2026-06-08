@@ -67,4 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Flip Card Logic
+    document.querySelectorAll('.flip-trigger').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.flip-card');
+            if (card) card.classList.add('is-flipped');
+        });
+    });
+
+    document.querySelectorAll('.flip-back-trigger').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.flip-card');
+            if (card) card.classList.remove('is-flipped');
+        });
+    });
 });
+
