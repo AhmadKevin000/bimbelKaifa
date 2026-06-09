@@ -99,7 +99,9 @@
     <div class="adm-stat-card"
          style="background: {{ $stat['gradient'] }}; box-shadow: 0 8px 25px -4px {{ $stat['shadow'] }};">
         <div class="adm-stat-top">
-            <div class="adm-stat-icon">{{ $stat['icon'] }}</div>
+            <div class="adm-stat-icon">
+                <x-dynamic-component :component="$stat['icon']" class="w-6 h-6 text-white" />
+            </div>
             <span class="adm-stat-badge">{{ $stat['badge'] }}</span>
         </div>
         <div class="adm-stat-bottom">

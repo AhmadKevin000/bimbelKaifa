@@ -140,7 +140,7 @@ class KelasRelationManager extends RelationManager
                             ->send();
                     }),
                 \Filament\Actions\DetachAction::make()
-                    ->label('Delete')
+                    ->label('Hapus')
                     ->modalHeading('Hapus Jadwal (Lepas Mapel)')
                     ->button()
                     ->color('danger'),

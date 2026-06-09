@@ -23,9 +23,10 @@
     width: 2rem; height: 2rem; border-radius: .4rem;
     background: #d1fae5;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; flex-shrink: 0;
+    color: #059669; flex-shrink: 0;
 }
-.dark .gj-icon { background: #064e3b; }
+.dark .gj-icon { background: #064e3b; color: #34d399; }
+.gj-icon svg { width: 1.25rem; height: 1.25rem; }
 
 .gj-header-title {
     font-size: .875rem; font-weight: 600; margin: 0;
@@ -44,7 +45,9 @@
     align-items: center; justify-content: center;
     padding: 1.75rem 0; text-align: center;
 }
-.gj-empty-icon { font-size: 2rem; margin-bottom: .4rem; }
+.gj-empty-icon { margin-bottom: .5rem; color: #9ca3af; }
+.dark .gj-empty-icon { color: #4b5563; }
+.gj-empty-icon svg { width: 3rem; height: 3rem; }
 .gj-empty-text { font-size: .85rem; font-weight: 500; color: #4b5563; margin: 0; }
 .dark .gj-empty-text { color: #9ca3af; }
 .gj-empty-sub  { font-size: .75rem; color: #9ca3af; margin-top: .2rem; }
@@ -89,7 +92,9 @@
 <div class="gj-card">
     {{-- Header --}}
     <div class="gj-header">
-        <div class="gj-icon">📅</div>
+        <div class="gj-icon">
+            <x-heroicon-o-calendar-days />
+        </div>
         <div>
             <h3 class="gj-header-title">Jadwal Hari Ini</h3>
             <p class="gj-header-sub">{{ $tanggal }}</p>
@@ -100,9 +105,14 @@
     <div class="gj-body">
         @if($jadwalHariIni->isEmpty())
             <div class="gj-empty">
-                <div class="gj-empty-icon">😊</div>
+                <div class="gj-empty-icon">
+                    <x-heroicon-o-calendar />
+                </div>
                 <p class="gj-empty-text">Tidak ada sesi hari ini</p>
-                <p class="gj-empty-sub">Nikmati waktu istirahat Anda 🎉</p>
+                <p class="gj-empty-sub" style="display:inline-flex; align-items:center; gap:0.25rem; justify-content:center;">
+                    <span>Nikmati waktu istirahat Anda</span>
+                    <x-heroicon-o-face-smile style="width: 1.15rem; height: 1.15rem; color: #d97706; flex-shrink: 0;" />
+                </p>
             </div>
         @else
             <div style="overflow-x:auto;">
@@ -119,7 +129,10 @@
                         @foreach($jadwalHariIni as $sesi)
                         <tr>
                             <td style="white-space:nowrap;font-weight:500;">
-                                🕐 {{ $sesi['waktu'] }}@if($sesi['selesai'] !== '–') – {{ $sesi['selesai'] }}@endif
+                                <div style="display:flex;align-items:center;gap:0.25rem;">
+                                    <x-heroicon-m-clock class="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                                    <span>{{ $sesi['waktu'] }}@if($sesi['selesai'] !== '–') – {{ $sesi['selesai'] }}@endif</span>
+                                </div>
                             </td>
                             <td>
                                 <span class="gj-badge-kelas">{{ $sesi['kelas'] }}</span>
@@ -127,9 +140,15 @@
                             <td>{{ $sesi['mapel'] }}</td>
                             <td>
                                 @if($sesi['status'] === 'Hadir')
-                                    <span class="gj-status-hadir">✓ Hadir</span>
+                                    <span class="gj-status-hadir" style="display:inline-flex;align-items:center;gap:0.25rem;">
+                                        <x-heroicon-m-check class="w-3.5 h-3.5" />
+                                        <span>Hadir</span>
+                                    </span>
                                 @else
-                                    <span class="gj-status-belum">⏳ Belum Absen</span>
+                                    <span class="gj-status-belum" style="display:inline-flex;align-items:center;gap:0.25rem;">
+                                        <x-heroicon-m-clock class="w-3.5 h-3.5" />
+                                        <span>Belum Absen</span>
+                                    </span>
                                 @endif
                             </td>
                         </tr>

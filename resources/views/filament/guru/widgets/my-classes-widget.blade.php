@@ -155,7 +155,9 @@
             @endforeach
         @empty
             <div class="mc-empty">
-                <div class="mc-empty-icon">🎓</div>
+                <div class="mc-empty-icon">
+                    <x-heroicon-o-academic-cap style="width: 3rem; height: 3rem; color: #cbd5e1; margin: 0 auto;" />
+                </div>
                 <p class="mc-empty-text">Tidak ada kelas ditemukan.</p>
             </div>
         @endforelse

@@ -49,7 +49,7 @@ class GuruResource extends Resource
                             ->size(\Filament\Support\Enums\TextSize::Large)
                             ->weight(\Filament\Support\Enums\FontWeight::Bold),
                         \Filament\Infolists\Components\TextEntry::make('email')
-                            ->label('Email Address')
+                            ->label('Alamat Email')
                             ->icon('heroicon-m-envelope'),
                         \Filament\Infolists\Components\TextEntry::make('no_hp')
                             ->label('No. Handphone')

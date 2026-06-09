@@ -20,7 +20,7 @@ class GuruForm
                             ->label('Nama Lengkap')
                             ->required(),
                         TextInput::make('email')
-                            ->label('Email Address')
+                            ->label('Alamat Email')
                             ->email()
                             ->required()
                             ->unique('guru', 'email', ignorable: fn ($record) => $record),
@@ -41,14 +41,14 @@ class GuruForm
                     ->description('Akun akan digunakan guru untuk login ke sistem.')
                     ->schema([
                         TextInput::make('password')
-                            ->label('Password')
+                            ->label('Kata Sandi')
                             ->password()
                             ->revealable()
                             ->required()
                             ->minLength(6)
                             ->maxLength(255),
                         TextInput::make('password_confirmation')
-                            ->label('Konfirmasi Password')
+                            ->label('Konfirmasi Kata Sandi')
                             ->password()
                             ->revealable()
                             ->required()

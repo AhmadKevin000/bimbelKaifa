@@ -82,12 +82,16 @@
     <div class="adm-greeting-inner">
         <div class="adm-greeting-left">
             <p class="adm-greeting-sub">{{ $greeting }},</p>
-            <h2 class="adm-greeting-name">{{ $userName }} 👋</h2>
+            <h2 class="adm-greeting-name">
+                {{ $userName }}
+                <x-heroicon-o-hand-raised style="width: 1.5rem; height: 1.5rem; color: #fde047; flex-shrink: 0; display: inline-block; vertical-align: text-bottom;" />
+            </h2>
             <p class="adm-greeting-desc">Aktivitas hari ini.</p>
         </div>
         <div class="adm-greeting-right">
             <div class="adm-greeting-date">
-                📅 {{ $tanggal }}
+                <x-heroicon-m-calendar style="width: 1rem; height: 1rem; color: #ffffff; flex-shrink: 0; margin-right: 0.25rem;" />
+                <span>{{ $tanggal }}</span>
             </div>
         </div>
     </div>

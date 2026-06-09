@@ -218,7 +218,9 @@
 <div class="adm-kelas-card">
     <div class="adm-kelas-header">
         <div class="adm-kelas-header-left">
-            <div class="adm-kelas-header-icon">📋</div>
+            <div class="adm-kelas-header-icon">
+                <x-heroicon-o-clipboard-document-list style="width: 1.25rem; height: 1.25rem; color: #ffffff; flex-shrink: 0;" />
+            </div>
             <div>
                 <h3 class="adm-kelas-title">Kelas Hari Ini</h3>
                 <p class="adm-kelas-subtitle">Jadwal kelas yang berjalan hari ini</p>
@@ -230,7 +232,9 @@
     <div class="adm-kelas-body">
         @if($kelasHariIni->isEmpty())
             <div class="adm-kelas-empty">
-                <div class="adm-kelas-empty-icon">✅</div>
+                <div class="adm-kelas-empty-icon">
+                    <x-heroicon-o-check-circle style="width: 2.5rem; height: 2.5rem; color: #10b981; flex-shrink: 0;" />
+                </div>
                 <p class="adm-kelas-empty-text">Tidak ada kelas hari ini</p>
                 <p class="adm-kelas-empty-sub">Semua jadwal kosong untuk hari ini</p>
             </div>
@@ -250,7 +254,10 @@
                         @foreach($kelasHariIni as $kelas)
                         <tr>
                             <td>
-                                <span class="adm-kelas-waktu">🕐 {{ $kelas['waktu'] }}</span>
+                                <span class="adm-kelas-waktu" style="display:inline-flex; align-items:center; gap:0.25rem;">
+                                    <x-heroicon-m-clock style="width: 0.95rem; height: 0.95rem; color: #9ca3af; flex-shrink: 0;" />
+                                    <span>{{ $kelas['waktu'] }}</span>
+                                </span>
                             </td>
                             <td>
                                 <span class="adm-badge-kelas">{{ $kelas['kelas'] }}</span>
@@ -266,7 +273,10 @@
                                 @if($kelas['status'] === 'Berlangsung')
                                     <span class="adm-status-berlangsung">● Berlangsung</span>
                                 @else
-                                    <span class="adm-status-terjadwal">◷ Terjadwal</span>
+                                    <span class="adm-status-terjadwal" style="display:inline-flex; align-items:center; gap:0.25rem;">
+                                        <x-heroicon-m-clock style="width: 0.875rem; height: 0.875rem; flex-shrink: 0;" />
+                                        <span>Terjadwal</span>
+                                    </span>
                                 @endif
                             </td>
                         </tr>

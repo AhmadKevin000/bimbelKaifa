@@ -103,10 +103,11 @@ class AbsensiGuruTable
             ])
             ->headerActions([
                 \Filament\Actions\Action::make('sync_today')
-                    ->label('Sync Jadwal Hari Ini')
+                    ->label('Sinkronkan Jadwal Hari Ini')
                     ->icon('heroicon-o-arrow-path')
                     ->color('info')
                     ->requiresConfirmation()
+                    ->modalHeading('Sinkronkan Jadwal Hari Ini')
                     ->modalDescription('Cari dan buat otomatis sesi absen hari ini berdasarkan jadwal yang sama persis 7 hari lalu.')
                     ->action(function () {
                         $targetDate = now()->format('Y-m-d');
