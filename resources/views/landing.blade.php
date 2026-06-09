@@ -29,9 +29,11 @@
             </a>
             <div class="hidden md:flex items-center space-x-8 font-label-md text-label-md">
                 <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105"
+                    href="#tentang">Tentang Kami</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105"
                     href="#program">Program</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105"
-                    href="#tentang">Alumni</a>
+                    href="#fasilitas">Fasilitas</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105"
                     href="#faq">FAQ</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors hover:scale-105"
@@ -52,12 +54,11 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white/95 px-5 py-4 md:hidden">
             <div class="flex flex-col gap-4 font-display-lg text-sm font-semibold">
+                <a href="#tentang" class="text-slate-700">Tentang Kami</a>
                 <a href="#program" class="text-slate-700">Program</a>
-                <a href="#tentang" class="text-slate-700">Alumni</a>
+                <a href="#fasilitas" class="text-slate-700">Fasilitas</a>
                 <a href="#faq" class="text-slate-700">FAQ</a>
                 <a href="#testimoni" class="text-slate-700">Testimoni</a>
-                <a href="https://wa.me/6285232169460" target="_blank"
-                    class="cta-button inline-flex w-max rounded-full px-5 py-3 text-white">Daftar Sekarang</a>
             </div>
         </div>
     </nav>
@@ -329,7 +330,7 @@
         </section>
 
         <!-- Facilities Section -->
-        <section class="py-section-gap bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+        <section id="fasilitas" class="py-section-gap bg-surface-container-low px-margin-mobile md:px-margin-desktop">
             <div class="max-w-container-max mx-auto">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-center">
                     <div>
