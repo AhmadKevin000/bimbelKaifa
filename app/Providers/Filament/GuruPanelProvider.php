@@ -35,7 +35,9 @@ class GuruPanelProvider extends PanelProvider
                 'warning' => Color::Amber,
             ])
             ->font('Inter')
-            ->brandName('Portal Guru')
+            ->brandName('Guru')
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('2.5rem')
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn (): string => '<style>' .

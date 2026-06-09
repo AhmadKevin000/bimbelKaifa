@@ -48,12 +48,21 @@
             <div style="min-width:0">
                 <p class="gg-sub">{{ $greeting }},</p>
                 <h2 class="gg-name">{{ $namaGuru }}</h2>
-                <span class="gg-badge">★ Guru {{ ucfirst($statusGuru) }}</span>
+                <span class="gg-badge" style="display:inline-flex; align-items:center; gap:0.25rem;">
+                    <x-heroicon-m-star style="width: 0.8rem; height: 0.8rem; color: #fde047; flex-shrink: 0;" />
+                    <span>Guru {{ ucfirst($statusGuru) }}</span>
+                </span>
             </div>
         </div>
         <div class="gg-right">
-            <div class="gg-right-row">📅 {{ $tanggal }}</div>
-            <div class="gg-right-row" id="gg-time">🕐 {{ now()->format('H:i') }} WIB</div>
+            <div class="gg-right-row" style="display:flex; align-items:center; justify-content:flex-end; gap:0.25rem;">
+                <x-heroicon-m-calendar style="width: 0.9rem; height: 0.9rem; flex-shrink: 0;" />
+                <span>{{ $tanggal }}</span>
+            </div>
+            <div class="gg-right-row" style="display:flex; align-items:center; justify-content:flex-end; gap:0.25rem;">
+                <x-heroicon-m-clock style="width: 0.9rem; height: 0.9rem; flex-shrink: 0;" />
+                <span id="gg-time-text">{{ now()->format('H:i') }} WIB</span>
+            </div>
         </div>
     </div>
 </div>
@@ -61,10 +70,10 @@
 <script>
 (function(){
     function tick(){
-        var el=document.getElementById('gg-time');
+        var el=document.getElementById('gg-time-text');
         if(!el)return;
         var n=new Date();
-        el.textContent='🕐 '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+' WIB';
+        el.textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+' WIB';
     }
     setInterval(tick,30000);
 })();

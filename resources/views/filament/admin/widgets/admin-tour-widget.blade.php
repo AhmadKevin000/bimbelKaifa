@@ -114,7 +114,9 @@
 <div class="tour-card">
     <div class="tour-card-inner">
         <div class="tour-card-left">
-            <div class="tour-card-icon">🚀</div>
+            <div class="tour-card-icon">
+                <x-heroicon-o-rocket-launch style="width: 1.5rem; height: 1.5rem; color: #ffffff; flex-shrink: 0;" />
+            </div>
             <div>
                 <h3 class="tour-card-title">Panduan Sistem</h3>
                 <p class="tour-card-desc">Pelajari alur penggunaan sistem bimbel mulai dari pengelolaan data master hingga proses absensi dan keuangan.</p>
@@ -122,7 +124,7 @@
         </div>
         <div class="tour-card-right">
             <button type="button" class="tour-btn-start" onclick="startSystemTour()">
-                ▶ Mulai Panduan
+                <x-heroicon-m-play style="width: 1rem; height: 1rem; margin-right: 0.25rem; flex-shrink: 0;" /> Mulai Panduan
             </button>
         </div>
     </div>

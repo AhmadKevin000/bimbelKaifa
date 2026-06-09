@@ -4,7 +4,10 @@
     {{-- Header --}}
     <div class="jp-header">
         <div class="jp-header-left">
-            <h1>📅 Jadwal Mengajar</h1>
+            <h1 style="display: flex; align-items: center; gap: 0.5rem;">
+                <x-heroicon-o-calendar style="width: 1.5rem; height: 1.5rem; color: #6b7280; flex-shrink: 0;" />
+                <span>Jadwal Mengajar</span>
+            </h1>
             <p>Daftar sesi mengajar {{ $namaGuru }}</p>
         </div>
         <span style="color:#a7f3d0; font-size:.85rem; font-weight:600;">{{ $labelBulan }} {{ $filterTahun }}</span>
@@ -13,21 +16,27 @@
     {{-- Stats --}}
     <div class="jp-stats">
         <div class="jp-stat">
-            <div class="jp-stat-icon jp-stat-icon-blue">📚</div>
+            <div class="jp-stat-icon jp-stat-icon-blue">
+                <x-heroicon-o-book-open style="width: 1.25rem; height: 1.25rem; color: #2563eb; flex-shrink: 0;" />
+            </div>
             <div>
                 <p class="jp-stat-val">{{ $totalSesi }}</p>
                 <p class="jp-stat-lbl">Total Sesi</p>
             </div>
         </div>
         <div class="jp-stat">
-            <div class="jp-stat-icon jp-stat-icon-green">✅</div>
+            <div class="jp-stat-icon jp-stat-icon-green">
+                <x-heroicon-o-check-circle style="width: 1.25rem; height: 1.25rem; color: #10b981; flex-shrink: 0;" />
+            </div>
             <div>
                 <p class="jp-stat-val">{{ $sudahHadir }}</p>
                 <p class="jp-stat-lbl">Sudah Hadir</p>
             </div>
         </div>
         <div class="jp-stat">
-            <div class="jp-stat-icon jp-stat-icon-amber">⏳</div>
+            <div class="jp-stat-icon jp-stat-icon-amber">
+                <x-heroicon-o-clock style="width: 1.25rem; height: 1.25rem; color: #d97706; flex-shrink: 0;" />
+            </div>
             <div>
                 <p class="jp-stat-val">{{ $belumAbsen }}</p>
                 <p class="jp-stat-lbl">Belum Absen</p>

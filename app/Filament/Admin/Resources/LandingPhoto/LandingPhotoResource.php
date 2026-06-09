@@ -24,12 +24,12 @@ class LandingPhotoResource extends Resource
 {
     protected static ?string $model = LandingPhoto::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-photo';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
     protected static string|\UnitEnum|null $navigationGroup = 'Konten Website';
     protected static ?int $navigationSort = 8;
-    protected static ?string $navigationLabel = 'CMS Landing Page';
-    protected static ?string $pluralLabel = 'CMS Landing Page';
-    protected static ?string $modelLabel = 'Foto';
+    protected static ?string $navigationLabel = 'Pengaturan Situs';
+    protected static ?string $pluralLabel = 'Pengaturan Situs';
+    protected static ?string $modelLabel = 'Pengaturan Situs';
     protected static ?string $recordTitleAttribute = 'key';
 
     public static function form(Schema $schema): Schema
@@ -38,7 +38,7 @@ class LandingPhotoResource extends Resource
             Section::make('Slot Foto')->columns(1)->schema([
 
                 Select::make('key')
-                    ->label('Key (Slot Identifier)')
+                    ->label('Penempatan')
                     ->options([
                         'logo' => 'Logo',
                         'hero' => 'Hero',
@@ -49,7 +49,7 @@ class LandingPhotoResource extends Resource
                         'facility_4' => 'Fasilitas 4',
                     ])
                     ->required()
-                    ->helperText('Pilih slot penempatan foto di landing page.'),
+                    ->helperText('Pilih slot penempatan foto di halaman depan.'),
 
                 TextInput::make('description')
                     ->label('Deskripsi')
@@ -58,7 +58,7 @@ class LandingPhotoResource extends Resource
                     ->placeholder('Library KAIFA'),
 
                 Checkbox::make('is_active')
-                    ->label('Gunakan foto ini di landing page')
+                    ->label('Gunakan foto ini di halaman depan')
                     ->default(true)
                     ->helperText('Jika dicentang, foto ini akan aktif dan menonaktifkan foto lain pada slot yang sama.'),
             ]),
@@ -92,7 +92,7 @@ class LandingPhotoResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('key')
-                    ->label('Slot Key')
+                    ->label('Penempatan')
                     ->badge()
                     ->color('info')
                     ->searchable()

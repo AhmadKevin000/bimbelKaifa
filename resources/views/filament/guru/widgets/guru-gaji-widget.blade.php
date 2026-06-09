@@ -28,9 +28,10 @@
     width: 2rem; height: 2rem; border-radius: .4rem;
     background: #fef3c7;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; flex-shrink: 0;
+    color: #d97706; flex-shrink: 0;
 }
-.dark .ggaji-icon { background: #78350f44; }
+.dark .ggaji-icon { background: #78350f44; color: #fbbf24; }
+.ggaji-icon svg { width: 1.25rem; height: 1.25rem; }
 
 .ggaji-header-title {
     font-size: .875rem; font-weight: 600; margin: 0; color: #111827;
@@ -59,7 +60,9 @@
     align-items: center; justify-content: center;
     padding: 1.75rem 0; text-align: center;
 }
-.ggaji-empty-icon { font-size: 2rem; margin-bottom: .4rem; }
+.ggaji-empty-icon { margin-bottom: .5rem; color: #9ca3af; }
+.dark .ggaji-empty-icon { color: #4b5563; }
+.ggaji-empty-icon svg { width: 3rem; height: 3rem; }
 .ggaji-empty-text { font-size: .85rem; font-weight: 500; color: #4b5563; margin: 0; }
 .dark .ggaji-empty-text { color: #9ca3af; }
 .ggaji-empty-sub { font-size: .75rem; color: #9ca3af; margin-top: .2rem; }
@@ -122,7 +125,9 @@
     {{-- Header --}}
     <div class="ggaji-header">
         <div class="ggaji-header-left">
-            <div class="ggaji-icon">💰</div>
+            <div class="ggaji-icon">
+                <x-heroicon-o-banknotes />
+            </div>
             <div>
                 <h3 class="ggaji-header-title">Ringkasan Gaji</h3>
                 <p class="ggaji-header-sub">6 bulan terakhir</p>
@@ -148,7 +153,9 @@
     <div class="ggaji-body">
         @if($rekapGaji->isEmpty())
             <div class="ggaji-empty">
-                <div class="ggaji-empty-icon">💸</div>
+                <div class="ggaji-empty-icon">
+                    <x-heroicon-o-banknotes />
+                </div>
                 <p class="ggaji-empty-text">Belum ada data gaji</p>
                 <p class="ggaji-empty-sub">Data akan muncul setelah sesi selesai & diverifikasi.</p>
             </div>
@@ -158,7 +165,11 @@
                 <div class="ggaji-row {{ $rekap['status'] === 'paid' ? 'ggaji-row-paid' : 'ggaji-row-pending' }}">
                     <div class="ggaji-row-left">
                         <div class="ggaji-row-avatar {{ $rekap['status'] === 'paid' ? 'ggaji-row-avatar-paid' : 'ggaji-row-avatar-pending' }}">
-                            {{ $rekap['status'] === 'paid' ? '✓' : '⏳' }}
+                            @if($rekap['status'] === 'paid')
+                                <x-heroicon-m-check class="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                            @else
+                                <x-heroicon-m-clock class="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                            @endif
                         </div>
                         <div>
                             <p class="ggaji-row-bulan">{{ $rekap['bulan'] }}</p>
