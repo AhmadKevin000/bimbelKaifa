@@ -344,10 +344,16 @@
 
                             {{-- Status Absensi --}}
                             <td>
-                                <span class="ms-badge {{ $status }}">
-                                    @if($status === 'hadir') ✅ Hadir
-                                    @elseif($status === 'absen') ❌ Absen
-                                    @else ⏳ Belum
+                                <span class="ms-badge {{ $status }}" style="display: inline-flex; align-items: center;">
+                                    @if($status === 'hadir')
+                                        <x-heroicon-m-check-circle style="width: 1rem; height: 1rem; margin-right: 0.25rem; flex-shrink: 0;" />
+                                        <span>Hadir</span>
+                                    @elseif($status === 'absen')
+                                        <x-heroicon-m-x-circle style="width: 1rem; height: 1rem; margin-right: 0.25rem; flex-shrink: 0;" />
+                                        <span>Absen</span>
+                                    @else
+                                        <x-heroicon-m-clock style="width: 1rem; height: 1rem; margin-right: 0.25rem; flex-shrink: 0;" />
+                                        <span>Belum</span>
                                     @endif
                                 </span>
                             </td>
@@ -355,13 +361,16 @@
                             {{-- Check In / Out --}}
                             <td>
                                 @if($absensi && $absensi->check_in)
-                                    <div style="font-size:.75rem">
-                                        🕐 {{ \Carbon\Carbon::parse($absensi->check_in)->format('H:i') }}
-                                        @if($absensi->check_out)
-                                            – {{ \Carbon\Carbon::parse($absensi->check_out)->format('H:i') }}
-                                        @else
-                                            <span style="color:#9ca3af">– –</span>
-                                        @endif
+                                    <div style="font-size:.75rem; display: flex; align-items: center; gap: 0.25rem;">
+                                        <x-heroicon-m-clock style="width: 0.95rem; height: 0.95rem; color: #9ca3af; flex-shrink: 0;" />
+                                        <span>
+                                            {{ \Carbon\Carbon::parse($absensi->check_in)->format('H:i') }}
+                                            @if($absensi->check_out)
+                                                – {{ \Carbon\Carbon::parse($absensi->check_out)->format('H:i') }}
+                                            @else
+                                                <span style="color:#9ca3af">– –</span>
+                                            @endif
+                                        </span>
                                     </div>
                                 @else
                                     <span style="color:#9ca3af; font-size:.75rem">Belum absen</span>

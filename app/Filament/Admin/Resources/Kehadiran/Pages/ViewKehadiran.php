@@ -118,10 +118,10 @@ class ViewKehadiran extends ViewRecord
                         $fields[] = \Filament\Forms\Components\Select::make("siswa_{$siswa->id}")
                             ->label($siswa->nama)
                             ->options([
-                                'hadir' => '✅ Hadir',
-                                'izin'  => '📋 Izin',
-                                'sakit' => '🏥 Sakit',
-                                'alpha' => '❌ Alpha',
+                                'hadir' => 'Hadir',
+                                'izin'  => 'Izin',
+                                'sakit' => 'Sakit',
+                                'alpha' => 'Alpha',
                             ])
                             ->default($default)
                             ->required();

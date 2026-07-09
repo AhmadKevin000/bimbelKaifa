@@ -17,7 +17,7 @@ class GuruTable
                 TextColumn::make('nama')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->searchable(),
                 TextColumn::make('no_hp')
                     ->searchable(),

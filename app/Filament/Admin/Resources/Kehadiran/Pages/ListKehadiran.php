@@ -31,7 +31,7 @@ class ListKehadiran extends ListRecords
 
                     // Ambil semua sesi yang sudah "selesai" dan tanggalnya > 7 hari lalu
                     $completedSessions = SesiKelas::query()
-                        ->whereHas('absensiGuru', fn ($q) => $q->where('status', 'selesai'))
+                        ->whereHas('absensiGuru', fn($q) => $q->where('status', 'selesai'))
                         ->where('tanggal', '<=', $today->copy()->subDays(7))
                         ->get();
 
@@ -50,8 +50,8 @@ class ListKehadiran extends ListRecords
                         SesiKelas::updateOrCreate(
                             [
                                 'jadwal_sesi_id' => $session->jadwal_sesi_id,
-                                'pengajaran_id'  => $session->pengajaran_id,
-                                'tanggal'        => $today->format('Y-m-d'),
+                                'pengajaran_id' => $session->pengajaran_id,
+                                'tanggal' => $today->format('Y-m-d'),
                             ],
                             [
                                 'semester' => $session->semester,
@@ -83,15 +83,16 @@ class ListKehadiran extends ListRecords
         return [
             'aktif' => Tab::make()
                 ->label('Aktif / Belum Selesai')
-                ->modifyQueryUsing(fn ($query) => $query
-                    ->where(function ($q) {
-                        $q->whereDoesntHave('absensiGuru')
-                          ->orWhereHas('absensiGuru', fn($sub) => $sub->where('status', '!=', 'selesai'));
-                    })
+                ->modifyQueryUsing(
+                    fn($query) => $query
+                        ->where(function ($q) {
+                            $q->whereDoesntHave('absensiGuru')
+                                ->orWhereHas('absensiGuru', fn($sub) => $sub->where('status', '!=', 'selesai'));
+                        })
                 ),
             'riwayat' => Tab::make()
                 ->label('Riwayat Selesai')
-                ->modifyQueryUsing(fn ($query) => $query->whereHas('absensiGuru', fn($q) => $q->where('status', 'selesai'))),
+                ->modifyQueryUsing(fn($query) => $query->whereHas('absensiGuru', fn($q) => $q->where('status', 'selesai'))),
         ];
     }
 }

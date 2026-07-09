@@ -12,8 +12,8 @@ class MyClasses extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationLabel = 'Kelas';
-    protected static ?string $title = 'Kelas';
-    protected static ?string $slug = 'Kelas';
+    protected static ?string $title = 'Kelas Saya';
+    protected static ?string $slug = 'my-classes';
     protected static ?int $navigationSort = 6;
     protected string $view = 'filament.guru.pages.my-classes';
 

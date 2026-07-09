@@ -15,8 +15,8 @@ class Dashboard extends Page
     // $view adalah non-static di Filament\Pages\Page, harus non-static di sini
     protected string $view = 'filament.guru.pages.dashboard';
 
-    protected static ?string $title = 'Dashboard';
-    protected static ?string $navigationLabel = 'Dashboard';
+    protected static ?string $title = 'Halaman Utama';
+    protected static ?string $navigationLabel = 'Halaman Utama';
     protected static ?int $navigationSort = 1;
 
     public function getWidgets(): array

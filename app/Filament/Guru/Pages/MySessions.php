@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class MySessions extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
-    protected static ?string $navigationLabel = 'Sesi Saya';
+    protected static ?string $navigationLabel = 'Sesi';
     protected static ?string $title = 'Sesi Saya';
     protected static ?string $slug = 'my-sessions';
     protected static ?int $navigationSort = 7;

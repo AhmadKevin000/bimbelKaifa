@@ -28,9 +28,9 @@ class ListCashflow extends ListRecords
     {
         return [
             'all' => Tab::make('Semua'),
-            'income' => Tab::make('Income')
+            'income' => Tab::make('Pemasukan')
                 ->modifyQueryUsing(fn ($query) => $query->where('type', 'income')),
-            'expense' => Tab::make('Expense')
+            'expense' => Tab::make('Pengeluaran')
                 ->modifyQueryUsing(fn ($query) => $query->where('type', 'expense')),
         ];
     }
