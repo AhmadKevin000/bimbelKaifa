@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\Kehadiran\Tables;
 
 use App\Models\SesiKelas;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 
 class KehadiranTable
@@ -12,24 +13,56 @@ class KehadiranTable
     {
         return $table
             ->defaultSort('tanggal', 'desc')
+            ->defaultGroup(
+                Group::make('tanggal')
+                    ->label('Tanggal')
+                    ->collapsible()
+                    ->titlePrefixedWithLabel(false)
+                    ->getTitleFromRecordUsing(fn (SesiKelas $record): string =>
+                        $record->tanggal ? $record->tanggal->format('d M Y') : 'Tanpa Tanggal'
+                    )
+                    ->getKeyFromRecordUsing(fn (SesiKelas $record): string =>
+                        $record->tanggal ? $record->tanggal->format('Y-m-d') : '0000-00-00'
+                    )
+            )
+            ->groupingSettingsHidden()
             ->columns([
-                TextColumn::make('pengajaran.kelas.nama_kelas')
+                TextColumn::make('kelas_name')
                     ->label('Kelas')
-                    ->searchable(),
-                TextColumn::make('pengajaran.guru.nama')
+                    ->getStateUsing(fn (SesiKelas $record) => $record->kelas_name_snapshot ?? $record->pengajaran?->kelas?->nama_kelas ?? '-')
+                    ->searchable(query: function ($query, string $search) {
+                        $query->where('kelas_name_snapshot', 'like', "%{$search}%")
+                              ->orWhereHas('pengajaran.kelas', fn($q) => $q->where('nama_kelas', 'like', "%{$search}%"));
+                    })
+                    ->weight('bold')
+                    ->icon('heroicon-o-academic-cap')
+                    ->color('primary'),
+                TextColumn::make('guru_name')
                     ->label('Guru')
-                    ->searchable(),
-                TextColumn::make('pengajaran.mapel.nama')
+                    ->getStateUsing(fn (SesiKelas $record) => $record->guru_name_snapshot ?? $record->pengajaran?->guru?->nama ?? '-')
+                    ->searchable(query: function ($query, string $search) {
+                        $query->where('guru_name_snapshot', 'like', "%{$search}%")
+                              ->orWhereHas('pengajaran.guru', fn($q) => $q->where('nama', 'like', "%{$search}%"));
+                    })
+                    ->icon('heroicon-o-user'),
+                TextColumn::make('mapel_name')
                     ->label('Mata Pelajaran')
-                    ->searchable(),
+                    ->getStateUsing(fn (SesiKelas $record) => $record->mapel_name_snapshot ?? $record->pengajaran?->mapel?->nama ?? '-')
+                    ->searchable(query: function ($query, string $search) {
+                        $query->where('mapel_name_snapshot', 'like', "%{$search}%")
+                              ->orWhereHas('pengajaran.mapel', fn($q) => $q->where('nama', 'like', "%{$search}%"));
+                    }),
                 TextColumn::make('tanggal')
                     ->label('Tanggal')
-                    ->date()
-                    ->sortable(),
+                    ->date('d M Y')
+                    ->sortable()
+                    ->icon('heroicon-o-calendar'),
                 TextColumn::make('jadwalSesi.jam_mulai')
-                    ->label('Jam Mulai'),
+                    ->label('Jam Mulai')
+                    ->formatStateUsing(fn ($state) => $state ? \Carbon\Carbon::parse($state)->format('H:i') : '-'),
                 TextColumn::make('jadwalSesi.jam_selesai')
-                    ->label('Jam Selesai'),
+                    ->label('Jam Selesai')
+                    ->formatStateUsing(fn ($state) => $state ? \Carbon\Carbon::parse($state)->format('H:i') : '-'),
                 TextColumn::make('status_kehadiran')
                     ->label('Status')
                     ->badge()

@@ -46,6 +46,12 @@ class SiswaForm
                             ->required()
                             ->live()
                             ->dehydrated(false)
+                            ->afterStateHydrated(function ($record, $component) {
+                                if ($record) {
+                                    $jenjang = $record->jenjang;
+                                    $component->state(($jenjang === '-') ? null : $jenjang);
+                                }
+                            })
                             ->afterStateUpdated(function (Set $set) {
                                 $set('program', null);
                                 $set('jumlah_mapel', null);
@@ -57,6 +63,12 @@ class SiswaForm
                             ->disabled(fn(Get $get) => !$get('jenjang'))
                             ->live()
                             ->dehydrated(false)
+                            ->afterStateHydrated(function ($record, $component) {
+                                if ($record) {
+                                    $program = $record->program;
+                                    $component->state(($program === '-') ? null : $program);
+                                }
+                            })
                             ->afterStateUpdated(fn(Set $set) => $set('jumlah_mapel', null)),
 
                         TextInput::make('jumlah_mapel')
@@ -71,7 +83,34 @@ class SiswaForm
                             ->relationship('kelas', 'nama_kelas')
                             ->searchable()
                             ->preload()
-                            ->live(),
+                            ->live()
+                            ->afterStateUpdated(function ($state, Set $set) {
+                                if (!$state) {
+                                    $set('jenjang', null);
+                                    $set('program', null);
+                                    return;
+                                }
+
+                                $kelas = \App\Models\Kelas::find($state);
+                                if ($kelas) {
+                                    $jenjang = $kelas->jenjang;
+                                    $set('jenjang', ($jenjang === '-') ? null : $jenjang);
+
+                                    $firstTeaching = $kelas->pengajaran()->first();
+                                    $program = null;
+                                    if ($firstTeaching && $firstTeaching->mapel && $firstTeaching->mapel->program) {
+                                        $program = $firstTeaching->mapel->program->nama;
+                                    }
+                                    $set('program', ($program === '-') ? null : $program);
+
+                                    if ($jenjang === 'SMA') {
+                                        $subjectCount = $kelas->pengajaran()->count();
+                                        if ($subjectCount > 0) {
+                                            $set('jumlah_mapel', $subjectCount);
+                                        }
+                                    }
+                                }
+                            }),
 
                         DatePicker::make('tanggal_daftar')
                             ->required(),

@@ -58,8 +58,9 @@ class JadwalPage extends Page implements HasTable
                         'absensiGuru',
                     ])
                     ->when($guru, fn(Builder $q) =>
-                        $q->whereHas('pengajaran', fn(Builder $inner) =>
-                            $inner->where('guru_id', $guru->id)
+                        $q->where(fn(Builder $query) =>
+                            $query->whereHas('pengajaran', fn(Builder $inner) => $inner->where('guru_id', $guru->id))
+                                  ->orWhereHas('absensiGuru', fn(Builder $inner) => $inner->where('guru_id', $guru->id))
                         )
                     )
                     ->when($this->filterBulan, fn(Builder $q) =>
@@ -95,19 +96,20 @@ class JadwalPage extends Page implements HasTable
                     ->suffix(' menit')
                     ->default('-'),
 
-                TextColumn::make('pengajaran.kelas.nama_kelas')
+                TextColumn::make('kelas_name')
                     ->label('Kelas')
+                    ->getStateUsing(fn(SesiKelas $record) => $record->kelas_name_snapshot ?? $record->pengajaran?->kelas?->nama_kelas ?? '-')
                     ->badge()
                     ->color('primary'),
 
-                TextColumn::make('pengajaran.mapel.nama')
+                TextColumn::make('mapel_name')
                     ->label('Mata Pelajaran')
-                    ->default('-'),
+                    ->getStateUsing(fn(SesiKelas $record) => $record->mapel_name_snapshot ?? $record->pengajaran?->mapel?->nama ?? '-'),
 
                 TextColumn::make('pengajaran.mapel.jenjang.nama')
                     ->label('Jenjang')
                     ->default('-'),
-
+ 
                 TextColumn::make('absensiGuru.status')
                     ->label('Status Kehadiran')
                     ->badge()
@@ -144,7 +146,10 @@ class JadwalPage extends Page implements HasTable
         // Ringkasan bulan ini
         $baseQuery = SesiKelas::query()
             ->when($guru, fn($q) =>
-                $q->whereHas('pengajaran', fn($inner) => $inner->where('guru_id', $guru->id))
+                $q->where(fn($query) =>
+                    $query->whereHas('pengajaran', fn($inner) => $inner->where('guru_id', $guru->id))
+                          ->orWhereHas('absensiGuru', fn($inner) => $inner->where('guru_id', $guru->id))
+                )
             )
             ->when($this->filterBulan, fn($q) => $q->whereMonth('tanggal', $this->filterBulan))
             ->when($this->filterTahun, fn($q) => $q->whereYear('tanggal', $this->filterTahun));

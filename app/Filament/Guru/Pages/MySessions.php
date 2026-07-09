@@ -10,8 +10,8 @@ use Illuminate\Support\Collection;
 class MySessions extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
-    protected static ?string $navigationLabel = 'My Sessions';
-    protected static ?string $title = 'My Sessions';
+    protected static ?string $navigationLabel = 'Sesi Saya';
+    protected static ?string $title = 'Sesi Saya';
     protected static ?string $slug = 'my-sessions';
     protected static ?int $navigationSort = 7;
     protected string $view = 'filament.guru.pages.my-sessions';
@@ -26,16 +26,19 @@ class MySessions extends Page
 
     public function getSesiList(): Collection
     {
-        return SesiKelas::whereHas('pengajaran', function ($query) {
-                $query->where('guru_id', $this->getGuruId());
-            })
+        return SesiKelas::where(function ($query) {
+            $query->whereHas('pengajaran', fn($q) => $q->where('guru_id', $this->getGuruId()))
+                ->orWhereHas('absensiGuru', fn($q) => $q->where('guru_id', $this->getGuruId()));
+        })
             ->with([
                 'pengajaran.mapel.jenjang',
                 'pengajaran.kelas',
                 'jadwalSesi',
                 'absensiGuru',
             ])
-            ->when($this->filterSemester, fn($q) =>
+            ->when(
+                $this->filterSemester,
+                fn($q) =>
                 $q->where('semester', $this->filterSemester)
             )
             ->when($this->filterStatus, function ($q) {
@@ -53,13 +56,14 @@ class MySessions extends Page
 
     public function getSemesterList(): Collection
     {
-        return SesiKelas::whereHas('pengajaran', fn($q) =>
-            $q->where('guru_id', $this->getGuruId())
-        )
-        ->select('semester')
-        ->distinct()
-        ->orderBy('semester')
-        ->pluck('semester');
+        return SesiKelas::where(function ($query) {
+            $query->whereHas('pengajaran', fn($q) => $q->where('guru_id', $this->getGuruId()))
+                ->orWhereHas('absensiGuru', fn($q) => $q->where('guru_id', $this->getGuruId()));
+        })
+            ->select('semester')
+            ->distinct()
+            ->orderBy('semester')
+            ->pluck('semester');
     }
 
     protected function getHeaderWidgets(): array

@@ -16,7 +16,36 @@ class AbsensiGuru extends Model
         'check_in',
         'check_out',
         'status',
+        'kelas_name_snapshot',
+        'guru_name_snapshot',
+        'mapel_name_snapshot',
     ];
+
+    protected static function booted()
+    {
+        static::saving(function ($absensi) {
+            if ($absensi->kelas_id && empty($absensi->kelas_name_snapshot)) {
+                $absensi->kelas_name_snapshot = $absensi->kelasSnapshot?->nama_kelas;
+            }
+            if ($absensi->guru_id && empty($absensi->guru_name_snapshot)) {
+                $absensi->guru_name_snapshot = $absensi->guru?->nama;
+            }
+            if ($absensi->mapel_id && empty($absensi->mapel_name_snapshot)) {
+                $absensi->mapel_name_snapshot = $absensi->mapel?->nama;
+            }
+
+            // Fallback to SesiKelas snapshots if direct relation results are empty
+            if (empty($absensi->kelas_name_snapshot) && $absensi->sesiKelas) {
+                $absensi->kelas_name_snapshot = $absensi->sesiKelas->kelas_name_snapshot;
+            }
+            if (empty($absensi->guru_name_snapshot) && $absensi->sesiKelas) {
+                $absensi->guru_name_snapshot = $absensi->sesiKelas->guru_name_snapshot;
+            }
+            if (empty($absensi->mapel_name_snapshot) && $absensi->sesiKelas) {
+                $absensi->mapel_name_snapshot = $absensi->sesiKelas->mapel_name_snapshot;
+            }
+        });
+    }
 
     public function guru()
     {
@@ -43,50 +72,31 @@ class AbsensiGuru extends Model
      */
     public function getKelasAttribute()
     {
+        if ($this->kelas_name_snapshot) {
+            return (object) ['nama_kelas' => $this->kelas_name_snapshot];
+        }
         if ($this->kelas_id) {
             return $this->kelasSnapshot;
+        }
+        if ($this->sesiKelas?->kelas_name_snapshot) {
+            return (object) ['nama_kelas' => $this->sesiKelas->kelas_name_snapshot];
         }
         return $this->sesiKelas?->kelas;
     }
 
     public function getPengajaranAttribute()
     {
-        // Snapshot Data from current model if available
-        if ($this->guru_id || $this->mapel_id) {
-            return (object) [
-                'guru' => $this->guru ?? (object) ['nama' => 'Unknown'],
-                'mapel' => (object) [
-                    'nama' => $this->mapel?->nama ?? 'Unknown',
-                    'program' => $this->mapel?->program ?? '-',
-                    'jenjang' => $this->mapel?->jenjang ?? '-',
-                ],
-                'kelas' => $this->kelas,
-            ];
-        }
-
-        // Legacy Fallback (traversing sesiKelas relation)
-        $pengajaran = $this->sesiKelas?->pengajaran;
-        
-        if ($pengajaran) {
-            return (object) [
-                'guru' => $pengajaran->guru,
-                'mapel' => (object) [
-                    'nama' => $pengajaran->mapel?->nama ?? 'Unknown',
-                    'program' => $pengajaran->mapel?->program ?? '-',
-                    'jenjang' => $pengajaran->mapel?->jenjang ?? '-',
-                ],
-                'kelas' => $pengajaran->kelas,
-            ];
-        }
-
         return (object) [
-            'guru' => (object) ['nama' => 'Unknown'],
-            'mapel' => (object) [
-                'nama' => 'Belum Diatur',
-                'program' => '-',
-                'jenjang' => '-',
+            'guru' => (object) [
+                'nama' => $this->guru_name_snapshot ?? $this->guru?->nama ?? $this->sesiKelas?->guru_name_snapshot ?? 'Unknown',
+                'status' => $this->guru?->status ?? 'baru',
             ],
-            'kelas' => $this->kelas,
+            'mapel' => (object) [
+                'nama' => $this->mapel_name_snapshot ?? $this->mapel?->nama ?? $this->sesiKelas?->mapel_name_snapshot ?? 'Unknown',
+                'program' => $this->mapel?->program ?? '-',
+                'jenjang' => $this->mapel?->jenjang ?? '-',
+            ],
+            'kelas' => (object) ['nama_kelas' => $this->kelas_name_snapshot ?? $this->kelas?->nama_kelas ?? $this->sesiKelas?->kelas_name_snapshot ?? '-'],
         ];
     }
 

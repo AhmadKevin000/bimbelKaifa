@@ -65,7 +65,26 @@ class KelasRelationManager extends RelationManager
             ])
             ->bulkActions([
                 \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DetachBulkAction::make(),
+                    \Filament\Actions\DetachBulkAction::make()
+                        ->before(function (\Illuminate\Support\Collection $records, \Filament\Actions\DetachBulkAction $action) {
+                            foreach ($records as $record) {
+                                $hasCompleted = SesiKelas::where('pengajaran_id', $record->id)
+                                    ->where('jadwal_sesi_id', $this->getOwnerRecord()->id)
+                                    ->whereHas('absensiGuru', fn($q) => $q->where('status', 'selesai'))
+                                    ->exists();
+                                
+                                if ($hasCompleted) {
+                                    Notification::make()
+                                        ->title('Gagal Menghapus')
+                                        ->body('Beberapa sesi pengajaran yang dipilih sudah selesai dilakukan. Tidak dapat dihapus!')
+                                        ->danger()
+                                        ->send();
+                                        
+                                    $action->halt();
+                                    return;
+                                }
+                            }
+                        }),
                 ]),
             ])
             ->recordActions([
@@ -143,7 +162,23 @@ class KelasRelationManager extends RelationManager
                     ->label('Delete')
                     ->modalHeading('Hapus Jadwal (Lepas Mapel)')
                     ->button()
-                    ->color('danger'),
+                    ->color('danger')
+                    ->before(function ($record, \Filament\Actions\DetachAction $action) {
+                        $hasCompleted = SesiKelas::where('pengajaran_id', $record->id)
+                            ->where('jadwal_sesi_id', $this->getOwnerRecord()->id)
+                            ->whereHas('absensiGuru', fn($q) => $q->where('status', 'selesai'))
+                            ->exists();
+                        
+                        if ($hasCompleted) {
+                            Notification::make()
+                                ->title('Gagal Menghapus')
+                                ->body('Sesi pengajaran ini sudah selesai dilakukan dan memiliki data absensi/penggajian. Tidak dapat dihapus!')
+                                ->danger()
+                                ->send();
+                                
+                            $action->halt();
+                        }
+                    }),
             ]);
     }
 

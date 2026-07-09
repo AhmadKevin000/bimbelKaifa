@@ -14,6 +14,19 @@ class JadwalSesiRelationManager extends RelationManager
     protected static string $relationship = 'sesiKelas';
     protected static ?string $title = 'Riwayat Sesi Mengajar';
 
+    protected function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $guruId = $this->getOwnerRecord()->id;
+        
+        return SesiKelas::query()
+            ->where(function ($query) use ($guruId) {
+                $query->whereHas('pengajaran', fn ($q) => $q->where('guru_id', $guruId))
+                      ->orWhereHas('absensiGuru', fn ($q) => $q->where('guru_id', $guruId));
+            })
+            ->orderBy('tanggal', 'desc')
+            ->orderByRaw('(SELECT jam_mulai FROM jadwal_sesi WHERE jadwal_sesi.id = sesi_kelas.jadwal_sesi_id) ASC');
+    }
+
     public function form(Schema $schema): Schema
     {
         return $schema
@@ -26,9 +39,22 @@ class JadwalSesiRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('tanggal')
+            ->defaultGroup(
+                Tables\Grouping\Group::make('tanggal')
+                    ->label('Tanggal')
+                    ->collapsible()
+                    ->titlePrefixedWithLabel(false)
+                    ->getTitleFromRecordUsing(fn (SesiKelas $record): string =>
+                        $record->tanggal ? $record->tanggal->format('d M Y') : 'Tanpa Tanggal'
+                    )
+                    ->getKeyFromRecordUsing(fn (SesiKelas $record): string =>
+                        $record->tanggal ? $record->tanggal->format('Y-m-d') : '0000-00-00'
+                    )
+            )
             ->columns([
-                Tables\Columns\TextColumn::make('pengajaran.kelas.nama_kelas')
-                    ->label('Kelas'),
+                Tables\Columns\TextColumn::make('kelas_name')
+                    ->label('Kelas')
+                    ->getStateUsing(fn (SesiKelas $record) => $record->kelas_name_snapshot ?? $record->pengajaran?->kelas?->nama_kelas ?? '-'),
                 Tables\Columns\TextColumn::make('tanggal')
                     ->date()
                     ->sortable(),

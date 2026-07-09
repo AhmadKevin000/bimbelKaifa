@@ -11,9 +11,9 @@ use Illuminate\Support\Collection;
 class MyClasses extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-academic-cap';
-    protected static ?string $navigationLabel = 'My Classes';
-    protected static ?string $title = 'My Classes';
-    protected static ?string $slug = 'my-classes';
+    protected static ?string $navigationLabel = 'Kelas';
+    protected static ?string $title = 'Kelas';
+    protected static ?string $slug = 'Kelas';
     protected static ?int $navigationSort = 6;
     protected string $view = 'filament.guru.pages.my-classes';
 
@@ -27,16 +27,20 @@ class MyClasses extends Page
     public function getKelas(): Collection
     {
         return Kelas::whereHas('pengajaran', function ($query) {
-                $query->where('guru_id', $this->getGuruId());
-            })
+            $query->where('guru_id', $this->getGuruId());
+        })
             ->with([
                 'pengajaran' => fn($q) => $q
                     ->where('guru_id', $this->getGuruId())
                     ->with(['mapel.jenjang', 'guru']),
                 'siswa',
             ])
-            ->when($this->filterMapel, fn($query) =>
-                $query->whereHas('pengajaran.mapel', fn($q) =>
+            ->when(
+                $this->filterMapel,
+                fn($query) =>
+                $query->whereHas(
+                    'pengajaran.mapel',
+                    fn($q) =>
                     $q->where('id', $this->filterMapel)
                 )
             )
@@ -45,7 +49,9 @@ class MyClasses extends Page
 
     public function getMapelList(): Collection
     {
-        return Mapel::whereHas('pengajaran', fn($q) =>
+        return Mapel::whereHas(
+            'pengajaran',
+            fn($q) =>
             $q->where('guru_id', $this->getGuruId())
         )->get();
     }

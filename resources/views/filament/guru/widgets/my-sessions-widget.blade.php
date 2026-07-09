@@ -332,14 +332,11 @@
                             </td>
 
                             {{-- Kelas --}}
-                            <td>{{ $sesi->pengajaran?->kelas?->nama_kelas ?? '–' }}</td>
+                            <td>{{ $sesi->kelas_name_snapshot ?? $sesi->pengajaran?->kelas?->nama_kelas ?? '–' }}</td>
 
                             {{-- Mata Pelajaran --}}
                             <td>
-                                {{ $sesi->pengajaran?->mapel?->nama ?? '–' }}
-                                @if($sesi->pengajaran?->mapel?->jenjang)
-                                    <div class="ms-session-time">{{ $sesi->pengajaran->mapel->jenjang->nama }}</div>
-                                @endif
+                                {{ $sesi->mapel_name_snapshot ?? $sesi->pengajaran?->mapel?->nama ?? '–' }}
                             </td>
 
                             {{-- Semester --}}

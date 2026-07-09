@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\SessionClass;
+use App\Models\SesiKelas;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;

@@ -102,19 +102,7 @@ class AbsensiGuruTable
                 \Filament\Actions\ViewAction::make(),
             ])
             ->headerActions([
-                \Filament\Actions\Action::make('sync_today')
-                    ->label('Sync Jadwal Hari Ini')
-                    ->icon('heroicon-o-arrow-path')
-                    ->color('info')
-                    ->requiresConfirmation()
-                    ->modalDescription('Cari dan buat otomatis sesi absen hari ini berdasarkan jadwal yang sama persis 7 hari lalu.')
-                    ->action(function () {
-                        $targetDate = now()->format('Y-m-d');
-                        \Illuminate\Support\Facades\Artisan::call('app:generate-daily-sessions', [
-                            '--date' => $targetDate
-                        ]);
-                        Notification::make()->title('Sinkronisasi Jadwal Selesai!')->success()->send();
-                    })
+                //
             ]);
     }
 

@@ -64,11 +64,14 @@ class CashflowTable
                         if (!$ref) return '-';
 
                         if ($record->reference_type === \App\Models\Penggajian::class) {
-                            $pengajaran = $ref->absensiGuru->sesiKelas->pengajaran ?? null;
-                            $guru = $pengajaran->guru->nama ?? 'Unknown';
-                            $kelas = $pengajaran->kelas->nama_kelas ?? 'Unknown';
-                            $mapel = $pengajaran->mapel->nama ?? 'Unknown';
-                            return "{$guru} ({$kelas} - {$mapel})";
+                            $sesi = $ref->absensiGuru->sesiKelas ?? null;
+                            if ($sesi) {
+                                $guru = $sesi->guru_name_snapshot ?? $sesi->pengajaran->guru->nama ?? 'Unknown';
+                                $kelas = $sesi->kelas_name_snapshot ?? $sesi->pengajaran->kelas->nama_kelas ?? 'Unknown';
+                                $mapel = $sesi->mapel_name_snapshot ?? $sesi->pengajaran->mapel->nama ?? 'Unknown';
+                                return "{$guru} ({$kelas} - {$mapel})";
+                            }
+                            return 'Unknown';
                         }
 
                         if ($record->reference_type === \App\Models\Siswa::class) {
@@ -85,7 +88,7 @@ class CashflowTable
                                       $q->where('nama', 'like', "%{$search}%");
                                   } elseif ($type === \App\Models\Penggajian::class) {
                                       $q->whereHas('guru', fn($tq) => $tq->where('nama', 'like', "%{$search}%"))
-                                        ->orWhereHas('absensiGuru.sesiKelas.kelas', fn($kq) => $kq->where('nama_kelas', 'like', "%{$search}%"));
+                                        ->orWhereHas('absensiGuru.sesiKelas.pengajaran.kelas', fn($kq) => $kq->where('nama_kelas', 'like', "%{$search}%"));
                                   }
                               });
                     }),

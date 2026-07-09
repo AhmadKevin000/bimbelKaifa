@@ -167,12 +167,15 @@ class ViewKehadiran extends ViewRecord
                 Section::make('Informasi Kehadiran Guru')
                     ->icon('heroicon-o-user')
                     ->schema([
-                        TextEntry::make('pengajaran.guru.nama')
-                            ->label('Guru'),
-                        TextEntry::make('pengajaran.mapel.nama')
-                            ->label('Mata Pelajaran'),
-                        TextEntry::make('pengajaran.kelas.nama_kelas')
-                            ->label('Kelas'),
+                        TextEntry::make('guru_name')
+                            ->label('Guru')
+                            ->getStateUsing(fn ($record) => $record->guru_name_snapshot ?? $record->pengajaran?->guru?->nama ?? '-'),
+                        TextEntry::make('mapel_name')
+                            ->label('Mata Pelajaran')
+                            ->getStateUsing(fn ($record) => $record->mapel_name_snapshot ?? $record->pengajaran?->mapel?->nama ?? '-'),
+                        TextEntry::make('kelas_name')
+                            ->label('Kelas')
+                            ->getStateUsing(fn ($record) => $record->kelas_name_snapshot ?? $record->pengajaran?->kelas?->nama_kelas ?? '-'),
                         TextEntry::make('tanggal')
                             ->label('Tanggal')
                             ->date(),
