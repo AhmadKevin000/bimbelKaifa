@@ -68,16 +68,16 @@
         const steps = [];
 
         const menuMap = [
-            { label: 'Guru',           id: 'tour-menu-guru',      title: '👨‍🏫 Data Guru',        desc: 'Tambahkan data guru yang akan mengajar pada bimbingan belajar.' },
-            { label: 'Kelas',          id: 'tour-menu-kelas',     title: '🏫 Data Kelas',        desc: 'Buat kelas yang akan digunakan untuk mengelompokkan siswa.' },
-            { label: 'Mata Pelajaran', id: 'tour-menu-mapel',     title: '📖 Mata Pelajaran',    desc: 'Kelola daftar mata pelajaran yang tersedia pada bimbel.' },
-            { label: 'Siswa',          id: 'tour-menu-siswa',     title: '🎓 Data Siswa',        desc: 'Tambahkan siswa dan tempatkan pada kelas yang sesuai.' },
-            { label: 'Kelola Sesi',    id: 'tour-menu-sesi',      title: '📅 Kelola Sesi',       desc: 'Buat jadwal mengajar dan tentukan guru, kelas, serta mata pelajaran.' },
-            { label: 'Kehadiran',      id: 'tour-menu-kehadiran', title: '✅ Kehadiran',          desc: 'Kelola kehadiran guru dan siswa dalam satu alur yang terintegrasi.' },
-            { label: 'Rapor',          id: 'tour-menu-rapor',     title: '📝 Rapor',       desc: 'Input nilai dan hasil belajar siswa untuk setiap mata pelajaran.' },
-            { label: 'Tarif SPP',      id: 'tour-menu-spp',       title: '💰 Tarif SPP',         desc: 'Tentukan tarif pembayaran siswa berdasarkan program dan jenjang.' },
-            { label: 'Tarif Gaji',     id: 'tour-menu-gaji',      title: '💵 Tarif Gaji',        desc: 'Atur tarif honor guru yang digunakan untuk perhitungan gaji otomatis.' },
-            { label: 'Arus Kas',       id: 'tour-menu-kas',       title: '🏦 Arus Kas',          desc: 'Semua pemasukan dan pengeluaran akan tercatat secara otomatis pada menu ini.' },
+            { label: 'Guru', id: 'tour-menu-guru', title: '👨‍🏫 Data Guru', desc: 'Tambahkan data guru yang akan mengajar pada bimbingan belajar.' },
+            { label: 'Kelas', id: 'tour-menu-kelas', title: '🏫 Data Kelas', desc: 'Buat kelas yang akan digunakan untuk mengelompokkan siswa.' },
+            { label: 'Mata Pelajaran', id: 'tour-menu-mapel', title: '📖 Mata Pelajaran', desc: 'Kelola daftar mata pelajaran yang tersedia pada bimbel.' },
+            { label: 'Siswa', id: 'tour-menu-siswa', title: '🎓 Data Siswa', desc: 'Tambahkan siswa dan tempatkan pada kelas yang sesuai.' },
+            { label: 'Kelola Sesi', id: 'tour-menu-sesi', title: '📅 Kelola Sesi', desc: 'Buat jadwal mengajar dan tentukan guru, kelas, serta mata pelajaran.' },
+            { label: 'Kehadiran', id: 'tour-menu-kehadiran', title: '✅ Kehadiran', desc: 'Kelola kehadiran guru dan siswa dalam satu alur yang terintegrasi.' },
+            { label: 'Rapor', id: 'tour-menu-rapor', title: '📝 Rapor', desc: 'Input nilai dan hasil belajar siswa untuk setiap mata pelajaran.' },
+            { label: 'Tarif SPP', id: 'tour-menu-spp', title: '💰 Tarif SPP', desc: 'Tentukan tarif pembayaran siswa berdasarkan program dan jenjang.' },
+            { label: 'Tarif Gaji', id: 'tour-menu-gaji', title: '💵 Tarif Gaji', desc: 'Atur tarif honor guru yang digunakan untuk perhitungan gaji otomatis.' },
+            { label: 'Arus Kas', id: 'tour-menu-kas', title: '🏦 Arus Kas', desc: 'Semua pemasukan dan pengeluaran akan tercatat secara otomatis pada menu ini.' },
         ];
 
         for (const item of menuMap) {
@@ -132,9 +132,9 @@
 
     function markTourCompleted() {
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        if (!csrfToken) return;
+        if (!csrfToken) return Promise.resolve();
 
-        fetch('/admin/tour/complete', {
+        return fetch('/admin/tour/complete', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -214,7 +214,7 @@
                     Anda telah mempelajari alur dasar penggunaan sistem bimbel.
                     Anda siap untuk mulai mengelola data!
                 </p>
-                <button onclick="this.closest('#tour-completion-overlay').remove();"
+                <button onclick="this.closest('#tour-completion-overlay').remove(); window.location.reload();"
                     style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 2rem;border-radius:0.75rem;background:linear-gradient(135deg,#4364F7 0%,#6FB1FC 100%);color:#fff;font-size:0.9rem;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(67,100,247,.35);transition:all .2s ease;">
                     🚀 Mulai Menggunakan Sistem
                 </button>
@@ -236,9 +236,9 @@
         overlay.innerHTML = `
             <div style="background:#fff;border-radius:1.25rem;padding:2.5rem;max-width:460px;width:90%;text-align:center;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);animation:tourSlideUp .4s ease;">
                 <div style="font-size:3.5rem;margin-bottom:0.75rem;">👋</div>
-                <h2 style="font-size:1.35rem;font-weight:800;color:#0f172a;margin:0 0 0.5rem;">Selamat Datang di Sistem Bimbel</h2>
+                <h2 style="font-size:1.35rem;font-weight:800;color:#0f172a;margin:0 0 0.5rem;">Selamat Datang di Panel Admin Bimbel</h2>
                 <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0 0 1.75rem;">
-                    Sistem akan membantu Anda mengelola siswa, guru, jadwal,
+                    Panel admin akan membantu Anda mengelola siswa, guru, jadwal,
                     absensi, rapor, dan keuangan secara terintegrasi.
                 </p>
                 <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
@@ -266,7 +266,9 @@
 
         document.getElementById('tour-onboarding-skip').addEventListener('click', function () {
             overlay.remove();
-            markTourCompleted();
+            markTourCompleted().then(function () {
+                window.location.reload();
+            });
         });
     }
 

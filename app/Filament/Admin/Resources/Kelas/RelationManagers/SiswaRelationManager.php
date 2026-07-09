@@ -70,7 +70,8 @@ class SiswaRelationManager extends RelationManager
                     ->preloadRecordSelect()
                     ->multiple()
                     ->button()
-                    ->color('primary'),
+                    ->color('primary')
+                    ->recordSelectOptionsQuery(fn (\Illuminate\Database\Eloquent\Builder $query) => $query->whereNull('kelas_id')),
             ])
             ->actions([
                 \Filament\Actions\ViewAction::make(),

@@ -59,23 +59,14 @@ class Guru extends Model
 
     public function sesiKelas()
     {
-        return $this->hasManyThrough(
-            SesiKelas::class,
-            Pengajaran::class,
-            'guru_id',
-            'pengajaran_id',
-            'id',
-            'id'
-        );
+        return $this->hasMany(SesiKelas::class, 'guru_id');
     }
 
     public function getRekapGajiAttribute()
     {
-        $penggajians = Penggajian::whereHas('absensiGuru.sesiKelas', function ($q) {
-            $q->whereHas('pengajaran', function ($innerQ) {
-                $innerQ->where('guru_id', $this->id);
-            });
-        })->where('status_pembayaran', 'paid')->get();
+        $penggajians = Penggajian::where('guru_id', $this->id)
+            ->where('status_pembayaran', 'paid')
+            ->get();
 
         $rekap = $penggajians->groupBy(function ($penggajian) {
             return \Carbon\Carbon::parse($penggajian->tanggal_pembayaran)->format('F Y');

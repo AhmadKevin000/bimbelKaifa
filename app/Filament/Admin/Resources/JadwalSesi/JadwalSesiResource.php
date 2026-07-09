@@ -58,7 +58,9 @@ class JadwalSesiResource extends Resource
 
     public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
     {
-        return true;
+        return !\App\Models\SesiKelas::where('jadwal_sesi_id', $record->id)
+            ->whereHas('absensiGuru', fn($q) => $q->where('status', 'selesai'))
+            ->exists();
     }
 
     public static function getPages(): array

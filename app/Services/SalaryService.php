@@ -34,18 +34,20 @@ class SalaryService
             return $this->emptyResult();
         }
 
-        $program = $mapel->program;
-        $jenjang = $mapel->jenjang;
+        $program = (is_object($mapel) && isset($mapel->program) && is_object($mapel->program)) ? $mapel->program : null;
+        $jenjang = (is_object($mapel) && isset($mapel->jenjang) && is_object($mapel->jenjang)) ? $mapel->jenjang : null;
         $jumlahSiswa = $jumlahSiswaOverride ?? $record->jumlah_siswa_hadir;
         
         if ($jumlahSiswa <= 0 && $record->status !== 'selesai') {
-            $jumlahSiswa = $kelas->siswa()->count();
+            $jumlahSiswa = ($kelas instanceof \App\Models\Kelas) ? $kelas->siswa()->count() : 0;
         }
+
+        $status = is_object($guru) ? ($guru->status ?? 'baru') : 'baru';
 
         // snapshot untuk data parent jika dihapus
         $statusSnapshot = ($record instanceof AbsensiGuru && $record->status === 'selesai' && optional($record->penggajian)->rate_snapshot)
-            ? optional($record->penggajian)->rate_snapshot > 0 ? $guru->status : $guru->status
-            : $guru->status;
+            ? optional($record->penggajian)->rate_snapshot > 0 ? $status : $status
+            : $status;
 
         $results = [
             'total_fee' => 0,

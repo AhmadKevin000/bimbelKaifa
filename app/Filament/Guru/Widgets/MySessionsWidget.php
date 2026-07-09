@@ -22,8 +22,9 @@ class MySessionsWidget extends Widget
 
     public function getSesiList(): Collection
     {
-        return SesiKelas::whereHas('pengajaran', function ($query) {
-                $query->where('guru_id', $this->getGuruId());
+        return SesiKelas::where(function ($query) {
+                $query->whereHas('pengajaran', fn($q) => $q->where('guru_id', $this->getGuruId()))
+                      ->orWhereHas('absensiGuru', fn($q) => $q->where('guru_id', $this->getGuruId()));
             })
             ->with([
                 'pengajaran.mapel.jenjang',
@@ -49,22 +50,24 @@ class MySessionsWidget extends Widget
 
     public function getSemesterList(): Collection
     {
-        return SesiKelas::whereHas('pengajaran', fn($q) =>
-            $q->where('guru_id', $this->getGuruId())
-        )
-        ->select('semester')
-        ->distinct()
-        ->orderBy('semester')
-        ->pluck('semester');
+        return SesiKelas::where(function ($query) {
+                $query->whereHas('pengajaran', fn($q) => $q->where('guru_id', $this->getGuruId()))
+                      ->orWhereHas('absensiGuru', fn($q) => $q->where('guru_id', $this->getGuruId()));
+            })
+            ->select('semester')
+            ->distinct()
+            ->orderBy('semester')
+            ->pluck('semester');
     }
 
     public function getStats(): array
     {
         $guruId = $this->getGuruId();
 
-        $all = SesiKelas::whereHas('pengajaran', fn($q) =>
-            $q->where('guru_id', $guruId)
-        )->with('absensiGuru')->get();
+        $all = SesiKelas::where(function ($query) use ($guruId) {
+                $query->whereHas('pengajaran', fn($q) => $q->where('guru_id', $guruId))
+                      ->orWhereHas('absensiGuru', fn($q) => $q->where('guru_id', $guruId));
+            })->with('absensiGuru')->get();
 
         $total    = $all->count();
         $hadir    = $all->filter(fn($s) => optional($s->absensiGuru)->status === 'hadir')->count();

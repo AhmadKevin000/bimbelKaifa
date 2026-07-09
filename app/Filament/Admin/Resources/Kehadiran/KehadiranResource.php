@@ -38,7 +38,9 @@ class KehadiranResource extends Resource
                 'jadwalSesi',
                 'absensiGuru',
                 'absensiSiswa',
-            ]);
+            ])
+            ->orderBy('tanggal', 'desc')
+            ->orderByRaw('(SELECT jam_mulai FROM jadwal_sesi WHERE jadwal_sesi.id = sesi_kelas.jadwal_sesi_id) ASC');
     }
 
     public static function getRecordTitle(?\Illuminate\Database\Eloquent\Model $record): ?string

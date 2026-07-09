@@ -39,6 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 \Filament\View\PanelsRenderHook::HEAD_END,
                 fn (): string => \Illuminate\Support\Facades\Blade::render('
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                     <link rel="stylesheet" href="{{ asset(\'css/custom-v4.css\') }}?v=' . time() . '">
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css">
                 '),

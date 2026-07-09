@@ -27,16 +27,20 @@ class MyClasses extends Page
     public function getKelas(): Collection
     {
         return Kelas::whereHas('pengajaran', function ($query) {
-                $query->where('guru_id', $this->getGuruId());
-            })
+            $query->where('guru_id', $this->getGuruId());
+        })
             ->with([
                 'pengajaran' => fn($q) => $q
                     ->where('guru_id', $this->getGuruId())
                     ->with(['mapel.jenjang', 'guru']),
                 'siswa',
             ])
-            ->when($this->filterMapel, fn($query) =>
-                $query->whereHas('pengajaran.mapel', fn($q) =>
+            ->when(
+                $this->filterMapel,
+                fn($query) =>
+                $query->whereHas(
+                    'pengajaran.mapel',
+                    fn($q) =>
                     $q->where('id', $this->filterMapel)
                 )
             )
@@ -45,7 +49,9 @@ class MyClasses extends Page
 
     public function getMapelList(): Collection
     {
-        return Mapel::whereHas('pengajaran', fn($q) =>
+        return Mapel::whereHas(
+            'pengajaran',
+            fn($q) =>
             $q->where('guru_id', $this->getGuruId())
         )->get();
     }

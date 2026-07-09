@@ -62,12 +62,15 @@ class AbsensiGuruResource extends Resource
             ->components([
                 \Filament\Schemas\Components\Section::make('Informasi Sesi')
                     ->schema([
-                        \Filament\Infolists\Components\TextEntry::make('kelas.nama_kelas')
-                            ->label('Kelas'),
-                        \Filament\Infolists\Components\TextEntry::make('kelas.primary_teaching.guru.nama')
-                            ->label('Guru'),
-                        \Filament\Infolists\Components\TextEntry::make('kelas.primary_teaching.mapel.nama')
-                            ->label('Mata Pelajaran'),
+                        \Filament\Infolists\Components\TextEntry::make('kelas_name')
+                            ->label('Kelas')
+                            ->getStateUsing(fn ($record) => $record->kelas_name_snapshot ?? $record->kelas?->nama_kelas ?? '-'),
+                        \Filament\Infolists\Components\TextEntry::make('guru_name')
+                            ->label('Guru')
+                            ->getStateUsing(fn ($record) => $record->guru_name_snapshot ?? $record->pengajaran?->guru?->nama ?? '-'),
+                        \Filament\Infolists\Components\TextEntry::make('mapel_name')
+                            ->label('Mata Pelajaran')
+                            ->getStateUsing(fn ($record) => $record->mapel_name_snapshot ?? $record->pengajaran?->mapel?->nama ?? '-'),
                         \Filament\Infolists\Components\TextEntry::make('tanggal')
                             ->date()
                             ->label('Tanggal'),

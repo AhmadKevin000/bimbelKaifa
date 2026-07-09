@@ -35,12 +35,12 @@ class AbsensiGuruTable
                 TextColumn::make('absensiGuru.status')
                     ->label('Status')
                     ->badge()
-                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                    ->formatStateUsing(fn(?string $state): string => match ($state) {
                         'ongoing' => 'Ongoing',
                         'selesai' => 'Selesai',
                         default => 'Belum Mulai',
                     })
-                    ->color(fn (?string $state): string => match ($state) {
+                    ->color(fn(?string $state): string => match ($state) {
                         'ongoing' => 'success',
                         'selesai' => 'gray',
                         default => 'warning',
@@ -49,7 +49,7 @@ class AbsensiGuruTable
                     ->label('Siswa Hadir')
                     ->badge()
                     ->color('info')
-                    ->visible(fn (?SesiKelas $record) => $record?->absensiGuru?->status === 'selesai'),
+                    ->visible(fn(?SesiKelas $record) => $record?->absensiGuru?->status === 'selesai'),
             ])
             ->actions([
                 // CHECK-IN ACTION
@@ -57,17 +57,17 @@ class AbsensiGuruTable
                     ->label('Check-In')
                     ->icon('heroicon-o-play')
                     ->color('success')
-                    ->visible(fn (?SesiKelas $record) => $record && !$record->absensiGuru)
+                    ->visible(fn(?SesiKelas $record) => $record && !$record->absensiGuru)
                     ->action(function (SesiKelas $record) {
                         $pengajaran = $record->pengajaran;
-                        
+
                         AbsensiGuru::create([
                             'sesi_kelas_id' => $record->id,
-                            'guru_id'    => $pengajaran?->guru_id,
-                            'kelas_id'   => $pengajaran?->kelas_id,
-                            'mapel_id'   => $pengajaran?->mapel_id,
-                            'check_in'   => now(),
-                            'status'     => 'ongoing',
+                            'guru_id' => $pengajaran?->guru_id,
+                            'kelas_id' => $pengajaran?->kelas_id,
+                            'mapel_id' => $pengajaran?->mapel_id,
+                            'check_in' => now(),
+                            'status' => 'ongoing',
                         ]);
                         Notification::make()->title('Check-in Berhasil')->success()->send();
                     }),
@@ -77,13 +77,13 @@ class AbsensiGuruTable
                     ->label('Check-Out')
                     ->icon('heroicon-o-stop')
                     ->color('danger')
-                    ->visible(fn (?SesiKelas $record) => $record?->absensiGuru?->status === 'ongoing')
+                    ->visible(fn(?SesiKelas $record) => $record?->absensiGuru?->status === 'ongoing')
                     ->requiresConfirmation()
                     ->modalDescription('Pastikan absensi siswa sudah diisi sebelum check-out.')
                     ->action(function (SesiKelas $record) {
                         $absensiGuru = $record->absensiGuru;
                         $hasAbsensi = $record->absensiSiswa()->exists();
-                        
+
                         if (!$hasAbsensi) {
                             Notification::make()->title('Gagal: Absensi siswa belum diisi!')->danger()->send();
                             return;
@@ -98,24 +98,11 @@ class AbsensiGuruTable
 
                         Notification::make()->title('Check-out Berhasil, Sesi Selesai')->success()->send();
                     }),
-                
+
                 \Filament\Actions\ViewAction::make(),
             ])
             ->headerActions([
-                \Filament\Actions\Action::make('sync_today')
-                    ->label('Sinkronkan Jadwal Hari Ini')
-                    ->icon('heroicon-o-arrow-path')
-                    ->color('info')
-                    ->requiresConfirmation()
-                    ->modalHeading('Sinkronkan Jadwal Hari Ini')
-                    ->modalDescription('Cari dan buat otomatis sesi absen hari ini berdasarkan jadwal yang sama persis 7 hari lalu.')
-                    ->action(function () {
-                        $targetDate = now()->format('Y-m-d');
-                        \Illuminate\Support\Facades\Artisan::call('app:generate-daily-sessions', [
-                            '--date' => $targetDate
-                        ]);
-                        Notification::make()->title('Sinkronisasi Jadwal Selesai!')->success()->send();
-                    })
+                //
             ]);
     }
 
