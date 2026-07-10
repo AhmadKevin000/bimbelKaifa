@@ -104,6 +104,45 @@
     font-size: .8rem; color: #1d4ed8;
 }
 .dark .mc-info-bar { background: #1e3a8a22; border-color: #1e3a8a; color: #93c5fd; }
+
+/* --- Student List Static Styles --- */
+.mc-student-section {
+    border-top: 1px solid #f3f4f6;
+    background: #fafafb;
+    padding: .75rem 1rem;
+}
+.dark .mc-student-section {
+    border-top-color: #374151;
+    background: rgba(31, 41, 55, 0.4);
+}
+
+.mc-student-title {
+    font-size: .65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .04em;
+    color: #9ca3af; margin-bottom: .5rem;
+}
+.dark .mc-student-title { color: #6b7280; }
+
+.mc-student-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: .375rem;
+}
+
+.mc-student-item {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .75rem; color: #4b5563;
+}
+.dark .mc-student-item { color: #d1d5db; }
+
+.mc-student-bullet {
+    width: 6px; height: 6px; border-radius: 999px;
+    background-color: #3b82f6; flex-shrink: 0;
+}
+
+.mc-student-empty {
+    font-size: .75rem; color: #9ca3af; font-style: italic;
+}
+.dark .mc-student-empty { color: #6b7280; }
 </style>
 
 <div class="mc-wrap">
@@ -150,6 +189,23 @@
                         <span class="mc-row-label">Keterangan</span>
                         <span class="mc-row-value">{{ $kelas->keterangan ?? '-' }}</span>
                     </div>
+                </div>
+
+                <!-- Daftar Siswa -->
+                <div class="mc-student-section">
+                    <p class="mc-student-title">Daftar Siswa</p>
+                    @if($kelas->siswa && $kelas->siswa->count() > 0)
+                        <ul class="mc-student-list">
+                            @foreach($kelas->siswa as $siswa)
+                                <li class="mc-student-item">
+                                    <span class="mc-student-bullet"></span>
+                                    <span>{{ $siswa->nama }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="mc-student-empty">Belum ada siswa di kelas ini.</p>
+                    @endif
                 </div>
             </div>
             @endforeach
