@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LandingPhoto;
+use App\Models\TarifSpp;
 
 class LandingPageController extends Controller
 {
@@ -26,6 +27,12 @@ class LandingPageController extends Controller
 
         $photos = array_merge($defaults, $dbPhotos);
 
-        return view('landing', compact('photos'));
+        // Ambil semua tarif SPP dengan relasi program & jenjang,
+        // urutkan berdasarkan program_id agar urutan kartu konsisten.
+        $programs = TarifSpp::with(['program', 'jenjang'])
+            ->orderBy('program_id')
+            ->get();
+
+        return view('landing', compact('photos', 'programs'));
     }
 }
