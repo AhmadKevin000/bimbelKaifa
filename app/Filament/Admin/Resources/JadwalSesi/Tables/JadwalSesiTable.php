@@ -39,41 +39,52 @@ class JadwalSesiTable
                     ->label('Tambahkan Kelas')
                     ->icon('heroicon-o-plus-circle')
                     ->color('success')
-                    ->form([
-                        \Filament\Forms\Components\Select::make('semester')
-                            ->options([
-                                'Semester 1' => 'Semester 1',
-                                'Semester 2' => 'Semester 2',
-                            ])
-                            ->default('Semester 1')
-                            ->live()
-                            ->required(),
-                        \Filament\Forms\Components\Select::make('pengajaran_ids')
-                            ->label('Pilih Jadwal Pengajaran')
-                            ->multiple()
-                            ->searchable()
-                            ->preload()
-                            ->options(function ($get) {
-                                $semester = $get('semester');
+                    ->form(function (JadwalSesi $record) {
+                        return [
+                            \Filament\Forms\Components\Select::make('semester')
+                                ->options([
+                                    'Semester 1' => 'Semester 1',
+                                    'Semester 2' => 'Semester 2',
+                                ])
+                                ->default('Semester 1')
+                                ->live()
+                                ->required(),
+                            \Filament\Forms\Components\Select::make('pengajaran_ids')
+                                ->label('Pilih Jadwal Pengajaran')
+                                ->multiple()
+                                ->searchable()
+                                ->preload()
+                                ->options(function ($get) use ($record) {
+                                    $semester     = $get('semester');
+                                    $jadwalSesiId = $record->id;
 
-                                // Ambil semua mapel_id yang sudah ada jadwalnya di semester ini (di sesi MANAPUN)
-                                $assignedMapelIds = \App\Models\SesiKelas::where('semester', $semester)
-                                    ->join('pengajaran', 'sesi_kelas.pengajaran_id', '=', 'pengajaran.id')
-                                    ->pluck('pengajaran.mapel_id')
-                                    ->toArray();
+                                    // Ambil semua mapel_id yang sudah ada jadwalnya di semester ini (di sesi MANAPUN)
+                                    $assignedMapelIds = \App\Models\SesiKelas::where('semester', $semester)
+                                        ->join('pengajaran', 'sesi_kelas.pengajaran_id', '=', 'pengajaran.id')
+                                        ->pluck('pengajaran.mapel_id')
+                                        ->toArray();
 
-                                return Pengajaran::with(['kelas', 'mapel', 'guru'])
-                                    ->whereNotIn('mapel_id', $assignedMapelIds) // Hilangkan mapel yg sudah ditambahkan
-                                    ->get()
-                                    ->mapWithKeys(function ($item) {
-                                        $kelas = $item->kelas?->nama_kelas ?? 'Unknown';
-                                        $mapel = $item->mapel?->nama ?? 'Unknown';
-                                        $guru = $item->guru?->nama ?? 'Unknown';
-                                        return [$item->id => "{$kelas} - {$mapel} (Guru: {$guru})"];
-                                    });
-                            })
-                            ->required(),
-                    ])
+                                    // Ambil guru_id yang sudah ada di sesi ini (semester ini)
+                                    $guruSudahDiSesiIni = \App\Models\SesiKelas::where('jadwal_sesi_id', $jadwalSesiId)
+                                        ->where('semester', $semester)
+                                        ->join('pengajaran', 'sesi_kelas.pengajaran_id', '=', 'pengajaran.id')
+                                        ->pluck('pengajaran.guru_id')
+                                        ->toArray();
+
+                                    return Pengajaran::with(['kelas', 'mapel', 'guru'])
+                                        ->whereNotIn('mapel_id', $assignedMapelIds)
+                                        ->whereNotIn('guru_id', $guruSudahDiSesiIni) // Filter guru yg sudah ada di sesi ini
+                                        ->get()
+                                        ->mapWithKeys(function ($item) {
+                                            $kelas = $item->kelas?->nama_kelas ?? 'Unknown';
+                                            $mapel = $item->mapel?->nama ?? 'Unknown';
+                                            $guru  = $item->guru?->nama ?? 'Unknown';
+                                            return [$item->id => "{$kelas} - {$mapel} (Guru: {$guru})"];
+                                        });
+                                })
+                                ->required(),
+                        ];
+                    })
                     ->action(function (JadwalSesi $record, array $data) {
                         $jadwalSesiId = $record->id;
                         $tanggal = now()->toDateString();
@@ -85,16 +96,34 @@ class JadwalSesiTable
                             $item = Pengajaran::find($pengajaranId);
                             if (!$item) continue;
 
-                            $mapelId = $item->mapel_id;
+                            $mapelId  = $item->mapel_id;
+                            $guruId   = $item->guru_id;
+                            $guruNama = $item->guru?->nama ?? 'Unknown';
 
-                            // Validasi mapel bentrok
+                            // Validasi: 1 guru tidak boleh mengajar di sesi yang sama
+                            $guruSudahDiSesi = SesiKelas::where('jadwal_sesi_id', $jadwalSesiId)
+                                ->where('semester', $semester)
+                                ->whereHas('pengajaran', fn($q) => $q->where('guru_id', $guruId))
+                                ->exists();
+
+                            if ($guruSudahDiSesi) {
+                                $mapelNama = $item->mapel?->nama ?? 'Unknown';
+                                \Filament\Notifications\Notification::make()
+                                    ->title("Gagal: Guru Sudah Mengajar di Sesi Ini")
+                                    ->body("{$guruNama} sudah memiliki kelas lain pada sesi ini ({$semester}). Satu guru hanya bisa mengajar 1 kelas per sesi.")
+                                    ->danger()
+                                    ->send();
+                                continue;
+                            }
+
+                            // Validasi mapel bentrok di sesi lain
                             $existingOtherSession = SesiKelas::whereHas('pengajaran', function($q) use ($mapelId) {
                                     $q->where('mapel_id', $mapelId);
                                 })
                                 ->where('semester', $semester)
                                 ->where('jadwal_sesi_id', '!=', $jadwalSesiId)
                                 ->first();
-                                
+
                             if ($existingOtherSession) {
                                 $mapelName = $item->mapel->nama ?? 'Unknown';
                                 $time = $existingOtherSession->jadwalSesi;
@@ -105,7 +134,7 @@ class JadwalSesiTable
                                     ->send();
                                 continue;
                             }
-                            
+
                             $exactDuplicate = SesiKelas::where('pengajaran_id', $pengajaranId)
                                 ->where('jadwal_sesi_id', $jadwalSesiId)
                                 ->where('tanggal', $tanggal)
@@ -114,9 +143,9 @@ class JadwalSesiTable
                             if (!$exactDuplicate) {
                                 SesiKelas::create([
                                     'jadwal_sesi_id' => $jadwalSesiId,
-                                    'pengajaran_id' => $pengajaranId,
-                                    'tanggal' => $tanggal,
-                                    'semester' => $semester,
+                                    'pengajaran_id'  => $pengajaranId,
+                                    'tanggal'        => $tanggal,
+                                    'semester'       => $semester,
                                 ]);
                                 $successCount++;
                             }

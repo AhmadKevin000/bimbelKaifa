@@ -63,6 +63,7 @@ class KelasRelationManager extends RelationManager
             ->headerActions([
                 //
             ])
+            ->emptyStateHeading('Belum ada jadwal pengajaran')
             ->bulkActions([
                 \Filament\Actions\BulkActionGroup::make([
                     \Filament\Actions\DetachBulkAction::make()
@@ -143,6 +144,24 @@ class KelasRelationManager extends RelationManager
                             Notification::make()
                                 ->title("Gagal Pindah Sesi")
                                 ->body("Mapel {$mapelName} sudah ada di sesi {$targetSesi->nama} ({$targetSesi->jam_mulai}) pada {$semester}.")
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+
+                        // Validasi: guru sudah ada di sesi target
+                        $guruId = $record->guru_id;
+                        $guruNama = $record->guru?->nama ?? 'Unknown';
+                        $guruSudahDiTarget = SesiKelas::where('jadwal_sesi_id', $targetSesiId)
+                            ->where('semester', $semester)
+                            ->whereHas('pengajaran', fn($q) => $q->where('guru_id', $guruId))
+                            ->exists();
+
+                        if ($guruSudahDiTarget) {
+                            $targetSesi = JadwalSesi::find($targetSesiId);
+                            Notification::make()
+                                ->title("Gagal Pindah Sesi")
+                                ->body("{$guruNama} sudah mengajar kelas lain di sesi {$targetSesi->nama} ({$targetSesi->jam_mulai}). Satu guru hanya bisa mengajar 1 kelas per sesi.")
                                 ->danger()
                                 ->send();
                             return;
