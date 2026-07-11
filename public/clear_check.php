@@ -69,4 +69,15 @@ try {
     echo "\nDatabase error: " . $e->getMessage() . "\n";
 }
 
+// 5. Read Laravel Log
+echo "\n--- Last 30 lines of Laravel Log ---\n";
+$logPath = __DIR__.'/../storage/logs/laravel.log';
+if (file_exists($logPath)) {
+    $lines = file($logPath);
+    $lastLines = array_slice($lines, -30);
+    echo implode("", $lastLines);
+} else {
+    echo "laravel.log does not exist.\n";
+}
+
 echo "\n=== DIAGNOSTIC END ===\n";
