@@ -308,10 +308,7 @@ h6,
 }
 
 /* Card Wrapper for Login Form (Solid White for maximum readability) */
-.fi-simple-layout .fi-simple-main,
-.fi-simple-layout .fi-card,
-.fi-simple-layout .fi-simple-main-ctn,
-.fi-simple-layout .fi-simple-page-content {
+.fi-simple-layout .fi-simple-main {
     background-color: #FFFFFF !important;
     border: 1px solid rgba(15, 23, 42, 0.08) !important;
     border-radius: 1.5rem !important;
@@ -321,6 +318,13 @@ h6,
     padding: 2.5rem 2rem !important;
     max-width: 440px !important;
     width: 100% !important;
+}
+
+.fi-simple-layout .fi-simple-main-ctn {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
 }
 
 /* Login Heading Text (Selamat Datang Admin/Guru) - High Contrast */

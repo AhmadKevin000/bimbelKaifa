@@ -8,6 +8,6 @@ class AdminLogin extends BaseLogin
 {
     public function getHeading(): string
     {
-        return 'Selamat Datang Admin';
+        return 'Login Admin';
     }
 }

@@ -8,6 +8,6 @@ class GuruLogin extends BaseLogin
 {
     public function getHeading(): string
     {
-        return 'Selamat Datang Guru';
+        return 'Portal Guru';
     }
 }
