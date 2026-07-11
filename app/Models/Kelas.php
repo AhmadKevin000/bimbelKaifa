@@ -35,6 +35,11 @@ class Kelas extends Model
         return $this->hasMany(Pengajaran::class, 'kelas_id');
     }
 
+    public function bankSoals()
+    {
+        return $this->hasMany(BankSoal::class, 'kelas_id');
+    }
+
     public function getPrimaryTeachingAttribute()
     {
         return $this->pengajaran()->first();

@@ -14,4 +14,10 @@ class Jenjang extends Model
     {
         return $this->hasMany(Mapel::class);
     }
+
+    // Alias untuk konsistensi konvensi penamaan plural
+    public function mapels()
+    {
+        return $this->hasMany(Mapel::class);
+    }
 }

@@ -33,12 +33,17 @@ class AdminKelasHariIniWidget extends Widget
                     ? \Carbon\Carbon::parse($sesi->jadwalSesi->jam_selesai)->format('H:i')
                     : '-';
 
+                $status = 'Terjadwal';
+                if ($sesi->absensiGuru) {
+                    $status = $sesi->absensiGuru->status === 'selesai' ? 'Selesai' : 'Berlangsung';
+                }
+
                 return [
                     'waktu' => $jamMulai . ' - ' . $jamSelesai,
                     'kelas' => optional($sesi->pengajaran?->kelas)->nama_kelas ?? '-',
                     'mapel' => optional($sesi->pengajaran?->mapel)->nama ?? '-',
                     'guru' => optional($sesi->pengajaran?->guru)->nama ?? '-',
-                    'status' => $sesi->absensiGuru ? 'Berlangsung' : 'Terjadwal',
+                    'status' => $status,
                 ];
             })
             ->values();

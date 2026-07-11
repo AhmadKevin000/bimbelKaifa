@@ -28,4 +28,14 @@ class Mapel extends Model
     {
         return $this->hasMany(Pengajaran::class, 'mapel_id');
     }
+
+    public function bankSoals()
+    {
+        return $this->hasMany(BankSoal::class, 'mapel_id');
+    }
+
+    public function paketSoals()
+    {
+        return $this->hasMany(PaketSoal::class, 'mapel_id');
+    }
 }
