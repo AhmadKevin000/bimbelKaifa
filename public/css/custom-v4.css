@@ -289,3 +289,171 @@ h6,
     border-radius: 9999px !important;
     font-weight: 600 !important;
 }
+
+/* ============================================================
+   PREMIUM LOGIN PAGE STYLING
+   ============================================================ */
+
+/* Full page login container background */
+.fi-simple-layout {
+    background-color: #0b153c !important;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(67, 100, 247, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(111, 177, 252, 0.15) 0px, transparent 50%),
+        linear-gradient(135deg, #0f172a 0%, #020617 100%) !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Glassmorphism Card for Login Form */
+.fi-simple-layout .fi-simple-card {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.1),
+        0 20px 50px rgba(0, 0, 0, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+    padding: 2.5rem 2rem !important;
+    max-width: 450px !important;
+    width: 100% !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.fi-simple-layout .fi-simple-card:hover {
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.15),
+        0 25px 60px rgba(67, 100, 247, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Login Heading Text (Selamat Datang Admin/Guru) */
+.fi-simple-layout h1,
+.fi-simple-layout .fi-simple-header-heading {
+    color: #FFFFFF !important;
+    font-size: 1.75rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.025em !important;
+    text-align: center !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Subheading / Helper text on login */
+.fi-simple-layout p,
+.fi-simple-layout .fi-simple-header-subheading {
+    color: #94A3B8 !important;
+    font-size: 0.875rem !important;
+    text-align: center !important;
+}
+
+/* Input Fields inside Login */
+.fi-simple-layout .fi-input-wrp {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.fi-simple-layout .fi-input-wrp:focus-within {
+    border-color: #4364F7 !important;
+    box-shadow: 0 0 0 3px rgba(67, 100, 247, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+.fi-simple-layout .fi-input-wrp input {
+    color: #FFFFFF !important;
+}
+
+/* Labels */
+.fi-simple-layout label,
+.fi-simple-layout .fi-fo-field-label {
+    color: #E2E8F0 !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+}
+
+/* Checkbox & Links (Remember me, Forgot password) */
+.fi-simple-layout a {
+    color: #6FB1FC !important;
+    font-weight: 600 !important;
+    transition: color 0.15s ease !important;
+}
+
+.fi-simple-layout a:hover {
+    color: #4364F7 !important;
+    text-decoration: underline !important;
+}
+
+/* Submit Button */
+.fi-simple-layout button[type="submit"],
+.fi-simple-layout .fi-btn {
+    background: linear-gradient(135deg, #4364F7 0%, #6FB1FC 100%) !important;
+    color: #FFFFFF !important;
+    border-radius: 0.75rem !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 1.5rem !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(67, 100, 247, 0.3) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.fi-simple-layout button[type="submit"]:hover,
+.fi-simple-layout .fi-btn:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(67, 100, 247, 0.45) !important;
+    filter: brightness(1.05) !important;
+}
+
+.fi-simple-layout button[type="submit"]:active,
+.fi-simple-layout .fi-btn:active {
+    transform: translateY(1px) !important;
+}
+
+/* Logo container style */
+.fi-simple-layout .fi-logo {
+    filter: drop-shadow(0 4px 12px rgba(67, 100, 247, 0.25)) !important;
+    margin-bottom: 1rem !important;
+}
+
+/* ============================================================
+   GURU LOGIN PAGE OVERRIDES (GREEN/WHITE THEME)
+   ============================================================ */
+.fi-panel-guru .fi-simple-layout {
+    background-color: #064e3b !important;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(52, 211, 153, 0.15) 0px, transparent 50%),
+        linear-gradient(135deg, #022c22 0%, #064e3b 100%) !important;
+}
+
+.fi-panel-guru .fi-simple-layout .fi-input-wrp:focus-within {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+}
+
+.fi-panel-guru .fi-simple-layout a {
+    color: #34d399 !important;
+}
+
+.fi-panel-guru .fi-simple-layout a:hover {
+    color: #10b981 !important;
+}
+
+.fi-panel-guru .fi-simple-layout button[type="submit"],
+.fi-panel-guru .fi-simple-layout .fi-btn {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
+}
+
+.fi-panel-guru .fi-simple-layout button[type="submit"]:hover,
+.fi-panel-guru .fi-simple-layout .fi-btn:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
+}
+
+.fi-panel-guru .fi-simple-layout .fi-logo {
+    filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.25)) !important;
+}
