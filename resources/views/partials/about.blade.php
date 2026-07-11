@@ -23,7 +23,7 @@
                             KAIFA Tutoring Center
                         </h2>
                         <p class="t-lead-airy text-ink mb-10" style="color: #333333;">
-                            KAIFA (Karya Inspirasi Family) adalah pusat bimbingan belajar yang lahir dari semangat untuk memberikan pendidikan berkualitas yang personal dan menyenangkan. Kami percaya setiap anak memiliki potensi unik yang perlu diasah dengan metode yang tepat.
+                            KAIFA adalah pusat bimbingan belajar yang lahir dari semangat untuk memberikan pendidikan berkualitas yang personal dan menyenangkan. Kami percaya setiap anak memiliki potensi unik yang perlu diasah dengan metode yang tepat.
                         </p>
 
                         <!-- Visi & Misi Cards -->
