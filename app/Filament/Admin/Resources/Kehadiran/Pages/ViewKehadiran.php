@@ -291,8 +291,14 @@ class ViewKehadiran extends ViewRecord
                         TextEntry::make('absensiGuru.penggajian.status_pembayaran')
                             ->label('Status Pembayaran')
                             ->badge()
+                            ->formatStateUsing(fn (?string $state): string => match ($state) {
+                                'paid' => 'Sukses',
+                                'unpaid' => 'Belum Dibayar',
+                                default => ucfirst($state ?? ''),
+                            })
                             ->color(fn (?string $state): string => match ($state) {
                                 'paid' => 'success',
+                                'unpaid' => 'danger',
                                 default => 'warning',
                             }),
                     ])

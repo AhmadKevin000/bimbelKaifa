@@ -8,8 +8,25 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Siswa;
 use App\Models\Pengajaran;
+use App\Models\JadwalSesi;
+use App\Models\TarifSpp;
+use App\Models\TarifGaji;
+use App\Models\LandingPhoto;
+use App\Models\BankSoal;
+use App\Models\PaketSoal;
+use App\Models\PaketSoalItem;
+use App\Models\OpsiJawaban;
+use App\Models\AbsensiGuru;
+use App\Models\AbsensiSiswa;
+use App\Models\Cashflow;
+use App\Models\Rapor;
+use App\Models\Penggajian;
+use App\Models\SesiKelas;
+use App\Models\Jenjang;
+use App\Models\Program;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,118 +35,46 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 0. Clean old sample data
-        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+        // 0. Clean old sample & user data
+        Schema::disableForeignKeyConstraints();
         Kelas::truncate();
         Mapel::truncate();
         Siswa::truncate();
         Pengajaran::truncate();
-        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
+        Guru::truncate();
+        User::truncate();
+        JadwalSesi::truncate();
+        TarifSpp::truncate();
+        TarifGaji::truncate();
+        LandingPhoto::truncate();
+        BankSoal::truncate();
+        PaketSoal::truncate();
+        PaketSoalItem::truncate();
+        OpsiJawaban::truncate();
+        AbsensiGuru::truncate();
+        AbsensiSiswa::truncate();
+        Cashflow::truncate();
+        Rapor::truncate();
+        Penggajian::truncate();
+        SesiKelas::truncate();
+        Jenjang::truncate();
+        Program::truncate();
+        Schema::enableForeignKeyConstraints();
 
         // 1. Admin User
-        User::updateOrCreate(
-            ['email' => 'admin@admin.com'],
-            [
-                'name' => 'Administrator',
-                'password' => Hash::make('password'),
-            ]
-        );
+        User::create([
+            'email' => 'admin@admin.com',
+            'name' => 'Administrator',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
 
-        // 2. Master Sesi (Jam Belajar)
+        // 2. Core Config & Master Seeders
         $this->call([
             MasterSesiSeeder::class,
             TarifSppSeeder::class,
             TarifGajiSeeder::class,
+            LandingPhotoSeeder::class,
         ]);
-
-        // 3. Guru-Guru Sampel
-        $gurus = [
-            ['nama' => 'Ibu Pertiwi', 'email' => 'pertiwi@guru.com', 'no_hp' => '0811111111', 'alamat' => 'Yogyakarta', 'status' => 'senior'],
-            ['nama' => 'Pak Bambang', 'email' => 'bambang@guru.com', 'no_hp' => '0822222222', 'alamat' => 'Sleman', 'status' => 'semi'],
-            ['nama' => 'Ibu Siti', 'email' => 'siti@guru.com', 'no_hp' => '0833333333', 'alamat' => 'Bantul', 'status' => 'baru'],
-        ];
-
-        foreach ($gurus as $g) {
-            Guru::updateOrCreate(['email' => $g['email']], $g);
-        }
-
-        $this->call([
-            CreateUserForExistingGurusSeeder::class,
-        ]);
-
-        $guruSenior = Guru::where('status', 'senior')->first();
-        $guruSemi = Guru::where('status', 'semi')->first();
-
-        // 4. Data per Jenjang (Mapel -> Kelas -> Siswa)
-        $dataJenjang = [
-            [
-                'jenjang' => 'Pre School',
-                'program' => 'Calistung',
-                'mapel' => ['Membaca Kebahagiaan', 'Berhitung Ceria'],
-                'kelas' => 'TK Bintang Kecil',
-                'siswa' => ['Budi Kecil', 'Susi Imut']
-            ],
-            [
-                'jenjang' => 'SD',
-                'program' => 'Reguler',
-                'mapel' => ['Matematika SD', 'IPA Terpadu', 'Bahasa Indonesia'],
-                'kelas' => '6 SD Harapan',
-                'siswa' => ['Andi Wijaya', 'Rina Pratama']
-            ],
-            [
-                'jenjang' => 'SMP',
-                'program' => 'TKA',
-                'mapel' => ['Aljabar SMP', 'Fisika Dasar', 'Bahasa Inggris'],
-                'kelas' => '9 SMP Unggulan',
-                'siswa' => ['Gibran Rakabuming', 'Kaerul Anam']
-            ],
-            [
-                'jenjang' => 'SMA',
-                'program' => 'Reguler',
-                'mapel' => ['Kalkulus', 'Kimia Organik', 'Biologi Molekuler'],
-                'kelas' => '12 SMA Akselerasi',
-                'siswa' => ['Raditya Dika', 'Jessica Mila']
-            ],
-        ];
-
-        foreach ($dataJenjang as $dj) {
-            // Get Jenjang and Program IDs
-            $jenjang = \App\Models\Jenjang::firstOrCreate(['nama' => $dj['jenjang']]);
-            $program = \App\Models\Program::firstOrCreate(['nama' => $dj['program']]);
-
-            // Create Kelas
-            $kelas = Kelas::create([
-                'nama_kelas' => $dj['kelas'],
-            ]);
-
-            // Create Mapels & Link to Class
-            foreach ($dj['mapel'] as $mName) {
-                $mapel = Mapel::create([
-                    'nama' => $mName,
-                    'jenjang_id' => $jenjang->id,
-                    'program_id' => $program->id,
-                ]);
-
-                Pengajaran::create([
-                    'kelas_id' => $kelas->id, 
-                    'guru_id' => ($dj['jenjang'] == 'SMA' || $dj['jenjang'] == 'SMP') ? $guruSenior->id : $guruSemi->id, // fixed from teacher_id to guru_id
-                    'mapel_id' => $mapel->id, 
-                ]);
-            }
-
-            // Create Siswas
-            foreach ($dj['siswa'] as $sName) {
-                Siswa::create([
-                    'nama' => $sName,
-                    'tanggal_lahir' => now()->subYears($dj['jenjang'] == 'SMA' ? 17 : ($dj['jenjang'] == 'SD' ? 10 : 5)),
-                    'alamat' => 'Alamat ' . $sName,
-                    'no_hp' => '085' . rand(100000, 999999),
-                    'kelas_id' => $kelas->id,
-                    'tanggal_daftar' => now(),
-                    'spp_jatuh_tempo' => now()->addMonth(),
-                    'jumlah_mapel' => count($dj['mapel']),
-                ]);
-            }
-        }
     }
 }

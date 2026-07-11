@@ -200,6 +200,20 @@
     color: #86efac;
 }
 
+.adm-status-selesai {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+.dark .adm-status-selesai {
+    background: rgba(71, 85, 105, 0.15);
+    color: #94a3b8;
+}
+
 .adm-status-terjadwal {
     display: inline-block;
     padding: 0.2rem 0.6rem;
@@ -272,6 +286,8 @@
                             <td>
                                 @if($kelas['status'] === 'Berlangsung')
                                     <span class="adm-status-berlangsung">● Berlangsung</span>
+                                @elseif($kelas['status'] === 'Selesai')
+                                    <span class="adm-status-selesai">✓ Selesai</span>
                                 @else
                                     <span class="adm-status-terjadwal" style="display:inline-flex; align-items:center; gap:0.25rem;">
                                         <x-heroicon-m-clock style="width: 0.875rem; height: 0.875rem; flex-shrink: 0;" />

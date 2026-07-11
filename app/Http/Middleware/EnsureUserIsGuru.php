@@ -14,11 +14,16 @@ class EnsureUserIsGuru
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role !== 'guru') {
-            auth()->logout();
+        if (auth('guru')->check() && auth('guru')->user()->role !== 'guru') {
+            auth('guru')->logout();
 
-            return redirect()->route('filament.guru.auth.login')
-                ->with('error', 'Akses ditolak. Halaman ini hanya untuk Guru.');
+            \Filament\Notifications\Notification::make()
+                ->title('Akses Ditolak')
+                ->body('Halaman ini hanya untuk Guru.')
+                ->danger()
+                ->send();
+
+            return redirect()->route('filament.guru.auth.login');
         }
 
         return $next($request);

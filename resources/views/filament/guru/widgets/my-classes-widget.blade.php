@@ -185,10 +185,6 @@
                         <span class="mc-row-label">Jenjang</span>
                         <span class="mc-row-value">{{ $kelas->jenjang }}</span>
                     </div>
-                    <div class="mc-row">
-                        <span class="mc-row-label">Keterangan</span>
-                        <span class="mc-row-value">{{ $kelas->keterangan ?? '-' }}</span>
-                    </div>
                 </div>
 
                 <!-- Daftar Siswa -->

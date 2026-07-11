@@ -42,6 +42,7 @@ class AdminPanelProvider extends PanelProvider
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <link rel="stylesheet" href="{{ asset(\'css/custom-v4.css\') }}?v=' . time() . '">
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css">
+                    @vite([\'resources/css/app.css\'])
                 '),
             )
             ->renderHook(
@@ -77,6 +78,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                \App\Http\Middleware\EnsureUserIsAdmin::class,
             ]);
     }
 }

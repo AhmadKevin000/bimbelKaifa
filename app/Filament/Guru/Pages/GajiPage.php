@@ -117,6 +117,104 @@ class GajiPage extends Page implements HasTable
                         default   => 'gray',
                     }),
             ])
+            ->actions([
+                \Filament\Actions\Action::make('detail')
+                    ->label('Detail')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->modalHeading('Detail Penggajian Sesi')
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup')
+                    ->infolist([
+                        \Filament\Schemas\Components\Section::make('Informasi Sesi & Kelas')
+                            ->icon('heroicon-o-academic-cap')
+                            ->schema([
+                                \Filament\Infolists\Components\TextEntry::make('absensiGuru.sesiKelas.tanggal')
+                                    ->label('Tanggal Sesi')
+                                    ->date('d M Y'),
+                                \Filament\Infolists\Components\TextEntry::make('absensiGuru.sesiKelas.jadwalSesi.nama')
+                                    ->label('Nama Sesi')
+                                    ->state(fn ($record) => 
+                                        ($record->absensiGuru?->sesiKelas?->jadwalSesi?->nama ?? '-') . 
+                                        ' (' . 
+                                        substr($record->absensiGuru?->sesiKelas?->jadwalSesi?->jam_mulai ?? '', 0, 5) . 
+                                        ' - ' . 
+                                        substr($record->absensiGuru?->sesiKelas?->jadwalSesi?->jam_selesai ?? '', 0, 5) . 
+                                        ')'
+                                    ),
+                                \Filament\Infolists\Components\TextEntry::make('absensiGuru.kelasSnapshot.nama_kelas')
+                                    ->label('Kelas')
+                                    ->badge()
+                                    ->color('primary')
+                                    ->state(fn ($record) => 
+                                        $record->absensiGuru?->kelas_name_snapshot ?? $record->absensiGuru?->kelasSnapshot?->nama_kelas ?? '-'
+                                    ),
+                                \Filament\Infolists\Components\TextEntry::make('absensiGuru.mapel.nama')
+                                    ->label('Mata Pelajaran')
+                                    ->state(fn ($record) => 
+                                        $record->absensiGuru?->mapel_name_snapshot ?? $record->absensiGuru?->mapel?->nama ?? '-'
+                                    ),
+                            ])->columns(2),
+
+                        \Filament\Schemas\Components\Section::make('Informasi Kehadiran & Tarif')
+                            ->icon('heroicon-o-users')
+                            ->schema([
+                                \Filament\Infolists\Components\TextEntry::make('absensiGuru.jumlah_siswa_hadir')
+                                    ->label('Siswa Hadir')
+                                    ->badge()
+                                    ->color('success')
+                                    ->state(fn ($record) => 
+                                        $record->absensiGuru?->jumlah_siswa_hadir ?? 0
+                                    ),
+                                \Filament\Infolists\Components\TextEntry::make('siswa_absen')
+                                    ->label('Siswa Absen (Izin/Sakit/Alfa)')
+                                    ->badge()
+                                    ->color('danger')
+                                    ->state(fn ($record) => 
+                                        $record->absensiGuru?->absensiSiswa()
+                                            ->whereIn('status', ['izin', 'sakit', 'alfa'])
+                                            ->count() ?? 0
+                                    ),
+                                \Filament\Infolists\Components\TextEntry::make('rate_snapshot')
+                                    ->label('Tarif Dasar')
+                                    ->money('IDR'),
+                                \Filament\Infolists\Components\TextEntry::make('perhitungan')
+                                    ->label('Perhitungan Gaji')
+                                    ->state(fn ($record) => 
+                                        strtoupper($record->absensiGuru?->mapel?->program?->nama ?? '') === 'CALISTUNG'
+                                            ? 'Calistung (Siswa Hadir x Tarif Dasar)'
+                                            : 'Reguler/Flat (Tarif Dasar)'
+                                    ),
+                            ])->columns(2),
+
+                        \Filament\Schemas\Components\Section::make('Status Pembayaran')
+                            ->icon('heroicon-o-banknotes')
+                            ->schema([
+                                \Filament\Infolists\Components\TextEntry::make('nominal')
+                                    ->label('Total Gaji Sesi')
+                                    ->money('IDR')
+                                    ->weight('bold')
+                                    ->color('success'),
+                                \Filament\Infolists\Components\TextEntry::make('tanggal_pembayaran')
+                                    ->label('Tanggal Pembayaran')
+                                    ->date('d M Y')
+                                    ->placeholder('Belum dibayar'),
+                                \Filament\Infolists\Components\TextEntry::make('status_pembayaran')
+                                    ->label('Status')
+                                    ->badge()
+                                    ->formatStateUsing(fn($state) => match($state) {
+                                        'paid'    => 'Dibayar',
+                                        'pending' => 'Pending',
+                                        default   => ucfirst($state ?? '-'),
+                                    })
+                                    ->color(fn($state) => match($state) {
+                                        'paid'    => 'success',
+                                        'pending' => 'warning',
+                                        default   => 'gray',
+                                    }),
+                            ])->columns(3),
+                    ])
+            ])
             ->defaultSort('tanggal_pembayaran', 'desc')
             ->striped()
             ->paginated([10, 25, 50])
@@ -125,7 +223,7 @@ class GajiPage extends Page implements HasTable
             ->emptyStateIcon('heroicon-o-banknotes');
     }
 
-    // ── Data untuk view ───────────────────────────────────────────────────
+    // ── Data untuk view 
     public function getViewData(): array
     {
         $guru = $this->getGuru();
