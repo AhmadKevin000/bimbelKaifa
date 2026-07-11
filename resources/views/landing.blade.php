@@ -8,7 +8,7 @@
     <title>KAIFA Tutoring Center | Bimbel Terbaik di Malang</title>
     <meta name="description" content="KAIFA Tutoring Center — bimbingan belajar intensif dengan kurikulum terpersonalisasi untuk membantu siswa menaklukkan UTBK, ujian PTN, dan sekolah kedinasan di Malang.">
 
-    @vite(['resources/css/app.css', 'resources/css/landing.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Google Fonts: Inter as SF Pro substitute for non-Apple platforms -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
