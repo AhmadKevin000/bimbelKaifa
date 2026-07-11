@@ -26,7 +26,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('kaifaadm')
+            ->path('admin')
             ->authGuard('web')
             ->login(\App\Filament\Pages\Auth\AdminLogin::class)
             ->brandLogo(asset('images/logo.png'))
