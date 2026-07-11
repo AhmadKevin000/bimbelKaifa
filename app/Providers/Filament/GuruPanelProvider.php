@@ -28,7 +28,7 @@ class GuruPanelProvider extends PanelProvider
             ->id('guru')
             ->path('guru')
             ->authGuard('guru')
-            ->login()
+            ->login(\App\Filament\Pages\Auth\GuruLogin::class)
             ->colors([
                 'primary' => Color::Emerald,
                 'gray'    => Color::Zinc,
@@ -40,10 +40,14 @@ class GuruPanelProvider extends PanelProvider
             ->brandLogoHeight('2.5rem')
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
-                fn (): string => '<style>' .
+                fn (): string => \Illuminate\Support\Facades\Blade::render('
+                    <link rel="stylesheet" href="{{ asset(\'css/custom-v4.css\') }}?v=' . time() . '">
+                    @vite([\'resources/css/app.css\'])
+                    <style>' .
                     File::get(resource_path('css/gaji-page.css')) .
                     File::get(resource_path('css/jadwal-page.css')) .
-                    '</style>',
+                    '</style>
+                '),
             )
             ->discoverPages(in: app_path('Filament/Guru/Pages'), for: 'App\\Filament\\Guru\\Pages')
             ->pages([

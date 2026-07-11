@@ -35,31 +35,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 0. Clean old sample & user data
-        Schema::disableForeignKeyConstraints();
-        Kelas::truncate();
-        Mapel::truncate();
-        Siswa::truncate();
-        Pengajaran::truncate();
-        Guru::truncate();
-        User::truncate();
-        JadwalSesi::truncate();
-        TarifSpp::truncate();
-        TarifGaji::truncate();
-        LandingPhoto::truncate();
-        BankSoal::truncate();
-        PaketSoal::truncate();
-        PaketSoalItem::truncate();
-        OpsiJawaban::truncate();
-        AbsensiGuru::truncate();
-        AbsensiSiswa::truncate();
-        Cashflow::truncate();
-        Rapor::truncate();
-        Penggajian::truncate();
-        SesiKelas::truncate();
-        Jenjang::truncate();
-        Program::truncate();
-        Schema::enableForeignKeyConstraints();
+        // Delete in reverse dependency order to avoid foreign key violations on PostgreSQL/MySQL
+        Rapor::query()->delete();
+        AbsensiSiswa::query()->delete();
+        AbsensiGuru::query()->delete();
+        PaketSoalItem::query()->delete();
+        OpsiJawaban::query()->delete();
+        PaketSoal::query()->delete();
+        BankSoal::query()->delete();
+        Penggajian::query()->delete();
+        Cashflow::query()->delete();
+        SesiKelas::query()->delete();
+        Pengajaran::query()->delete();
+        Siswa::query()->delete();
+        Kelas::query()->delete();
+        Mapel::query()->delete();
+        Guru::query()->delete();
+        User::query()->delete();
+        JadwalSesi::query()->delete();
+        TarifSpp::query()->delete();
+        TarifGaji::query()->delete();
+        LandingPhoto::query()->delete();
+        Jenjang::query()->delete();
+        Program::query()->delete();
 
         // 1. Admin User
         User::create([
