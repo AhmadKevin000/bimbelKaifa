@@ -29,6 +29,12 @@ class Siswa extends Model
         return $this->belongsTo(Kelas::class);
     }
 
+    public function pengajaranEnrolled()
+    {
+        return $this->belongsToMany(Pengajaran::class, 'siswa_pengajaran', 'siswa_id', 'pengajaran_id')
+            ->withTimestamps();
+    }
+
     public function absensi()
     {
         return $this->hasMany(AbsensiSiswa::class);

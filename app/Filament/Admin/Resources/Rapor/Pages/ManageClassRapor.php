@@ -62,7 +62,7 @@ class ManageClassRapor extends Page implements HasTable, HasForms
     {
         $kelasId = $this->record->id;
         $semester = $this->semester;
-        $totalPengajaran = Pengajaran::where('kelas_id', $kelasId)->count();
+        $totalPengajaranKelas = Pengajaran::where('kelas_id', $kelasId)->count();
 
         return $table
             ->query(
@@ -70,7 +70,8 @@ class ManageClassRapor extends Page implements HasTable, HasForms
                     ->where('kelas_id', $kelasId)
                     ->with([
                         'rapor' => fn ($q) => $q->where('semester', $semester)
-                            ->whereHas('pengajaran', fn ($inner) => $inner->where('kelas_id', $kelasId))
+                            ->whereHas('pengajaran', fn ($inner) => $inner->where('kelas_id', $kelasId)),
+                        'pengajaranEnrolled',
                     ])
             )
             ->columns([
@@ -83,12 +84,16 @@ class ManageClassRapor extends Page implements HasTable, HasForms
                 TextColumn::make('rapor_status')
                     ->label('Status Rapor')
                     ->badge()
-                    ->state(function (Siswa $siswa) use ($totalPengajaran) {
+                    ->state(function (Siswa $siswa) use ($totalPengajaranKelas) {
                         $filled = $siswa->rapor->count();
 
+                        // Untuk SMA: hitung berdasarkan mapel yang diikuti siswa itu
+                        $enrolledCount = $siswa->pengajaranEnrolled->count();
+                        $total = $enrolledCount > 0 ? $enrolledCount : $totalPengajaranKelas;
+
                         if ($filled === 0) return 'Belum Diisi';
-                        if ($filled >= $totalPengajaran) return 'Lengkap ✓';
-                        return "{$filled}/{$totalPengajaran} Mapel";
+                        if ($filled >= $total) return 'Lengkap ✓';
+                        return "{$filled}/{$total} Mapel";
                     })
                     ->color(fn (string $state) => match (true) {
                         str_contains($state, 'Lengkap') => 'success',

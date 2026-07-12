@@ -43,10 +43,18 @@ class InputSiswaRapor extends Page implements HasForms
         $this->siswa = $siswa;
         $this->semester = $semester;
 
-        // Cache pengajaran for use in blade
-        $this->pengajaranList = Pengajaran::where('kelas_id', $this->record->id)
-            ->with('mapel', 'guru')
-            ->get()
+        // Cache pengajaran: filter by siswa_pengajaran untuk SMA, fallback ke semua jika non-SMA
+        $enrolledIds = $this->siswa->pengajaranEnrolled()
+            ->pluck('pengajaran.id');
+
+        $pengajaranQuery = Pengajaran::where('kelas_id', $this->record->id)
+            ->with('mapel', 'guru');
+
+        if ($enrolledIds->isNotEmpty()) {
+            $pengajaranQuery->whereIn('id', $enrolledIds);
+        }
+
+        $this->pengajaranList = $pengajaranQuery->get()
             ->map(fn ($p) => [
                 'id'    => $p->id,
                 'mapel' => $p->mapel?->nama ?? '-',
@@ -81,9 +89,16 @@ class InputSiswaRapor extends Page implements HasForms
     protected function loadGrades(): array
     {
         $grades = [];
-        $pengajaran = Pengajaran::where('kelas_id', $this->record->id)->get();
 
-        foreach ($pengajaran as $item) {
+        $enrolledIds = $this->siswa->pengajaranEnrolled()
+            ->pluck('pengajaran.id');
+
+        $pengajaranQuery = Pengajaran::where('kelas_id', $this->record->id);
+        if ($enrolledIds->isNotEmpty()) {
+            $pengajaranQuery->whereIn('id', $enrolledIds);
+        }
+
+        foreach ($pengajaranQuery->get() as $item) {
             $rapor = Rapor::where('siswa_id', $this->siswa->id)
                 ->where('pengajaran_id', $item->id)
                 ->where('semester', $this->semester)
@@ -97,10 +112,17 @@ class InputSiswaRapor extends Page implements HasForms
 
     public function form(Schema $form): Schema
     {
-        $pengajaran = Pengajaran::where('kelas_id', $this->record->id)
-            ->with('mapel', 'guru')
-            ->get();
+        $enrolledIds = $this->siswa->pengajaranEnrolled()
+            ->pluck('pengajaran.id');
 
+        $pengajaranQuery = Pengajaran::where('kelas_id', $this->record->id)
+            ->with('mapel', 'guru');
+
+        if ($enrolledIds->isNotEmpty()) {
+            $pengajaranQuery->whereIn('id', $enrolledIds);
+        }
+
+        $pengajaran = $pengajaranQuery->get();
         $components = [];
 
         foreach ($pengajaran as $item) {
@@ -180,9 +202,16 @@ class InputSiswaRapor extends Page implements HasForms
     public function save(): void
     {
         $state = $this->form->getState();
-        $pengajaran = Pengajaran::where('kelas_id', $this->record->id)->get();
 
-        foreach ($pengajaran as $item) {
+        $enrolledIds = $this->siswa->pengajaranEnrolled()
+            ->pluck('pengajaran.id');
+
+        $pengajaranQuery = Pengajaran::where('kelas_id', $this->record->id);
+        if ($enrolledIds->isNotEmpty()) {
+            $pengajaranQuery->whereIn('id', $enrolledIds);
+        }
+
+        foreach ($pengajaranQuery->get() as $item) {
             $nilaiKey = "nilai_{$item->id}";
 
             if (isset($state[$nilaiKey]) && is_numeric($state[$nilaiKey])) {

@@ -11,6 +11,7 @@ use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Section;
 use App\Services\FinanceService;
 use App\Models\Kelas;
+use App\Models\Pengajaran;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 
@@ -55,6 +56,8 @@ class SiswaForm
                             ->afterStateUpdated(function (Set $set) {
                                 $set('program', null);
                                 $set('jumlah_mapel', null);
+                                $set('kelas_id', null);
+                                $set('pengajaran_ids', []);
                             }),
 
                         Select::make('program')
@@ -71,46 +74,90 @@ class SiswaForm
                             })
                             ->afterStateUpdated(fn(Set $set) => $set('jumlah_mapel', null)),
 
-                        TextInput::make('jumlah_mapel')
-                            ->label('Jumlah Mata Pelajaran')
-                            ->numeric()
-                            ->minValue(1)
-                            ->required(fn(Get $get) => $get('jenjang') === 'SMA')
-                            ->visible(fn(Get $get) => $get('jenjang') === 'SMA')
-                            ->live(),
-
+                        // ── Kelas — HANYA untuk SMA ──────────────────────
                         Select::make('kelas_id')
+                            ->label('Kelas')
                             ->relationship('kelas', 'nama_kelas')
                             ->searchable()
                             ->preload()
                             ->live()
+                            ->visible(fn(Get $get) => $get('jenjang') === 'SMA')
+                            ->required(fn(Get $get) => $get('jenjang') === 'SMA')
+                            ->columnSpanFull()
+                            ->afterStateHydrated(function ($record, $component) {
+                                if ($record) {
+                                    $component->state($record->kelas_id);
+                                }
+                            })
                             ->afterStateUpdated(function ($state, Set $set) {
+                                // Reset pilihan mapel saat kelas diganti
+                                $set('pengajaran_ids', []);
+                                $set('jumlah_mapel', null);
+
                                 if (!$state) {
-                                    $set('jenjang', null);
-                                    $set('program', null);
                                     return;
                                 }
 
-                                $kelas = \App\Models\Kelas::find($state);
+                                $kelas = Kelas::find($state);
                                 if ($kelas) {
-                                    $jenjang = $kelas->jenjang;
-                                    $set('jenjang', ($jenjang === '-') ? null : $jenjang);
-
                                     $firstTeaching = $kelas->pengajaran()->first();
                                     $program = null;
                                     if ($firstTeaching && $firstTeaching->mapel && $firstTeaching->mapel->program) {
                                         $program = $firstTeaching->mapel->program->nama;
                                     }
                                     $set('program', ($program === '-') ? null : $program);
-
-                                    if ($jenjang === 'SMA') {
-                                        $subjectCount = $kelas->pengajaran()->count();
-                                        if ($subjectCount > 0) {
-                                            $set('jumlah_mapel', $subjectCount);
-                                        }
-                                    }
                                 }
                             }),
+
+                        // ── Multi-select Mapel — HANYA untuk SMA & setelah kelas dipilih ──
+                        Select::make('pengajaran_ids')
+                            ->label('Mapel yang Diikuti')
+                            ->multiple()
+                            ->live()
+                            ->dehydrated(false) // Disimpan manual di CreateSiswa/EditSiswa
+                            ->visible(fn(Get $get) => $get('jenjang') === 'SMA' && $get('kelas_id'))
+                            ->required(fn(Get $get) => $get('jenjang') === 'SMA' && $get('kelas_id'))
+                            ->columnSpanFull()
+                            ->options(function (Get $get) {
+                                $kelasId = $get('kelas_id');
+                                if (!$kelasId) return [];
+
+                                return Pengajaran::where('kelas_id', $kelasId)
+                                    ->with('mapel')
+                                    ->get()
+                                    ->mapWithKeys(function ($p) {
+                                        $maxInfo = $p->max_siswa
+                                            ? " (Maks. {$p->max_siswa} siswa)"
+                                            : '';
+                                        $terisi = $p->siswa()->count();
+                                        $label = ($p->mapel->nama ?? 'Unknown') . " [{$terisi}" . ($p->max_siswa ? "/{$p->max_siswa}" : "") . " siswa]{$maxInfo}";
+                                        return [$p->id => $label];
+                                    });
+                            })
+                            ->afterStateHydrated(function ($record, $component) {
+                                // Hydrate pilihan mapel saat edit siswa SMA
+                                if ($record && $record->kelas_id) {
+                                    $ids = $record->pengajaranEnrolled()
+                                        ->pluck('pengajaran.id')
+                                        ->toArray();
+                                    $component->state($ids);
+                                }
+                            })
+                            ->afterStateUpdated(function ($state, Set $set) {
+                                // Auto-update jumlah_mapel sesuai jumlah yang dipilih
+                                $set('jumlah_mapel', count($state ?? []));
+                            })
+                            ->helperText('Pilih mapel yang akan diikuti siswa ini. Jumlah mapel akan terupdate otomatis.'),
+
+                        TextInput::make('jumlah_mapel')
+                            ->label('Jumlah Mata Pelajaran')
+                            ->numeric()
+                            ->minValue(1)
+                            ->required(fn(Get $get) => $get('jenjang') === 'SMA')
+                            ->visible(fn(Get $get) => $get('jenjang') === 'SMA')
+                            ->disabled(fn(Get $get) => $get('jenjang') === 'SMA' && $get('kelas_id'))
+                            ->helperText(fn(Get $get) => $get('kelas_id') ? 'Terisi otomatis dari mapel yang dipilih.' : null)
+                            ->live(),
 
                         DatePicker::make('tanggal_daftar')
                             ->required(),
@@ -128,7 +175,7 @@ class SiswaForm
                                     return 'Pilih jenjang dan program untuk melihat rincian biaya.';
                                 }
                                 if ($jenjang === 'SMA' && !$jumlahMapel) {
-                                    return 'Masukkan jumlah mata pelajaran untuk SMA.';
+                                    return 'Pilih mapel yang diikuti untuk melihat rincian biaya SMA.';
                                 }
 
                                 $financeService = new FinanceService();
@@ -179,4 +226,3 @@ class SiswaForm
             ]);
     }
 }
-
