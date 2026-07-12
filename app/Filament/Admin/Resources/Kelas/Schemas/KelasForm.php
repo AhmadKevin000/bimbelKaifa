@@ -67,9 +67,16 @@ class KelasForm
                                 }
                                 return Mapel::pluck('nama', 'id');
                             }),
+
+                        TextInput::make('max_siswa')
+                            ->label('Maks. Siswa')
+                            ->numeric()
+                            ->minValue(1)
+                            ->placeholder('Kosongkan = tidak terbatas')
+                            ->helperText('Batas maks. siswa per mapel ini (opsional)'),
                     ])
                     ->live()
-                    ->columns(2)
+                    ->columns(3)
                     ->addActionLabel('Tambah Pengajaran')
                     ->minItems(1)
                     ->required()
