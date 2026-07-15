@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>KAIFA Tutoring Center | Bimbel Terbaik di Malang</title>
     <meta name="description" content="KAIFA Tutoring Center — bimbingan belajar intensif dengan kurikulum terpersonalisasi untuk membantu siswa menaklukkan UTBK, ujian PTN, dan sekolah kedinasan di Malang.">
+    <link rel="icon" type="image/png" href="{{ asset('images/Kaifa.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
