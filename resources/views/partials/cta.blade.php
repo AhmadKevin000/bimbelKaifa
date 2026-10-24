@@ -1,41 +1,41 @@
-        <!-- ============================================================
-             CTA SECTION — product-tile-light
-             Background: #ffffff
-             Clean centered layout, single large blue pill CTA
-        ============================================================ -->
-        <section class="tile-white section-pad">
-            <div class="container-content text-center">
-                <p class="t-caption text-ink-muted mb-5" style="letter-spacing: 0.6px; text-transform: uppercase; font-weight: 600;">
-                    Mulai Perjalananmu
-                </p>
-                <h2 class="t-display-lg text-ink mb-5">Siap Meraih Prestasi Impianmu?</h2>
-                <p class="t-lead-airy mx-auto mb-10" style="color: #7a7a7a; max-width: 500px;">
-                    Konsultasikan kebutuhan belajarmu dengan tim ahli kami secara gratis via WhatsApp.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="https://wa.link/bmd9s5" target="_blank" rel="noopener noreferrer"
-                        class="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full text-white"
-                        style="background-color: #0066cc; font-size: 17px; font-weight: 400; letter-spacing: -0.374px; text-decoration: none; transition: background-color 0.15s, transform 0.1s; white-space: nowrap;"
-                        onmouseover="this.style.backgroundColor='#0071e3'"
-                        onmouseout="this.style.backgroundColor='#0066cc'"
-                        onmousedown="this.style.transform='scale(0.95)'"
-                        onmouseup="this.style.transform='scale(1)'"
-                        id="cta-whatsapp">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0;">
-                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82c1.516.903 3.123 1.379 4.763 1.38h.005c5.333 0 9.674-4.34 9.677-9.674.002-2.586-1.003-5.015-2.83-6.841-1.827-1.827-4.255-2.831-6.842-2.831-5.334 0-9.675 4.341-9.677 9.675-.001 1.751.463 3.454 1.341 4.956l-.996 3.637 3.719-.976zm11.233-6.076c-.305-.152-1.805-.891-2.084-.993-.279-.101-.482-.152-.684.152-.203.304-.787.993-.965 1.194-.177.202-.355.228-.66.076-.304-.152-1.285-.474-2.447-1.511-.904-.806-1.514-1.802-1.691-2.105-.178-.304-.019-.468.133-.619.137-.136.305-.355.457-.533.151-.177.203-.304.304-.507.102-.202.051-.38-.025-.532-.076-.152-.684-1.648-.938-2.257-.247-.594-.499-.514-.684-.523-.177-.009-.38-.011-.583-.011s-.532.076-.811.38c-.279.304-1.065 1.039-1.065 2.535s1.09 2.94 1.242 3.143c.152.202 2.144 3.275 5.193 4.591.725.313 1.291.5 1.731.64.729.231 1.391.199 1.915.121.584-.087 1.805-.735 2.058-1.444.253-.709.253-1.317.177-1.444-.075-.127-.278-.203-.583-.355z"/>
+<section class="kf-section pt-0">
+    <div class="kf-container">
+        <div class="relative overflow-hidden rounded-[2rem] bg-kf-blue px-6 py-12 sm:px-10 sm:py-14 lg:px-16 lg:py-16"
+            data-reveal>
+            {{-- Decoration --}}
+            <div class="kf-blob -right-16 -top-20 h-64 w-64 bg-kf-yellow/25" aria-hidden="true"></div>
+            <div class="kf-blob -bottom-24 -left-10 h-56 w-56 bg-white/10" aria-hidden="true"></div>
+
+            <div class="relative grid gap-8 lg:grid-cols-12 lg:items-center">
+                <div class="lg:col-span-7">
+                    <p class="kf-eyebrow kf-eyebrow--onDark">Mulai dari sini</p>
+                    <h2 class="kf-h2 mt-4 text-white">Siap menemukan program yang paling pas?</h2>
+                    <p class="mt-4 max-w-xl text-[1.0625rem] leading-relaxed text-white/85">
+                        Ceritakan kebutuhan belajar anak Anda. Tim KAIFA akan membantu memilih program dan
+                        jadwal yang sesuai — tanpa perlu mengisi formulir.
+                    </p>
+                </div>
+
+                <div class="flex flex-col gap-3 lg:col-span-5 lg:items-end">
+                    <a href="{{ $waRegister }}" target="_blank" rel="noopener noreferrer"
+                        class="kf-btn kf-btn--onDark kf-btn--block sm:w-auto">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.23 8.23Z" />
                         </svg>
-                        <span>Hubungi Admin Sekarang</span>
+                        Daftar via WhatsApp
                     </a>
+
                     <a href="#program"
-                        class="inline-flex items-center justify-center h-12 px-7 rounded-full"
-                        style="color: #0066cc; border: 1px solid #0066cc; background: transparent; font-size: 17px; font-weight: 400; letter-spacing: -0.374px; text-decoration: none; transition: background-color 0.15s, transform 0.1s; white-space: nowrap;"
-                        onmouseover="this.style.backgroundColor='rgba(0,102,204,0.06)'"
-                        onmouseout="this.style.backgroundColor='transparent'"
-                        onmousedown="this.style.transform='scale(0.95)'"
-                        onmouseup="this.style.transform='scale(1)'"
-                        id="cta-explore">
-                        Lihat Semua Program
+                        class="kf-btn kf-btn--block border-white/40 bg-transparent text-white hover:bg-white/10 sm:w-auto">
+                        Lihat semua program
                     </a>
+
+                    <p class="mt-1 text-center text-sm text-white/60 lg:text-right">
+                        {{ $content['contact_hours'] }}
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
