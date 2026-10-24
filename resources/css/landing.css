@@ -1,0 +1,780 @@
+/* ==========================================================================
+   KAIFA Tutoring Center — Landing page design system
+   Entry point for the public landing page only.
+
+   Admin (/admin) and teacher (/guru) panels keep using resources/css/app.css,
+   so nothing here can leak into the Filament panels.
+   ========================================================================== */
+
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    /* --- Type --- */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* --- Warm base --- */
+    --color-kf-cream: #fff8ee;
+    --color-kf-cream-deep: #fdefdb;
+    --color-kf-paper: #ffffff;
+
+    /* --- Ink --- */
+    --color-kf-ink: #16182a;
+    --color-kf-ink-2: #3f4459;
+    --color-kf-ink-3: #64697e;
+
+    /* --- Brand action --- */
+    --color-kf-blue: #1b4bd8;
+    --color-kf-blue-dark: #133ab0;
+    --color-kf-blue-soft: #e4ecff;
+
+    /* --- Accents (restrained) --- */
+    --color-kf-yellow: #ffc63d;
+    --color-kf-yellow-soft: #fff1cb;
+    --color-kf-orange: #ff8a3d;
+    --color-kf-mint: #d8f1e3;
+    --color-kf-lilac: #ebe4ff;
+
+    /* --- Structure --- */
+    --color-kf-line: #efe3ce;
+
+    --radius-kf-sm: 0.75rem;
+    --radius-kf: 1.25rem;
+    --radius-kf-lg: 1.75rem;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+    :root {
+        --kf-header-h: 4.25rem;
+
+        /* Button sizing — one place to change so every CTA stays in step.
+           44px = navbar, 48px = hero/CTA. Both stay above the 44px touch target. */
+        --kf-btn-h: 3rem;
+        --kf-btn-h-sm: 2.75rem;
+        --kf-btn-px: 1.375rem;
+        --kf-btn-px-sm: 1.0625rem;
+        --kf-btn-fs: 0.9375rem;
+        --kf-btn-fs-sm: 0.875rem;
+        --kf-btn-lift: 0.25rem;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(var(--kf-header-h) + 1rem);
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        background-color: var(--color-kf-cream);
+        color: var(--color-kf-ink-2);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-display);
+        color: var(--color-kf-ink);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    /* Visible, high-contrast focus for every interactive element */
+    :where(a, button, summary, input, [tabindex]):focus-visible {
+        outline: 3px solid var(--color-kf-blue);
+        outline-offset: 3px;
+        border-radius: 0.5rem;
+    }
+
+    ::selection {
+        background-color: var(--color-kf-yellow);
+        color: var(--color-kf-ink);
+    }
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+@layer components {
+    /* --- Layout --- */
+    .kf-container {
+        width: 100%;
+        max-width: 78rem;
+        margin-inline: auto;
+        padding-inline: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+        .kf-container {
+            padding-inline: 2rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .kf-container {
+            padding-inline: 2.5rem;
+        }
+    }
+
+    .kf-section {
+        padding-block: 3.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .kf-section {
+            padding-block: 5.5rem;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .kf-section {
+            padding-block: 6.5rem;
+        }
+    }
+
+    /* --- Skip link --- */
+    .kf-skip {
+        position: absolute;
+        left: 1rem;
+        top: -4rem;
+        z-index: 100;
+        background-color: var(--color-kf-ink);
+        color: var(--color-kf-cream);
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--radius-kf-sm);
+        font-weight: 600;
+        text-decoration: none;
+        transition: top 0.2s ease;
+    }
+
+    .kf-skip:focus {
+        top: 1rem;
+    }
+
+    /* --- Eyebrow --- */
+    .kf-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-kf-blue);
+    }
+
+    .kf-eyebrow::before {
+        content: '';
+        width: 1.5rem;
+        height: 2px;
+        border-radius: 2px;
+        background-color: var(--color-kf-yellow);
+    }
+
+    .kf-eyebrow--onDark {
+        color: var(--color-kf-yellow);
+    }
+
+    /* --- Headings --- */
+    .kf-h1 {
+        /* Capped at 3.5rem: at 4rem the last word of the headline fell onto a
+           line of its own inside the 7/12 hero column. */
+        font-size: clamp(2.1rem, 5.6vw, 3.5rem);
+        font-weight: 800;
+    }
+
+    .kf-h2 {
+        font-size: clamp(1.65rem, 3.6vw, 2.6rem);
+        font-weight: 800;
+    }
+
+    .kf-h3 {
+        font-size: clamp(1.1rem, 2vw, 1.35rem);
+        font-weight: 700;
+    }
+
+    .kf-lead {
+        font-size: clamp(1rem, 1.6vw, 1.125rem);
+        color: var(--color-kf-ink-3);
+        line-height: 1.7;
+    }
+
+    /*
+     * Marker highlight under a word.
+     *
+     * A background gradient rather than an inline-block with an ::after bar, so
+     * the highlight follows wrapped lines. nowrap keeps the highlighted phrase
+     * intact (it reads badly if "percaya diri" splits across lines), and
+     * box-decoration-break makes the bar paint on every fragment if it does wrap.
+     */
+    .kf-mark {
+        white-space: nowrap;
+        background-image: linear-gradient(var(--color-kf-yellow), var(--color-kf-yellow));
+        background-repeat: no-repeat;
+        background-position: 0 86%;
+        background-size: 100% 0.34em;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+    }
+
+    /* --- Buttons --- */
+    .kf-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: var(--kf-btn-h);
+        padding: 0 var(--kf-btn-px);
+        border-radius: 0.75rem;
+        font-family: var(--font-display);
+        font-size: var(--kf-btn-fs);
+        font-weight: 700;
+        line-height: 1.1;
+        text-align: center;
+        text-decoration: none;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition:
+            background-color 0.18s ease,
+            color 0.18s ease,
+            border-color 0.18s ease,
+            box-shadow 0.18s ease,
+            transform 0.18s ease;
+    }
+
+    /* Navbar-sized CTA: 44px tall, 14px label, 17px side padding. */
+    .kf-btn--sm {
+        min-height: var(--kf-btn-h-sm);
+        padding: 0 var(--kf-btn-px-sm);
+        font-size: var(--kf-btn-fs-sm);
+    }
+
+    .kf-btn svg {
+        flex-shrink: 0;
+    }
+
+    .kf-btn--primary {
+        background-color: var(--color-kf-blue);
+        color: #fff;
+        box-shadow: 0 4px 0 0 var(--color-kf-blue-dark);
+    }
+
+    /* A compact button needs a shallower shadow or it reads as heavy again. */
+    .kf-btn--sm.kf-btn--primary {
+        box-shadow: 0 3px 0 0 var(--color-kf-blue-dark);
+    }
+
+    .kf-btn--primary:hover {
+        background-color: var(--color-kf-blue-dark);
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 0 #0f2f92;
+    }
+
+    .kf-btn--primary:active {
+        transform: translateY(4px);
+        box-shadow: 0 0 0 0 #0f2f92;
+    }
+
+    .kf-btn--primary:focus-visible {
+        outline-color: var(--color-kf-ink);
+    }
+
+    .kf-btn--outline {
+        background-color: transparent;
+        color: var(--color-kf-ink);
+        border-color: var(--color-kf-ink);
+    }
+
+    .kf-btn--outline:hover {
+        background-color: var(--color-kf-ink);
+        color: var(--color-kf-cream);
+    }
+
+    .kf-btn--quiet {
+        background-color: var(--color-kf-paper);
+        color: var(--color-kf-ink);
+        border-color: var(--color-kf-line);
+    }
+
+    .kf-btn--quiet:hover {
+        border-color: var(--color-kf-ink);
+    }
+
+    .kf-btn--onDark {
+        background-color: var(--color-kf-yellow);
+        color: var(--color-kf-ink);
+        box-shadow: 0 4px 0 0 #d99f18;
+    }
+
+    .kf-btn--onDark:hover {
+        background-color: #ffd166;
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 0 #d99f18;
+    }
+
+    .kf-btn--onDark:active {
+        transform: translateY(4px);
+        box-shadow: 0 0 0 0 #d99f18;
+    }
+
+    .kf-btn--block {
+        width: 100%;
+    }
+
+    /* --- Cards --- */
+    .kf-card {
+        background-color: var(--color-kf-paper);
+        border: 1px solid var(--color-kf-line);
+        border-radius: var(--radius-kf);
+        padding: 1.5rem;
+    }
+
+    .kf-card--flush {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .kf-card--hover {
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+    .kf-card--hover:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 32px -18px rgba(22, 24, 42, 0.35);
+        border-color: #e2d2b6;
+    }
+
+    /* --- Chips --- */
+    .kf-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.375rem 0.75rem;
+        border-radius: 999px;
+        background-color: var(--color-kf-cream-deep);
+        color: var(--color-kf-ink-2);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+
+    .kf-chip--onDark {
+        background-color: rgba(255, 255, 255, 0.12);
+        color: #fff;
+    }
+
+    /* --- Icon badge --- */
+    .kf-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1rem;
+        flex-shrink: 0;
+    }
+
+    /* --- Checklist --- */
+    .kf-check {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.625rem;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        color: var(--color-kf-ink-2);
+    }
+
+    .kf-check > svg {
+        flex-shrink: 0;
+        margin-top: 0.2rem;
+        color: var(--color-kf-blue);
+    }
+
+    /* --- Navigation --- */
+    .kf-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: var(--color-kf-cream);
+        border-bottom: 1px solid transparent;
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .kf-header[data-scrolled='true'] {
+        border-bottom-color: var(--color-kf-line);
+        box-shadow: 0 6px 24px -20px rgba(22, 24, 42, 0.6);
+    }
+
+    .kf-navlink {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 0.125rem;
+        font-family: var(--font-display);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--color-kf-ink-2);
+        text-decoration: none;
+        transition: color 0.15s ease;
+    }
+
+    .kf-navlink:hover {
+        color: var(--color-kf-blue);
+    }
+
+    .kf-navlink::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.1rem;
+        height: 2px;
+        border-radius: 2px;
+        background-color: var(--color-kf-yellow);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.2s ease;
+    }
+
+    .kf-navlink:hover::after,
+    .kf-navlink:focus-visible::after {
+        transform: scaleX(1);
+    }
+
+    .kf-navtoggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--color-kf-line);
+        background-color: var(--color-kf-paper);
+        color: var(--color-kf-ink);
+        cursor: pointer;
+    }
+
+    .kf-navtoggle[aria-expanded='true'] {
+        background-color: var(--color-kf-ink);
+        color: var(--color-kf-cream);
+        border-color: var(--color-kf-ink);
+    }
+
+    /* Mobile drawer */
+    .kf-drawer {
+        position: fixed;
+        inset: var(--kf-header-h) 0 0 0;
+        z-index: 40;
+        background-color: var(--color-kf-cream);
+        padding: 1.5rem 1.25rem 2.5rem;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .kf-drawer[hidden] {
+        display: none;
+    }
+
+    .kf-drawer a.kf-drawer-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 0.25rem;
+        border-bottom: 1px solid var(--color-kf-line);
+        font-family: var(--font-display);
+        font-size: 1.0625rem;
+        font-weight: 700;
+        color: var(--color-kf-ink);
+        text-decoration: none;
+    }
+
+    .kf-drawer a.kf-drawer-link:hover {
+        color: var(--color-kf-blue);
+    }
+
+    /* --- Floating WhatsApp --- */
+    .kf-float {
+        position: fixed;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        z-index: 45;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 999px;
+        background-color: #1fa855;
+        color: #fff;
+        box-shadow: 0 10px 24px -8px rgba(22, 24, 42, 0.5);
+        text-decoration: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(0.75rem);
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease,
+            visibility 0.25s;
+    }
+
+    .kf-float[data-visible='true'] {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .kf-float:hover {
+        background-color: #178a45;
+    }
+
+    /* --- FAQ --- */
+    .kf-faq {
+        background-color: var(--color-kf-paper);
+        border: 1px solid var(--color-kf-line);
+        border-radius: var(--radius-kf);
+        overflow: hidden;
+        transition: border-color 0.2s ease;
+    }
+
+    .kf-faq[open] {
+        border-color: #dcc9a8;
+    }
+
+    .kf-faq > summary {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.25rem 1.375rem;
+        cursor: pointer;
+        list-style: none;
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-kf-ink);
+        line-height: 1.4;
+    }
+
+    .kf-faq > summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .kf-faq > summary::marker {
+        content: '';
+    }
+
+    .kf-faq > summary:hover {
+        color: var(--color-kf-blue);
+    }
+
+    .kf-faq__icon {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-top: 0.1rem;
+        border-radius: 999px;
+        background-color: var(--color-kf-cream-deep);
+        color: var(--color-kf-ink);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            transform 0.25s ease,
+            background-color 0.2s ease;
+    }
+
+    .kf-faq[open] .kf-faq__icon {
+        transform: rotate(45deg);
+        background-color: var(--color-kf-yellow);
+    }
+
+    .kf-faq__body {
+        padding: 0 1.375rem 1.375rem;
+        color: var(--color-kf-ink-3);
+        font-size: 0.9375rem;
+        line-height: 1.7;
+    }
+
+    /* Progressive height animation where the browser supports it */
+    @supports (interpolate-size: allow-keywords) {
+        :root {
+            interpolate-size: allow-keywords;
+        }
+
+        .kf-faq::details-content {
+            block-size: 0;
+            overflow: hidden;
+            transition:
+                block-size 0.3s ease,
+                content-visibility 0.3s allow-discrete;
+        }
+
+        .kf-faq[open]::details-content {
+            block-size: auto;
+        }
+    }
+
+    /* --- Price row --- */
+    .kf-price-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding-block: 0.625rem;
+        border-bottom: 1px dashed var(--color-kf-line);
+    }
+
+    .kf-price-row:last-child {
+        border-bottom: 0;
+    }
+
+    .kf-price-value {
+        font-family: var(--font-display);
+        font-size: 1.0625rem;
+        font-weight: 800;
+        color: var(--color-kf-ink);
+        white-space: nowrap;
+    }
+
+    /*
+     * The unit sits on its own line under the nominal, right-aligned with it.
+     * It used to be a block for "per bulan" but an inline-block pill for
+     * "per mata pelajaran", so one row broke to a second line and the other
+     * stayed beside the number depending on available width. Both are blocks now.
+     */
+    .kf-price-unit {
+        display: block;
+        margin-top: 0.125rem;
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-kf-ink-3);
+        white-space: nowrap;
+    }
+
+    /*
+     * A per-subject rate is not comparable with the monthly ones, so its label
+     * carries the accent colour rather than a pill. Same shape as the other rows,
+     * different weight — the price list still scans as one table.
+     */
+    .kf-price-unit--note {
+        color: var(--color-kf-blue-dark);
+        font-weight: 700;
+    }
+
+    /* --- Decorative --- */
+    .kf-blob {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(0);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .kf-dots {
+        background-image: radial-gradient(var(--color-kf-line) 1.4px, transparent 1.4px);
+        background-size: 14px 14px;
+    }
+
+    /* --- Reveal on scroll (only when JS is running) --- */
+    .js-reveal [data-reveal] {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    .js-reveal [data-reveal].is-revealed {
+        opacity: 1;
+        transform: none;
+        transition:
+            opacity 0.55s ease,
+            transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+        transition-delay: var(--reveal-delay, 0ms);
+    }
+}
+
+/* ==========================================================================
+   Motion preferences
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .js-reveal [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .kf-card--hover:hover,
+    .kf-btn--primary:hover,
+    .kf-btn--primary:active,
+    .kf-btn--onDark:hover,
+    .kf-btn--onDark:active,
+    .kf-float {
+        transform: none !important;
+    }
+
+    .kf-faq__icon {
+        transition: none;
+    }
+
+    @supports (interpolate-size: allow-keywords) {
+        .kf-faq::details-content {
+            transition: none;
+        }
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+/* ==========================================================================
+   Print
+   ========================================================================== */
+
+@media print {
+    .kf-header,
+    .kf-float,
+    .kf-drawer {
+        display: none !important;
+    }
+}

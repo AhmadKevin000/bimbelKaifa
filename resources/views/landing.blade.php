@@ -1,461 +1,56 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+@extends('layouts.landing')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>KAIFA Tutoring Center | Bimbel Terbaik di Malang</title>
-    <meta name="description" content="KAIFA Tutoring Center — bimbingan belajar intensif dengan kurikulum terpersonalisasi untuk membantu siswa menaklukkan UTBK, ujian PTN, dan sekolah kedinasan di Malang.">
+@php
+    /*
+     * Single source of truth for the KAIFA WhatsApp contact, now editable from
+     * the admin panel (Konten Halaman Depan → Kontak).
+     *
+     * The legacy short link (https://wa.link/bmd9s5) redirects to this number but
+     * drops any ?text= parameter, so prefilled messages are built with wa.me here.
+     */
+    $waNumber = \App\Models\LandingSetting::normaliseWhatsapp($content['contact_whatsapp'] ?? null);
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    $wa = fn (string $message): string => 'https://wa.me/' . $waNumber . '?text=' . rawurlencode($message);
 
-    <!-- Google Fonts: Inter as SF Pro substitute for non-Apple platforms -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+    $waRegister = $wa(
+        'Halo Bimbel KAIFA! Saya tertarik untuk mendaftarkan anak saya. Boleh minta informasi mengenai program belajar, jadwal, dan cara pendaftarannya?'
+    );
 
-    <style>
-        /* ============================================================
-           APPLE DESIGN SYSTEM — KAIFA Landing
-           Source: DESIGN.md (Apple-design-analysis)
-        ============================================================ */
+    $waConsult = $wa(
+        'Halo Bimbel KAIFA! Saya ingin berkonsultasi mengenai program belajar yang tersedia. Boleh minta informasi lebih lanjut?'
+    );
 
-        /* --- Font Stack --- */
-        *, *::before, *::after { box-sizing: border-box; }
+    $navLinks = [
+        ['href' => '#tentang', 'label' => 'Tentang'],
+        ['href' => '#program', 'label' => 'Program'],
+        ['href' => '#keunggulan', 'label' => 'Keunggulan'],
+        ['href' => '#fasilitas', 'label' => 'Fasilitas'],
+        ['href' => '#faq', 'label' => 'FAQ'],
+    ];
+@endphp
 
-        body {
-            font-family: "SF Pro Text", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 17px;
-            font-weight: 400;
-            line-height: 1.47;
-            letter-spacing: -0.374px;
-            color: #1d1d1f;
-            background-color: #ffffff;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* --- Typography Tokens --- */
-        .t-hero {
-            font-family: "SF Pro Display", "Inter", system-ui, -apple-system, sans-serif;
-            font-size: clamp(34px, 5vw, 56px);
-            font-weight: 600;
-            line-height: 1.07;
-            letter-spacing: -0.28px;
-        }
-        .t-display-lg {
-            font-family: "SF Pro Display", "Inter", system-ui, -apple-system, sans-serif;
-            font-size: clamp(28px, 4vw, 40px);
-            font-weight: 600;
-            line-height: 1.1;
-            letter-spacing: 0px;
-        }
-        .t-display-md {
-            font-family: "SF Pro Text", "Inter", system-ui, -apple-system, sans-serif;
-            font-size: 34px;
-            font-weight: 600;
-            line-height: 1.47;
-            letter-spacing: -0.374px;
-        }
-        .t-lead {
-            font-family: "SF Pro Display", "Inter", system-ui, -apple-system, sans-serif;
-            font-size: clamp(19px, 2.5vw, 28px);
-            font-weight: 400;
-            line-height: 1.14;
-            letter-spacing: 0.196px;
-        }
-        .t-lead-airy {
-            font-family: "SF Pro Text", "Inter", system-ui, -apple-system, sans-serif;
-            font-size: clamp(17px, 2vw, 24px);
-            font-weight: 300;
-            line-height: 1.5;
-            letter-spacing: 0px;
-        }
-        .t-tagline {
-            font-family: "SF Pro Display", "Inter", system-ui, -apple-system, sans-serif;
-            font-size: 21px;
-            font-weight: 600;
-            line-height: 1.19;
-            letter-spacing: 0.231px;
-        }
-        .t-body {
-            font-size: 17px;
-            font-weight: 400;
-            line-height: 1.47;
-            letter-spacing: -0.374px;
-        }
-        .t-body-strong {
-            font-size: 17px;
-            font-weight: 600;
-            line-height: 1.24;
-            letter-spacing: -0.374px;
-        }
-        .t-caption {
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.43;
-            letter-spacing: -0.224px;
-        }
-        .t-caption-strong {
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.29;
-            letter-spacing: -0.224px;
-        }
-        .t-nav-link {
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 1.0;
-            letter-spacing: -0.12px;
-        }
-        .t-fine-print {
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 1.0;
-            letter-spacing: -0.12px;
-        }
-        .t-button-large {
-            font-size: 18px;
-            font-weight: 300;
-            line-height: 1.0;
-            letter-spacing: 0px;
-        }
-        .t-dense-link {
-            font-size: 17px;
-            font-weight: 400;
-            line-height: 2.41;
-            letter-spacing: 0px;
-        }
-
-        /* --- Color Tokens --- */
-        :root {
-            --c-primary: #0066cc;
-            --c-primary-focus: #0071e3;
-            --c-primary-on-dark: #2997ff;
-            --c-ink: #1d1d1f;
-            --c-ink-muted-80: #333333;
-            --c-ink-muted-48: #7a7a7a;
-            --c-body-muted: #cccccc;
-            --c-canvas: #ffffff;
-            --c-canvas-parchment: #f5f5f7;
-            --c-surface-pearl: #fafafc;
-            --c-surface-tile-1: #272729;
-            --c-hairline: #e0e0e0;
-            --c-divider-soft: #f0f0f0;
-            --c-surface-black: #000000;
-        }
-
-        /* --- Global Nav (Apple global-nav) --- */
-        #global-nav {
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            height: 44px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 50;
-        }
-        #global-nav a {
-            color: rgba(255,255,255,0.85);
-            transition: color 0.15s;
-        }
-        #global-nav a:hover { color: #ffffff; }
-
-        /* --- Buttons --- */
-        .btn-primary {
-            background-color: var(--c-primary);
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: 400;
-            line-height: 1.47;
-            letter-spacing: -0.374px;
-            border-radius: 9999px;
-            padding: 11px 22px;
-            display: inline-block;
-            transition: background-color 0.15s, transform 0.1s;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover { background-color: var(--c-primary-focus); }
-        .btn-primary:active { transform: scale(0.95); }
-
-        .btn-primary-lg {
-            background-color: var(--c-primary);
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 300;
-            line-height: 1.0;
-            letter-spacing: 0px;
-            border-radius: 9999px;
-            padding: 14px 28px;
-            display: inline-block;
-            transition: background-color 0.15s, transform 0.1s;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary-lg:hover { background-color: var(--c-primary-focus); }
-        .btn-primary-lg:active { transform: scale(0.95); }
-
-        .btn-secondary-pill {
-            background-color: transparent;
-            color: var(--c-primary);
-            font-size: 17px;
-            font-weight: 400;
-            line-height: 1.47;
-            letter-spacing: -0.374px;
-            border-radius: 9999px;
-            padding: 11px 22px;
-            display: inline-block;
-            border: 1px solid var(--c-primary);
-            transition: background-color 0.15s, transform 0.1s;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .btn-secondary-pill:hover { background-color: rgba(0, 102, 204, 0.06); }
-        .btn-secondary-pill:active { transform: scale(0.95); }
-
-        /* --- Tiles --- */
-        .tile-white { background-color: var(--c-canvas); }
-        .tile-parchment { background-color: var(--c-canvas-parchment); }
-        .tile-dark { background-color: var(--c-surface-tile-1); }
-
-        /* --- Store Utility Card --- */
-        .utility-card {
-            background-color: var(--c-canvas);
-            border: 1px solid var(--c-hairline);
-            border-radius: 18px;
-            padding: 24px;
-        }
-
-        /* --- Product Image Shadow (the ONLY shadow in the system) --- */
-        .product-shadow {
-            box-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
-        }
-
-        /* --- Hairline borders --- */
-        .hairline { border: 1px solid var(--c-hairline); }
-        .hairline-top { border-top: 1px solid var(--c-hairline); }
-        .hairline-bottom { border-bottom: 1px solid var(--c-hairline); }
-
-        /* --- Section spacing --- */
-        .section-pad { padding-top: 80px; padding-bottom: 80px; }
-        .section-pad-sm { padding-top: 48px; padding-bottom: 48px; }
-
-        /* --- Max widths --- */
-        .container-content {
-            max-width: 980px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 22px;
-            padding-right: 22px;
-        }
-        .container-wide {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 22px;
-            padding-right: 22px;
-        }
-
-        /* --- Text colors --- */
-        .text-ink { color: var(--c-ink); }
-        .text-ink-muted { color: var(--c-ink-muted-48); }
-        .text-primary-blue { color: var(--c-primary); }
-        .text-on-dark { color: #ffffff; }
-        .text-muted-dark { color: var(--c-body-muted); }
-        .text-sky { color: var(--c-primary-on-dark); }
-
-        /* --- Mobile nav --- */
-        #mobile-drawer {
-            background-color: rgba(0,0,0,0.95);
-            display: none;
-        }
-        #mobile-drawer.open { display: flex; }
-
-        /* --- Featured badge --- */
-        .badge-blue {
-            display: inline-block;
-            background-color: var(--c-primary);
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
-            border-radius: 9999px;
-            padding: 4px 12px;
-        }
-
-        /* --- Stat cards in hero --- */
-        .stat-chip {
-            background-color: rgba(255,255,255,0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 14px;
-            padding: 14px 20px;
-        }
-
-        /* --- FAQ accordion --- */
-        details summary { list-style: none; }
-        details summary::-webkit-details-marker { display: none; }
-        details[open] summary .faq-icon { transform: rotate(180deg); }
-        .faq-icon { transition: transform 0.25s ease; }
-
-        /* --- Testimonial slider --- */
-        #slider-track { transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-
-        /* --- Program card hover --- */
-        .program-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .program-card:hover {
-            transform: translateY(-4px);
-            box-shadow: rgba(0,0,0,0.08) 0 8px 24px;
-        }
-
-        /* --- Social icons --- */
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 9999px;
-            border: 1px solid var(--c-hairline);
-            color: var(--c-ink-muted-48);
-            transition: color 0.15s, border-color 0.15s;
-            text-decoration: none;
-        }
-        .social-link:hover { color: var(--c-primary); border-color: var(--c-primary); }
-
-        /* --- Facility icon container --- */
-        .facility-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 18px;
-            border: 1px solid var(--c-hairline);
-            background-color: var(--c-canvas);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--c-primary);
-        }
-
-        /* --- Checklist item --- */
-        .check-item { display: flex; align-items: flex-start; gap: 12px; }
-        .check-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 9999px;
-            background-color: var(--c-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        /* --- Responsive tweaks --- */
-        @media (max-width: 640px) {
-            .t-hero { font-size: 34px; }
-            .t-display-lg { font-size: 28px; }
-            .section-pad { padding-top: 56px; padding-bottom: 56px; }
-        }
-        @media (max-width: 419px) {
-            .t-hero { font-size: 28px; }
-            .t-display-lg { font-size: 24px; }
-        }
-    </style>
-</head>
-<body>
-    <!-- NAVBAR -->
+@section('content')
     @include('partials.navbar')
 
-    <main style="padding-top: 44px;">
-        <!-- HERO -->
+    <main id="main">
         @include('partials.hero')
-
-        <!-- ABOUT -->
         @include('partials.about')
-
-        <!-- PROGRAMS -->
         @include('partials.program')
-
-        <!-- FACILITIES -->
+        @include('partials.why')
         @include('partials.fasilitas')
-
-        <!-- FAQ -->
+        @include('partials.proses')
         @include('partials.faq')
-
-        <!-- TESTIMONIALS -->
-        @include('partials.testimoni')
-
-        <!-- CTA -->
         @include('partials.cta')
     </main>
 
-    <!-- FOOTER -->
     @include('partials.footer')
-    <!-- ============================================================
-         JAVASCRIPT — Nav toggle & Testimonial slider
-    ============================================================ -->
-    <script>
-        /* ---- Mobile nav toggle ---- */
-        (function () {
-            const btn = document.getElementById('mobile-menu-button');
-            const drawer = document.getElementById('mobile-drawer');
-            if (!btn || !drawer) return;
 
-            btn.addEventListener('click', function () {
-                const open = drawer.classList.toggle('open');
-                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-                const icon = btn.querySelector('.material-symbols-outlined');
-                if (icon) icon.textContent = open ? 'close' : 'menu';
-            });
-
-            // Close drawer when a link inside is clicked
-            drawer.querySelectorAll('a').forEach(function (link) {
-                link.addEventListener('click', function () {
-                    drawer.classList.remove('open');
-                    btn.setAttribute('aria-expanded', 'false');
-                    const icon = btn.querySelector('.material-symbols-outlined');
-                    if (icon) icon.textContent = 'menu';
-                });
-            });
-        })();
-
-        /* ---- Testimonial slider ---- */
-        document.addEventListener('DOMContentLoaded', function() {
-            var currentSlide = 0;
-            var totalSlides = 3;
-
-            window.moveSlider = function(index) {
-                currentSlide = index;
-                var track = document.getElementById('slider-track');
-                if (track) {
-                    track.style.transform = 'translateX(-' + (index * 100) + '%)';
-                }
-                // Update dots
-                for (var i = 0; i < totalSlides; i++) {
-                    var dot = document.getElementById('dot-' + i);
-                    if (dot) {
-                        dot.style.background = i === index
-                            ? '#ffffff'
-                            : 'rgba(255,255,255,0.3)';
-                    }
-                }
-            };
-
-            // Auto-advance slider
-            setInterval(function () {
-                var next = (currentSlide + 1) % totalSlides;
-                window.moveSlider(next);
-            }, 5000);
-        });
-    </script>
-
-</body>
-</html>
+    {{-- Floating WhatsApp: appears after the hero so it never covers the primary CTA --}}
+    <a href="{{ $waConsult }}" target="_blank" rel="noopener noreferrer" class="kf-float"
+        data-float-wa data-visible="false" aria-label="Hubungi KAIFA via WhatsApp">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+                d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.65 4.2 3.71.59.25 1.05.4 1.4.51.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z" />
+        </svg>
+    </a>
+@endsection
