@@ -38,6 +38,7 @@ class GuruPanelProvider extends PanelProvider
             ->brandName('Guru')
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.5rem')
+            ->favicon(asset('images/Kaifa.png'))
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn (): string => \Illuminate\Support\Facades\Blade::render('

@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->login(\App\Filament\Pages\Auth\AdminLogin::class)
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.5rem')
+            ->favicon(asset('images/Kaifa.png'))
             ->colors([
                 'primary' => '#4364F7', // Dashboard Blue
                 'gray' => \Filament\Support\Colors\Color::Slate,
